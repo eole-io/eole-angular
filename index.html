@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="ng-eole">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        
+        <base href="/ng-eole/">
+        
+        <title>Title</title>
+        
+        <link href="bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+        <link href="css/all.css" rel="stylesheet">
+
+        <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+        <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+        <!--[if lt IE 9]>
+            <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+            <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+        <![endif]-->
+        
+        <!-- Angular dynform extra setup for IE <= 8 -->
+        <!--[if lte IE 8]>
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/json3/3.3.1/json3.min.js"></script>
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/es5-shim/2.3.0/es5-shim.min.js"></script>
+            <script>
+                document.createElement('ng-include');
+                document.createElement('ng-pluralize');
+                document.createElement('ng-view');
+                document.createElement('ng-form');
+                document.createElement('dynamic-form');
+
+                // Optionally these for CSS
+                document.createElement('ng:include');
+                document.createElement('ng:pluralize');
+                document.createElement('ng:view');
+                document.createElement('ng:form');
+
+                // IE doesn't always run the bootstrap on its own...
+                $(document).ready(function() {
+                  angular.bootstrap(document.documentElement);
+                });
+            </script>
+        <![endif]-->
+    </head>
+    <body>
+        <ng-include src="'ng-eole/menu/menu.html'"></ng-include>
+
+        <div ng-view>
+        </div>
+        
+        <div class="container-fluid">
+            <hr>
+            
+            <footer>
+                <p>&copy; Company 2014</p>
+            </footer>
+        </div>
+
+        <script type="text/javascript" src="bower_components/cryptojslib/rollups/sha1.js"></script>
+        <script type="text/javascript" src="bower_components/cryptojslib/rollups/sha512.js"></script>
+        <script type="text/javascript" src="bower_components/cryptojslib/components/enc-base64-min.js"></script>
+        <script type="text/javascript" src="bower_components/cryptojs-password-encoder/CryptoJsPasswordEncoder.js"></script>
+        <script type="text/javascript" src="bower_components/autobahn/autobahn.min.js"></script>
+        <script type="text/javascript" src="bower_components/angular/angular.js"></script>
+        <script type="text/javascript" src="bower_components/angular-locker/dist/angular-locker.min.js"></script>
+        <script type="text/javascript" src="bower_components/angular-translate/angular-translate.min.js"></script>
+        <script type="text/javascript" src="bower_components/angular-wamp/release/angular-wamp.min.js"></script>
+        <script type="text/javascript" src="bower_components/angular-sanitize/angular-sanitize.min.js"></script>
+        <script type="text/javascript" src="bower_components/angular-route/angular-route.min.js"></script>
+        <script type="text/javascript" src="bower_components/angular-bootstrap/ui-bootstrap.min.js"></script>
+        <script type="text/javascript" src="bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js"></script>
+        <script type="text/javascript" src="bower_components/tv4/tv4.js"></script>
+        <script type="text/javascript" src="bower_components/objectpath/lib/ObjectPath.js"></script>
+        <script type="text/javascript" src="bower_components/angular-schema-form/dist/schema-form.min.js"></script>
+        <script type="text/javascript" src="bower_components/angular-schema-form/dist/bootstrap-decorator.min.js"></script>
+        <script type="text/javascript" src="eole_components/eole-api-client/eole-api-client.js"></script>
+        <script type="text/javascript" src="eole_components/eole-api-client/ng-module.js"></script>
+        <script type="text/javascript" src="ng-eole/ng-eole.js"></script>
+        <script type="text/javascript" src="ng-eole/session/eole-session.js"></script>
+        <script type="text/javascript" src="ng-eole/translations/config.js"></script>
+        <script type="text/javascript" src="ng-eole/translations/schema-form.js"></script>
+        <script type="text/javascript" src="ng-eole/translations/en.js"></script>
+        <script type="text/javascript" src="ng-eole/translations/fr.js"></script>
+        <script type="text/javascript" src="ng-eole/menu/MenuController.js"></script>
+        <script type="text/javascript" src="ng-eole/home/home.js"></script>
+        <script type="text/javascript" src="ng-eole/player/login.js"></script>
+        <script type="text/javascript" src="ng-eole/player/register.js"></script>
+        <script type="text/javascript" src="ng-eole/player/perso.js"></script>
+    </body>
+</html>

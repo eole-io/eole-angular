@@ -1,0 +1,19 @@
+{
+    "name": "eole-angular",
+    "private": true,
+    "description": "Eole angular application",
+    "repository": "https://github.com/alcalyn/eole-api",
+    "license": "MIT",
+    "dependencies": {
+        "bower": "~1.3"
+    },
+    "devDependencies": {
+        "karma": "~0.12",
+        "karma-jasmine": "^0.3.5",
+        "karma-firefox-launcher": "^0.1.6"
+    },
+    "scripts": {
+        "postinstall": "bower install",
+        "start": "ls"
+    }
+}
