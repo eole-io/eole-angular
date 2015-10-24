@@ -21,8 +21,7 @@
         "angular-route": "~1.4.0",
         "angular-schema-form": "~0.8.2",
         "angular-translate": "~2.7.2",
-        "angular-wamp": "~0.1.5",
-        "autobahn": "~0.9.6",
+        "autobahn-old": "~0.8.2",
         "bootstrap": "~3.3.5",
         "cryptojslib": "~3.1.2",
         "cryptojs-password-encoder": "~0.1.0"
