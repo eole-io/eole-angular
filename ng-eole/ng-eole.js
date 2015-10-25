@@ -25,7 +25,7 @@ ngEole.config(['$wampProvider', function ($wampProvider) {
 
 ngEole.config(['lockerProvider', function config(lockerProvider) {
     lockerProvider.defaults({
-        driver: 'session',
+        driver: 'local',
         namespace: 'eole',
         separator: '.',
         eventsEnabled: true,
