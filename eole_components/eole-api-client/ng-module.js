@@ -1,5 +1,5 @@
 angular.module('eoleApi', [])
-    .factory('eoleApi', ['$http', '$q', 'eoleApiUrl', '$httpParamSerializer', function ($http, $q, eoleApiUrl, $httpParamSerializer) {
-        return new EoleApiClient($http, $q, eoleApiUrl, $httpParamSerializer);
+    .factory('eoleApi', ['$http', '$q', 'eoleApiUrl', 'wsseTokenGenerator', '$httpParamSerializer', function ($http, $q, eoleApiUrl, wsseTokenGenerator, $httpParamSerializer) {
+        return new EoleApiClient($http, $q, eoleApiUrl, wsseTokenGenerator, $httpParamSerializer);
     }])
 ;
