@@ -59,11 +59,15 @@ function WsseTokenGenerator() {
      */
     this.encodePassword = function (password, salt)
     {
+        if (!password) {
+            throw new Error('Password must be defined.');
+        }
+
         if (!salt) {
             throw new Error('Salt must be defined.');
         }
 
-        var encoder = new CryptoJsPasswordEncoder('sha512', true, 5000);
+        var encoder = new CryptoJsPasswordEncoder('sha512', true, 42);
         return encoder.encodePassword(password, salt);
     };
 }

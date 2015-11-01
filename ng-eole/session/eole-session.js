@@ -20,9 +20,13 @@ ngEole.factory('eoleSession', ['locker', 'eoleApi', function (locker, eoleApi) {
          * @returns {Promise} Created guest.
          */
         loginAsGuest: function () {
-            var promise = eoleApi.createGuest();
+            var password = Math.random().toString(36).substr(2) + Math.random().toString(36).substr(2);
+            var promise = eoleApi.createGuest(password);
 
-            promise.then(eoleSession.setAndSavePlayer);
+            promise.then(function (player) {
+                player.password = password;
+                eoleSession.setAndSavePlayer(player);
+            });
 
             return promise;
         },
@@ -33,7 +37,10 @@ ngEole.factory('eoleSession', ['locker', 'eoleApi', function (locker, eoleApi) {
         login: function (username, password) {
             var promise = eoleApi.authMe(username, password);
 
-            promise.then(eoleSession.setAndSavePlayer);
+            promise.then(function (player) {
+                player.password = password;
+                eoleSession.setAndSavePlayer(player);
+            });
 
             return promise;
         },
@@ -56,7 +63,10 @@ ngEole.factory('eoleSession', ['locker', 'eoleApi', function (locker, eoleApi) {
         register: function (username, password) {
             var promise = eoleApi.createPlayer(username, password);
 
-            promise.then(eoleSession.setAndSavePlayer);
+            promise.then(function (player) {
+                player.password = password;
+                eoleSession.setAndSavePlayer(player);
+            });
 
             return promise;
         },

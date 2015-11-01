@@ -19,7 +19,20 @@ ngEole.controller('ChatController', ['$scope', 'eoleWs', function ($scope, eoleW
 
     eoleWs.then(function (ws) {
         ws.subscribe('eole/core/chat', function (topic, event) {
-            $scope.messages.push({content: event});
+            switch (event.type) {
+                case 'join':
+                    $scope.messages.push({content: event.player.username+' has join.'});
+                    break;
+
+                case 'message':
+                    $scope.messages.push({content: event.player.username+' > '+event.message});
+                    break;
+
+                case 'leave':
+                    $scope.messages.push({content: event.player.username+' has left.'});
+                    break;
+            }
+
             $scope.$apply();
         });
     });
