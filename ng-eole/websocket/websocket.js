@@ -14,7 +14,7 @@ ab.connect = function (wsuri, onconnect, onhangup, options) {
     return ab.connect_old(wsuri, onconnect, onhangup, options);
 };
 
-angular.module('eoleWs', []).factory('eoleWs', ['$q', 'eoleSession', 'wsseTokenGenerator', function ($q, eoleSession, wsseTokenGenerator) {
+angular.module('eoleWs', []).factory('eoleWs', ['$q', 'eoleSession', 'wsseTokenGenerator', '$rootScope', function ($q, eoleSession, wsseTokenGenerator, $rootScope) {
     return $q(function (resolve, reject) {
         ab.connect(
             function () {

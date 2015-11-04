@@ -1,4 +1,4 @@
-ngEole.factory('eoleSession', ['locker', 'eoleApi', function (locker, eoleApi) {
+ngEole.factory('eoleSession', ['locker', 'eoleApi', '$rootScope', function (locker, eoleApi, $rootScope) {
     var eoleSession = {
 
         /**
@@ -17,6 +17,14 @@ ngEole.factory('eoleSession', ['locker', 'eoleApi', function (locker, eoleApi) {
         },
 
         /**
+         * Dispatch logged event to rootScope.
+         */
+        dispatchLoggedEvent: function ()
+        {
+            $rootScope.$emit('eole.logged', eoleSession);
+        },
+
+        /**
          * @returns {Promise} Created guest.
          */
         loginAsGuest: function () {
@@ -26,6 +34,7 @@ ngEole.factory('eoleSession', ['locker', 'eoleApi', function (locker, eoleApi) {
             promise.then(function (player) {
                 player.password = password;
                 eoleSession.setAndSavePlayer(player);
+                eoleSession.dispatchLoggedEvent();
             });
 
             return promise;
@@ -40,6 +49,7 @@ ngEole.factory('eoleSession', ['locker', 'eoleApi', function (locker, eoleApi) {
             promise.then(function (player) {
                 player.password = password;
                 eoleSession.setAndSavePlayer(player);
+                eoleSession.dispatchLoggedEvent();
             });
 
             return promise;
@@ -66,6 +76,7 @@ ngEole.factory('eoleSession', ['locker', 'eoleApi', function (locker, eoleApi) {
             promise.then(function (player) {
                 player.password = password;
                 eoleSession.setAndSavePlayer(player);
+                eoleSession.dispatchLoggedEvent();
             });
 
             return promise;
