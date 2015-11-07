@@ -1,4 +1,29 @@
 angular.module('eoleWs', []).factory('eoleWs', ['$q', 'eoleSession', 'wsseTokenGenerator', '$rootScope', function ($q, eoleSession, wsseTokenGenerator, $rootScope) {
+    var generateWsseToken = function () {
+        var wsseTokenValues = wsseTokenGenerator.createWsseTokenValues(
+            eoleSession.player.username,
+            eoleSession.player.password,
+            eoleSession.player.salt
+        );
+
+        return btoa(JSON.stringify(wsseTokenValues));
+    };
+
+    // Override autobahn _connect method to add a new wsse token on connect
+    ab._connect_old = ab._connect;
+
+    ab._connect = function (wsuri, onconnect, onhangup, options) {
+        var lastPosition = wsuri.wsuri.indexOf('/?wsse_token=');
+        if (-1 !== lastPosition) {
+            wsuri.wsuri = wsuri.wsuri.substr(0, lastPosition);
+        }
+
+        wsuri.wsuri += '/?wsse_token='+generateWsseToken();
+
+        console.log('connect', wsuri);
+        return ab._connect_old(wsuri, onconnect, onhangup, options);
+    };
+
     function EoleWs() {
         var that = this;
 
@@ -7,7 +32,7 @@ angular.module('eoleWs', []).factory('eoleWs', ['$q', 'eoleSession', 'wsseTokenG
         var openSocket = function () {
             that.sessionPromise = $q(function (resolve, reject) {
                 ab.connect(
-                    that.generateWebSocketUrlWithWsse(),
+                    'ws://127.0.0.1:8080',
                     function (session) {
                         console.log('websocket open');
                         resolve(session);
@@ -15,9 +40,10 @@ angular.module('eoleWs', []).factory('eoleWs', ['$q', 'eoleSession', 'wsseTokenG
                     function (code, reason, detail) {
                         console.log('socket closed', code, reason, detail);
                         reject([code, reason, detail]);
+                        that.reopenSocket();
                     },
                     {
-                        maxRetries: 60,
+                        maxRetries: 0,
                         retryDelay: 2000
                     }
                 );
@@ -29,28 +55,19 @@ angular.module('eoleWs', []).factory('eoleWs', ['$q', 'eoleSession', 'wsseTokenG
                 session.close();
             });
 
-            that.sessionPromise = that.createClosedSocketPromise();
+            that.sessionPromise = createClosedSocketPromise();
         };
 
         this.reopenSocket = function () {
+            console.log('reopening socket...');
             that.closeSocket();
             openSocket();
         };
 
-        this.createClosedSocketPromise = function () {
+        var createClosedSocketPromise = function () {
             return $q(function (resolve, reject) {
                 reject('socket closed');
             });
-        };
-
-        this.generateWebSocketUrlWithWsse = function () {
-            var wsseTokenValues = wsseTokenGenerator.createWsseTokenValues(
-                eoleSession.player.username,
-                eoleSession.player.password,
-                eoleSession.player.salt
-            );
-
-            return 'ws://127.0.0.1:8080/?wsse_token='+btoa(JSON.stringify(wsseTokenValues));
         };
 
         openSocket();
