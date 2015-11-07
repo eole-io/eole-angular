@@ -1,5 +1,5 @@
 angular.module('eoleWs', []).factory('eoleWs', ['$q', 'eoleSession', 'wsseTokenGenerator', '$rootScope', function ($q, eoleSession, wsseTokenGenerator, $rootScope) {
-    function eoleWs() {
+    function EoleWs() {
         var that = this;
 
         this.sessionPromise = null;
@@ -54,9 +54,15 @@ angular.module('eoleWs', []).factory('eoleWs', ['$q', 'eoleSession', 'wsseTokenG
         };
 
         openSocket();
-
-        window['eoleWs'] = this;
     };
 
-    return new eoleWs();
+    var eoleWs = new EoleWs();
+
+    window['eoleWs'] = eoleWs;
+
+    $rootScope.$on('eole.session.logged', function () {
+        eoleWs.reopenSocket();
+    });
+
+    return eoleWs;
 }]);

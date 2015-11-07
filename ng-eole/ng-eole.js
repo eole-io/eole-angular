@@ -30,9 +30,3 @@ ngEole.config(['lockerProvider', function config(lockerProvider) {
 ngEole.run(['eoleSession', '$rootScope', function (eoleSession, $rootScope) {
     $rootScope.eoleSession = eoleSession;
 }]);
-
-ngEole.run(['$rootScope', function ($rootScope) {
-    $rootScope.$on('eole.logged', function (eoleSession) {
-        console.log('eole loggedd event', eoleSession);
-    });
-}]);

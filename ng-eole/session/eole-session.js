@@ -21,7 +21,7 @@ ngEole.factory('eoleSession', ['locker', 'eoleApi', '$rootScope', function (lock
          */
         dispatchLoggedEvent: function ()
         {
-            $rootScope.$emit('eole.logged', eoleSession);
+            $rootScope.$emit('eole.session.logged', eoleSession);
         },
 
         /**
