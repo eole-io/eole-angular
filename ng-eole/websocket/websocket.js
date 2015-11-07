@@ -29,18 +29,31 @@ angular.module('eoleWs', []).factory('eoleWs', ['$q', 'eoleSession', 'wsseTokenG
 
         this.sessionPromise = null;
 
+        var lastSession = null;
+
         var openSocket = function () {
             that.sessionPromise = $q(function (resolve, reject) {
                 ab.connect(
                     'ws://127.0.0.1:8080',
                     function (session) {
                         console.log('websocket open');
+
+                        if (null !== lastSession) {
+                            angular.forEach(lastSession._subscriptions, function (callbacks, topic) {
+                                session.subscribe(topic, callbacks[0]);
+                            });
+                        }
+
+                        lastSession = session;
                         resolve(session);
+                        window['eoleWsSession'] = session;
                     },
                     function (code, reason, detail) {
                         console.log('socket closed', code, reason, detail);
                         reject([code, reason, detail]);
-                        that.reopenSocket();
+                        if (0 !== code) {
+                            setTimeout(that.reopenSocket, 2000);
+                        }
                     },
                     {
                         maxRetries: 0,
