@@ -1,44 +1,62 @@
-// Override autobahn connect method to allow to pass a callback as url
-// to generate a new url each time it is called.
-ab.connect_old = ab.connect;
-
-ab.connect = function (wsuri, onconnect, onhangup, options) {
-    if ('function' === (typeof wsuri)) {
-        wsuri = wsuri();
-    }
-
-    if (!('string' === (typeof wsuri))) {
-        throw 'wsuri must be a string or a callback returning a string.';
-    }
-
-    return ab.connect_old(wsuri, onconnect, onhangup, options);
-};
-
 angular.module('eoleWs', []).factory('eoleWs', ['$q', 'eoleSession', 'wsseTokenGenerator', '$rootScope', function ($q, eoleSession, wsseTokenGenerator, $rootScope) {
-    return $q(function (resolve, reject) {
-        ab.connect(
-            function () {
-                var wsseTokenValues = wsseTokenGenerator.createWsseTokenValues(
-                    eoleSession.player.username,
-                    eoleSession.player.password,
-                    eoleSession.player.salt
-                );
+    function eoleWs() {
+        var that = this;
 
-                return 'ws://127.0.0.1:8080/?wsse_token='+btoa(JSON.stringify(wsseTokenValues));
-            },
-            function (session) {
-                console.log('websocket open');
-                window['ws'] = session;
-                resolve(session);
-            },
-            function (code, reason, detail) {
-                console.log('websocket closed', code, reason, detail);
-                reject([code, reason, detail]);
-            },
-            {
-                maxRetries: 60,
-                retryDelay: 2000
-            }
-        );
-    });
+        this.sessionPromise = null;
+
+        var openSocket = function () {
+            that.sessionPromise = $q(function (resolve, reject) {
+                ab.connect(
+                    that.generateWebSocketUrlWithWsse(),
+                    function (session) {
+                        console.log('websocket open');
+                        resolve(session);
+                    },
+                    function (code, reason, detail) {
+                        console.log('socket closed', code, reason, detail);
+                        reject([code, reason, detail]);
+                    },
+                    {
+                        maxRetries: 60,
+                        retryDelay: 2000
+                    }
+                );
+            });
+        };
+
+        this.closeSocket = function () {
+            that.sessionPromise.then(function (session) {
+                session.close();
+            });
+
+            that.sessionPromise = that.createClosedSocketPromise();
+        };
+
+        this.reopenSocket = function () {
+            that.closeSocket();
+            openSocket();
+        };
+
+        this.createClosedSocketPromise = function () {
+            return $q(function (resolve, reject) {
+                reject('socket closed');
+            });
+        };
+
+        this.generateWebSocketUrlWithWsse = function () {
+            var wsseTokenValues = wsseTokenGenerator.createWsseTokenValues(
+                eoleSession.player.username,
+                eoleSession.player.password,
+                eoleSession.player.salt
+            );
+
+            return 'ws://127.0.0.1:8080/?wsse_token='+btoa(JSON.stringify(wsseTokenValues));
+        };
+
+        openSocket();
+
+        window['eoleWs'] = this;
+    };
+
+    return new eoleWs();
 }]);

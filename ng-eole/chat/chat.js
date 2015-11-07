@@ -11,13 +11,13 @@ ngEole.controller('ChatController', ['$scope', 'eoleWs', function ($scope, eoleW
     $scope.messages = [];
 
     $scope.sendMessage = function () {
-        eoleWs.then(function (ws) {
+        eoleWs.sessionPromise.then(function (ws) {
             ws.publish('eole/core/chat', $scope.message);
             $scope.message = '';
         });
     };
 
-    eoleWs.then(function (ws) {
+    eoleWs.sessionPromise.then(function (ws) {
         ws.subscribe('eole/core/chat', function (topic, event) {
             switch (event.type) {
                 case 'join':
