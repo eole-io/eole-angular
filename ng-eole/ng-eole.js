@@ -2,7 +2,8 @@
 
 var ngEole = angular.module('ng-eole', [
     'eoleApi',
-    'vxWamp',
+    'eoleSecurity',
+    'eoleWs',
     'ngRoute',
     'schemaForm',
     'ui.bootstrap',
@@ -14,13 +15,6 @@ ngEole.constant('eoleApiUrl', 'http://localhost/eole-api/www/api.php/');
 
 ngEole.config(['$locationProvider', function ($locationProvider) {
     $locationProvider.html5Mode(true);
-}]);
-
-ngEole.config(['$wampProvider', function ($wampProvider) {
-    $wampProvider.init({
-       url: 'ws://localhost:8080/pubsub',
-       realm: 'realm1'
-    });
 }]);
 
 ngEole.config(['lockerProvider', function config(lockerProvider) {
@@ -36,9 +30,3 @@ ngEole.config(['lockerProvider', function config(lockerProvider) {
 ngEole.run(['eoleSession', '$rootScope', function (eoleSession, $rootScope) {
     $rootScope.eoleSession = eoleSession;
 }]);
-
-/*
-ngEole.run(['$wamp', function($wamp){
-    $wamp.open();
-}]);
-*/

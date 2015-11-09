@@ -1,0 +1,15 @@
+<div class="container-fluid">
+    <h1>{{ 'chat'|translate }}</h1>
+    <div>
+        <p ng-repeat="message in messages">{{ message.content }}</p>
+    </div>
+    <form ng-submit="sendMessage()" class="form-inline">
+        <div class="form-group">
+            <div class="input-group">
+                <div class="input-group-addon">&gt;</div>
+                <input type="text" ng-model="message" class="form-control" placeholder="{{ 'message'|translate }}">
+            </div>
+        </div>
+        <button type="submit" class="btn btn-primary">{{ 'send'|translate }}</button>
+    </form>
+</div>
