@@ -1,0 +1,10 @@
+<div class="container-fluid">
+    <h1>{{ 'games'|translate }}</h1>
+    <div>
+        <div ng-repeat="game in games">
+            <p>
+                <a ng-href="games/{{ game.name }}">{{ game.name|translate }}</a>
+            </p>
+        </div>
+    </div>
+</div>

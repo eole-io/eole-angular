@@ -87,4 +87,30 @@ function EoleApiClient($http, $q, eoleApiUrl, wsseTokenGenerator, $httpParamSeri
             });
         });
     };
+
+    this.getGames = function () {
+        return $q(function (resolve, reject) {
+            $http({
+                method: 'get',
+                url: eoleApiUrl+'api/games'
+            }).then(function (r) {
+                resolve(r.data);
+            }).catch(function (r) {
+                reject(r);
+            });
+        });
+    };
+
+    this.getGameByName = function (name) {
+        return $q(function (resolve, reject) {
+            $http({
+                method: 'get',
+                url: eoleApiUrl+'api/games/'+name
+            }).then(function (r) {
+                resolve(r.data);
+            }).catch(function (r) {
+                reject(r);
+            });
+        });
+    };
 }
