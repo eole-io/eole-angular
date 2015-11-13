@@ -1,6 +1,7 @@
 'use strict';
 
 var ngEole = angular.module('ng-eole', [
+    'ng-eole-config',
     'eoleApi',
     'eoleSecurity',
     'eoleWs',
@@ -10,8 +11,6 @@ var ngEole = angular.module('ng-eole', [
     'pascalprecht.translate',
     'angular-locker'
 ]);
-
-ngEole.constant('eoleApiUrl', 'http://localhost/eole-api/www/api.php/');
 
 ngEole.config(['$locationProvider', function ($locationProvider) {
     $locationProvider.html5Mode(true);
@@ -29,4 +28,10 @@ ngEole.config(['lockerProvider', function config(lockerProvider) {
 
 ngEole.run(['eoleSession', '$rootScope', function (eoleSession, $rootScope) {
     $rootScope.eoleSession = eoleSession;
+}]);
+
+ngEole.run(['baseHref', '$browser', function (baseHref, $browser) {
+    $browser.baseHref = function() {
+        return baseHref;
+    };
 }]);

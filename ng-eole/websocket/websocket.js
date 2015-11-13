@@ -1,4 +1,6 @@
-angular.module('eoleWs', []).factory('eoleWs', ['$q', 'eoleSession', 'wsseTokenGenerator', '$rootScope', function ($q, eoleSession, wsseTokenGenerator, $rootScope) {
+'use strict';
+
+angular.module('eoleWs', []).factory('eoleWs', ['$q', 'eoleSession', 'wsseTokenGenerator', '$rootScope', 'webSocketUri', function ($q, eoleSession, wsseTokenGenerator, $rootScope, webSocketUri) {
     var generateWsseToken = function () {
         var wsseTokenValues = wsseTokenGenerator.createWsseTokenValues(
             eoleSession.player.username,
@@ -34,7 +36,7 @@ angular.module('eoleWs', []).factory('eoleWs', ['$q', 'eoleSession', 'wsseTokenG
         var openSocket = function () {
             that.sessionPromise = $q(function (resolve, reject) {
                 ab.connect(
-                    'ws://127.0.0.1:8080',
+                    webSocketUri,
                     function (session) {
                         console.log('websocket open');
 
