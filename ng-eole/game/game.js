@@ -19,10 +19,45 @@ ngEole.controller('GamesController', ['$scope', 'eoleApi', function ($scope, eol
     });
 }]);
 
-ngEole.controller('GameController', ['$scope', 'eoleApi', '$routeParams', function ($scope, eoleApi, $routeParams) {
+ngEole.controller('GameController', ['$scope', 'eoleApi', '$routeParams', 'eoleWs', 'eoleSession', function ($scope, eoleApi, $routeParams, eoleWs, eoleSession) {
     $scope.game = null;
+    $scope.parties = [];
 
-    eoleApi.getGameByName($routeParams.gameName).then(function (game) {
+    var gameName = $routeParams.gameName;
+
+    $scope.createParty = function () {
+        eoleApi.createParty(gameName, eoleSession.player);
+    };
+
+    eoleApi.getGameByName(gameName).then(function (game) {
         $scope.game = game;
+    });
+
+    eoleApi.getPartiesForGame(gameName).then(function (parties) {
+        $scope.parties = parties;
+    });
+
+    eoleWs.sessionPromise.then(function (ws) {
+        ws.subscribe('eole/core/parties', function (topic, event) {
+            console.log('parties websocket event', event);
+
+            if (event.party.game.name !== gameName) {
+                return;
+            }
+
+            switch (event.type) {
+                case 'created':
+                    $scope.parties.push(event.party);
+                    break;
+
+                case 'gone':
+                    $scope.parties = $scope.parties.filter(function (party) {
+                        return party.id !== event.party.id;
+                    });
+                    break;
+            }
+
+            $scope.$apply();
+        });
     });
 }]);

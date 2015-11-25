@@ -30,7 +30,9 @@ ngEole.run(['eoleSession', '$rootScope', function (eoleSession, $rootScope) {
     $rootScope.eoleSession = eoleSession;
 }]);
 
-ngEole.run(['baseHref', '$browser', function (baseHref, $browser) {
+ngEole.run(['baseHref', '$browser', '$rootScope', function (baseHref, $browser, $rootScope) {
+    $rootScope.baseHref = baseHref;
+
     $browser.baseHref = function() {
         return baseHref;
     };

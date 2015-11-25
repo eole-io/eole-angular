@@ -113,4 +113,46 @@ function EoleApiClient($http, $q, eoleApiUrl, wsseTokenGenerator, $httpParamSeri
             });
         });
     };
+
+    this.createParty = function (gameName, host) {
+        return $q(function (resolve, reject) {
+            $http({
+                method: 'post',
+                url: eoleApiUrl+'api/games/'+gameName+'/parties',
+                headers: {
+                    'x-wsse': wsseTokenGenerator.createWsseToken(host.username, host.password, host.salt)
+                }
+            }).then(function (r) {
+                resolve(r.data);
+            }).catch(function (r) {
+                reject(r);
+            });
+        });
+    };
+
+    this.getParties = function () {
+        return $q(function (resolve, reject) {
+            $http({
+                method: 'get',
+                url: eoleApiUrl+'api/parties'
+            }).then(function (r) {
+                resolve(r.data);
+            }).catch(function (r) {
+                reject(r);
+            });
+        });
+    };
+
+    this.getPartiesForGame = function (gameName) {
+        return $q(function (resolve, reject) {
+            $http({
+                method: 'get',
+                url: eoleApiUrl+'api/games/'+gameName+'/parties'
+            }).then(function (r) {
+                resolve(r.data);
+            }).catch(function (r) {
+                reject(r);
+            });
+        });
+    };
 }

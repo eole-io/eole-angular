@@ -1,3 +1,11 @@
 <div class="container-fluid">
     <h1>{{ game.name|translate }}</h1>
+    <button class="btn btn-success" ng-click="createParty()">{{ 'create.party'|translate }}</button>
+    <h2>{{ 'parties'|translate }}</h2>
+    <ul>
+        <li ng-repeat="party in parties" data-party="{{ party }}">
+            {{ party.id }}
+            <button class="btn btn-primary">{{ 'play'|translate }}</button>
+        </li>
+    </ul>
 </div>
