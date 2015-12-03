@@ -14,6 +14,7 @@ ngEole.config(['$translateProvider', function ($translateProvider) {
         'please.enter.pseudo': 'Veuillez entrer votre pseudo',
         'please.enter.password': 'Veuillez entrer votre mot de passe',
         'please.enter.password.repeat': 'Veuillez répéter votre mot de passe',
+        'party.hosted.by.{username}': 'Partie de {{username}}',
         'passwords.not.equals': 'Le mot de passe répété est différent'
     });
 }]);

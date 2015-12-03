@@ -4,7 +4,7 @@
     <h2>{{ 'parties'|translate }}</h2>
     <ul>
         <li ng-repeat="party in parties" data-party="{{ party }}">
-            {{ party.id }}
+            {{ 'party.hosted.by.{username}'|translate:party.host }}
             <button class="btn btn-primary">{{ 'play'|translate }}</button>
         </li>
     </ul>
