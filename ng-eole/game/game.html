@@ -5,7 +5,9 @@
     <ul>
         <li ng-repeat="party in parties" data-party="{{ party }}">
             {{ 'party.hosted.by.{username}'|translate:party.host }}
-            <button class="btn btn-primary">{{ 'play'|translate }}</button>
+            <a class="btn btn-primary" href="" ng-href="games/{{ game.name }}/parties/{{ party.id }}">
+                {{ 'join'|translate }}
+            </a>
         </li>
     </ul>
 </div>

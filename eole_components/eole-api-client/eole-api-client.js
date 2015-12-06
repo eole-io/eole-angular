@@ -155,4 +155,17 @@ function EoleApiClient($http, $q, eoleApiUrl, wsseTokenGenerator, $httpParamSeri
             });
         });
     };
+
+    this.getParty = function (gameName, partyId) {
+        return $q(function (resolve, reject) {
+            $http({
+                method: 'get',
+                url: eoleApiUrl+'api/games/'+gameName+'/parties/'+partyId
+            }).then(function (r) {
+                resolve(r.data);
+            }).catch(function (r) {
+                reject(r);
+            });
+        });
+    };
 }

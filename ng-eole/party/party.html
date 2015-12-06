@@ -1,0 +1,10 @@
+<div class="container-fluid">
+    <h1>{{ game.name|translate }}</h1>
+    <h2>{{ 'party.hosted.by.{username}'|translate:party.host }}</h2>
+    <h3>{{ 'players'|translate }}</h3>
+    <ul>
+        <li ng-repeat="slot in party.slots">
+            <p>{{ slot.player.username }}</p>
+        </li>
+    </ul>
+</div>
