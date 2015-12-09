@@ -75,7 +75,7 @@ function EoleApiClient($http, $q, eoleApiUrl, wsseTokenGenerator, $httpParamSeri
                     method: 'get',
                     url: eoleApiUrl+'api/auth/me',
                     headers: {
-                        'x-wsse': wsseTokenGenerator.createWsseToken(player.username, password, player.salt)
+                        'x-wsse': wsseTokenGenerator.createWsseToken(player.username, password, player.password_salt)
                     }
                 }).then(function (r) {
                     resolve(r.data);
@@ -120,7 +120,7 @@ function EoleApiClient($http, $q, eoleApiUrl, wsseTokenGenerator, $httpParamSeri
                 method: 'post',
                 url: eoleApiUrl+'api/games/'+gameName+'/parties',
                 headers: {
-                    'x-wsse': wsseTokenGenerator.createWsseToken(host.username, host.password, host.salt)
+                    'x-wsse': wsseTokenGenerator.createWsseToken(host.username, host.password, host.password_salt)
                 }
             }).then(function (r) {
                 resolve(r.data);

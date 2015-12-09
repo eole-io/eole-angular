@@ -5,7 +5,7 @@ angular.module('eoleWs', []).factory('eoleWs', ['$q', 'eoleSession', 'wsseTokenG
         var wsseTokenValues = wsseTokenGenerator.createWsseTokenValues(
             eoleSession.player.username,
             eoleSession.player.password,
-            eoleSession.player.salt
+            eoleSession.player.password_salt
         );
 
         return btoa(JSON.stringify(wsseTokenValues));
