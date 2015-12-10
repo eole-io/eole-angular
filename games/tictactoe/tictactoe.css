@@ -1,0 +1,33 @@
+ul.ttt-board {
+    width: 420px;
+    list-style: none;
+    padding-left: 0;
+}
+ul.ttt-board > li {
+    width: 140px;
+    height: 140px;
+    float: left;
+    cursor: pointer;
+}
+ul.ttt-board > li:nth-child(odd) {
+    background-color: #f8f8f8;
+}
+ul.ttt-board > li:nth-child(even) {
+    background-color: #f0f0f0;
+}
+ul.ttt-board > li.ttt-x,
+ul.ttt-board > li.ttt-o {
+    cursor: initial;
+}
+ul.ttt-board > li.ttt-x:nth-child(odd) {
+    background-color: lightCoral;
+}
+ul.ttt-board > li.ttt-o:nth-child(odd) {
+    background-color: lightBlue;
+}
+ul.ttt-board > li.ttt-x:nth-child(even) {
+    background-color: #F78787;
+}
+ul.ttt-board > li.ttt-o:nth-child(even) {
+    background-color: #B5E0EE;
+}

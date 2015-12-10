@@ -1,0 +1,25 @@
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-4">
+            <h3>{{ 'players'|translate }}</h3>
+            <ul>
+                <li ng-repeat="slot in party.slots">
+                    <p>{{ slot.player.username }}</p>
+                </li>
+            </ul>
+        </div>
+        <div class="col-md-8">
+            <ul class="ttt-board">
+                <li class="ttt-x"></li>
+                <li class="ttt-o"></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+            </ul>
+        </div>
+    </div>
+</div>
