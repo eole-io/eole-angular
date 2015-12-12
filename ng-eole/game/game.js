@@ -38,13 +38,7 @@ ngEole.controller('GameController', ['$scope', 'eoleApi', '$routeParams', 'eoleW
     });
 
     eoleWs.sessionPromise.then(function (ws) {
-        ws.subscribe('eole/core/parties', function (topic, event) {
-            console.log('parties websocket event', event);
-
-            if (event.party.game.name !== gameName) {
-                return;
-            }
-
+        ws.subscribe('eole/core/game/'+gameName+'/parties', function (topic, event) {
             switch (event.type) {
                 case 'created':
                     $scope.parties.push(event.party);
