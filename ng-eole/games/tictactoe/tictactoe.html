@@ -10,15 +10,11 @@
         </div>
         <div class="col-md-8">
             <ul class="ttt-board">
-                <li class="ttt-x"></li>
-                <li class="ttt-o"></li>
-                <li></li>
-                <li></li>
-                <li></li>
-                <li></li>
-                <li></li>
-                <li></li>
-                <li></li>
+                <li
+                    ng-repeat="symbol in tictactoe.grid.split('') track by $index"
+                    ng-class="['ttt-x', 'ttt-o']['XO'.indexOf(symbol)]"
+                    ng-click="click($index % 3, Math.floor($index / 3))"
+                ></li>
             </ul>
         </div>
     </div>
