@@ -168,4 +168,20 @@ function EoleApiClient($http, $q, eoleApiUrl, wsseTokenGenerator, $httpParamSeri
             });
         });
     };
+
+    this.joinParty = function (player, gameName, partyId) {
+        return $q(function (resolve, reject) {
+            $http({
+                method: 'patch',
+                url: eoleApiUrl+'api/games/'+gameName+'/parties/'+partyId+'/join',
+                headers: {
+                    'x-wsse': wsseTokenGenerator.createWsseToken(player.username, player.password, player.password_salt)
+                }
+            }).then(function (r) {
+                resolve(r.data);
+            }).catch(function (r) {
+                reject(r);
+            });
+        });
+    };
 }
