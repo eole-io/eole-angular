@@ -1,5 +1,6 @@
 ngEole.config(['$translateProvider', function ($translateProvider) {
     $translateProvider.translations('fr', {
+        'home.play': 'Jouer !',
         games: 'Jeux',
         pseudo: 'Pseudo',
         password: 'Mot de passe',
@@ -7,6 +8,14 @@ ngEole.config(['$translateProvider', function ($translateProvider) {
         register: 'Se créer un compte',
         login: 'Se connecter',
         logout: 'Se déconnecter',
+        chat: 'Tchat',
+        parties: 'Parties',
+        'create.party': 'Créer une partie',
+        join: 'Rejoindre',
+        watch: 'Observer',
+        send: 'Envoyer',
+        '{player}.has.join.chat': '{{ player }} a rejoind le tchat.',
+        '{player}.has.left.chat': '{{ player }} a quitté le tchat.',
         'my.page': 'Ma page',
         'your.pseudo': 'Votre pseudo',
         'your.password': 'Votre mot de passe',

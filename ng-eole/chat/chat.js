@@ -7,7 +7,7 @@ ngEole.config(['$routeProvider', function ($routeProvider) {
     });
 }]);
 
-ngEole.controller('ChatController', ['$scope', 'eoleWs', function ($scope, eoleWs) {
+ngEole.controller('ChatController', ['$scope', '$translate', 'eoleWs', function ($scope, $translate, eoleWs) {
     $scope.messages = [];
 
     $scope.sendMessage = function () {
@@ -21,15 +21,25 @@ ngEole.controller('ChatController', ['$scope', 'eoleWs', function ($scope, eoleW
         ws.subscribe('eole/core/chat', function (topic, event) {
             switch (event.type) {
                 case 'join':
-                    $scope.messages.push({content: event.player.username+' has join.'});
+                    $translate('{player}.has.join.chat', { player: event.player.username }).then(function (message) {
+                        $scope.messages.push({
+                            content: message
+                        });
+                    });
                     break;
 
                 case 'message':
-                    $scope.messages.push({content: event.player.username+' > '+event.message});
+                    $scope.messages.push({
+                        content: event.player.username+' > '+event.message
+                    });
                     break;
 
                 case 'leave':
-                    $scope.messages.push({content: event.player.username+' has left.'});
+                    $translate('{player}.has.left.chat', { player: event.player.username }).then(function (message) {
+                        $scope.messages.push({
+                            content: message
+                        });
+                    });
                     break;
             }
 
