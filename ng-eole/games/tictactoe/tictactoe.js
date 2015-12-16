@@ -47,6 +47,10 @@ ngEole.controller('TicTacToeController', ['$scope', '$routeParams', 'eoleApi', '
                     );
                     $scope.tictactoe.last_move = event.move.symbol;
                     break;
+
+                case 'join':
+                    $scope.party.slots[event.position].player = event.player;
+                    break;
             }
 
             $scope.$apply();
