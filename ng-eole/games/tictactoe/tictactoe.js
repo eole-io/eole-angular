@@ -18,9 +18,10 @@ ngEole.controller('TicTacToeController', ['$scope', '$routeParams', 'eoleApi', '
         last_move: null
     };
 
-    $scope.click = function (col, row) {
+    $scope.play = function (col, row) {
         eoleWs.sessionPromise.then(function (ws) {
             ws.publish('eole/games/tictactoe/parties/'+partyId, {
+                type: 'move',
                 col: col,
                 row: row
             });
@@ -54,6 +55,10 @@ ngEole.controller('TicTacToeController', ['$scope', '$routeParams', 'eoleApi', '
             }
 
             $scope.$apply();
+        });
+
+        ws.publish('eole/games/tictactoe/parties/'+partyId, {
+            type: 'need-refresh'
         });
     });
 

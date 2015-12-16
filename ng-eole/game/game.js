@@ -19,14 +19,16 @@ ngEole.controller('GamesController', ['$scope', 'eoleApi', function ($scope, eol
     });
 }]);
 
-ngEole.controller('GameController', ['$scope', 'eoleApi', '$routeParams', 'eoleWs', 'eoleSession', function ($scope, eoleApi, $routeParams, eoleWs, eoleSession) {
+ngEole.controller('GameController', ['$scope', 'eoleApi', '$routeParams', 'eoleWs', 'eoleSession', '$location', function ($scope, eoleApi, $routeParams, eoleWs, eoleSession, $location) {
     $scope.game = null;
     $scope.parties = [];
 
     var gameName = $routeParams.gameName;
 
     $scope.createParty = function () {
-        eoleApi.createParty(gameName, eoleSession.player);
+        eoleApi.createParty(gameName, eoleSession.player).then(function (party) {
+            $location.path('/games/'+gameName+'/parties/'+party.id);
+        });
     };
 
     $scope.join = function (party) {

@@ -1,19 +1,19 @@
 <div class="container-fluid">
     <div class="row">
-        <div class="col-md-4">
-            <h3>{{ 'players'|translate }}</h3>
-            <ul>
+        <div class="col-sm-4">
+            <ul class="players">
                 <li ng-repeat="slot in party.slots">
-                    <p>{{ slot.player.username }}</p>
+                    <p ng-if="null !== slot.player">{{ slot.player.username }}</p>
+                    <p ng-if="null === slot.player">{{ 'waiting.for.join'|translate }}</p>
                 </li>
             </ul>
         </div>
-        <div class="col-md-8">
+        <div class="col-sm-8">
             <ul class="ttt-board">
                 <li
                     ng-repeat="symbol in tictactoe.grid.split('') track by $index"
                     ng-class="['ttt-x', 'ttt-o']['XO'.indexOf(symbol)]"
-                    ng-click="click($index % 3, Math.floor($index / 3))"
+                    ng-click="('-' === symbol) && play($index % 3, Math.floor($index / 3))"
                 ></li>
             </ul>
         </div>

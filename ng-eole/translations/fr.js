@@ -11,6 +11,7 @@ ngEole.config(['$translateProvider', function ($translateProvider) {
         'your.pseudo': 'Votre pseudo',
         'your.password': 'Votre mot de passe',
         'your.password.repeat': 'Votre mot de passe, encore',
+        'waiting.for.join': 'En attente...',
         'please.enter.pseudo': 'Veuillez entrer votre pseudo',
         'please.enter.password': 'Veuillez entrer votre mot de passe',
         'please.enter.password.repeat': 'Veuillez répéter votre mot de passe',
