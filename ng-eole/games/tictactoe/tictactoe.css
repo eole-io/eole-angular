@@ -15,3 +15,7 @@ ul.players li:first-child {
 ul.players li:last-child {
     color: lightBlue;
 }
+ul.ttt-board > li.animate {
+    border-width: 70px;
+    transition: none;
+}
