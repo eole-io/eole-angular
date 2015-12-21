@@ -7,13 +7,15 @@ ngEole.config(['$routeProvider', function ($routeProvider) {
     });
 }]);
 
-ngEole.controller('TicTacToeController', ['$scope', '$routeParams', 'eoleApi', 'eoleWs', '$timeout', function ($scope, $routeParams, eoleApi, eoleWs, $timeout) {
+ngEole.controller('TicTacToeController', ['$scope', '$routeParams', 'eoleApi', 'eoleWs', '$timeout', 'partyManager', function ($scope, $routeParams, eoleApi, eoleWs, $timeout, partyManager) {
     var partyId = $routeParams.partyId;
+    var myColor = null;
 
     $scope.Math = Math;
     $scope.party = null;
     $scope.game = null;
     $scope.finished = false;
+    $scope.myTurn = false;
     $scope.tictactoe = {
         grid: '-'.repeat(9),
         last_move: null
@@ -41,6 +43,8 @@ ngEole.controller('TicTacToeController', ['$scope', '$routeParams', 'eoleApi', '
                     $scope.party = event.party;
                     $scope.game = event.party.game;
                     $scope.tictactoe = event.tictactoe;
+                    myColor = ['X', 'O'][partyManager.getPlayerPosition(event.party)];
+                    $scope.myTurn = myColor === event.tictactoe.current_player;
                     break;
 
                 case 'move':
@@ -51,6 +55,7 @@ ngEole.controller('TicTacToeController', ['$scope', '$routeParams', 'eoleApi', '
                         event.move.symbol
                     );
                     $scope.tictactoe.last_move = event.move.symbol;
+                    $scope.myTurn = myColor === event.current_player;
                     break;
 
                 case 'join':
@@ -59,6 +64,11 @@ ngEole.controller('TicTacToeController', ['$scope', '$routeParams', 'eoleApi', '
 
                 case 'end':
                     $scope.finished = true;
+                    $scope.myTurn = false;
+
+                    if ('-' === event.winner) {
+                        break;
+                    }
 
                     for (var i = 0; i < 3; i++) {
                         $timeout(function () {

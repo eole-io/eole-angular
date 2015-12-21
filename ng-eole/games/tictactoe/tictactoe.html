@@ -9,7 +9,7 @@
             </ul>
         </div>
         <div class="col-sm-8">
-            <ul class="ttt-board" ng-class="{'ttt-finished': finished}">
+            <ul class="ttt-board clearfix" ng-class="{'ttt-finished': finished, 'my-turn': myTurn}">
                 <li
                     ng-repeat="symbol in tictactoe.grid.split('') track by $index"
                     ng-click="('-' === symbol) && !finished && play($index % 3, Math.floor($index / 3))"

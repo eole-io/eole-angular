@@ -1,6 +1,10 @@
 ul.ttt-board {
     margin: 5em 0 0 0;
 }
+ul.ttt-board.my-turn {
+    box-shadow: 0 0 12px rgba(0, 0, 0, 0.4);
+    transition-duration: 200ms;
+}
 ul.players {
     list-style: none;
     padding-left: 0;
