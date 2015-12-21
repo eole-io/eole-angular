@@ -7,7 +7,7 @@ ngEole.config(['$routeProvider', function ($routeProvider) {
     });
 }]);
 
-ngEole.controller('TicTacToeController', ['$scope', '$routeParams', 'eoleApi', 'eoleWs', '$timeout', 'partyManager', function ($scope, $routeParams, eoleApi, eoleWs, $timeout, partyManager) {
+ngEole.controller('TicTacToeController', ['$scope', '$routeParams', 'eoleApi', 'eoleWs', '$timeout', 'partyManager', 'eoleSession', function ($scope, $routeParams, eoleApi, eoleWs, $timeout, partyManager, eoleSession) {
     var partyId = $routeParams.partyId;
     var myColor = null;
 
@@ -16,6 +16,7 @@ ngEole.controller('TicTacToeController', ['$scope', '$routeParams', 'eoleApi', '
     $scope.game = null;
     $scope.finished = false;
     $scope.myTurn = false;
+    $scope.displayJoinButton = false;
     $scope.tictactoe = {
         grid: '-'.repeat(9),
         last_move: null
@@ -23,6 +24,10 @@ ngEole.controller('TicTacToeController', ['$scope', '$routeParams', 'eoleApi', '
     $scope.animate = ' '.repeat(9).split('').map(function () {
         return false;
     });
+
+    $scope.join = function () {
+        eoleApi.joinParty(eoleSession.player, 'tictactoe', $scope.party.id);
+    };
 
     $scope.play = function (col, row) {
         eoleWs.sessionPromise.then(function (ws) {
@@ -45,6 +50,7 @@ ngEole.controller('TicTacToeController', ['$scope', '$routeParams', 'eoleApi', '
                     $scope.tictactoe = event.tictactoe;
                     myColor = ['X', 'O'][partyManager.getPlayerPosition(event.party)];
                     $scope.myTurn = myColor === event.tictactoe.current_player;
+                    $scope.displayJoinButton = !partyManager.inParty(event.party);
                     break;
 
                 case 'move':
@@ -60,6 +66,9 @@ ngEole.controller('TicTacToeController', ['$scope', '$routeParams', 'eoleApi', '
 
                 case 'join':
                     $scope.party.slots[event.position].player = event.player;
+                    $scope.displayJoinButton = false;
+                    myColor = ['X', 'O'][partyManager.getPlayerPosition($scope.party)];
+                    $scope.myTurn = myColor === $scope.tictactoe.current_player;
                     break;
 
                 case 'end':

@@ -2,13 +2,16 @@
 
 ngEole.factory('partyManager', ['eoleSession', function (eoleSession) {
     var PartyManager = function (eoleSession) {
+        var that = this;
+
         /**
          * @param {Object} party
          * @param {Object} player defaults to current logged player.
          *
          * @returns {Number|null}
          */
-        this.getPlayerPosition = function (party, player) {
+        this.getPlayerPosition = function (party, player)
+        {
             if (!player) {
                 player = eoleSession.player;
             }
@@ -22,6 +25,21 @@ ngEole.factory('partyManager', ['eoleSession', function (eoleSession) {
             }
 
             return null;
+        };
+
+        /**
+         * @param {Object} party
+         * @param {Object} player defaults to current logged player.
+         *
+         * @returns {Boolean}
+         */
+        this.inParty = function (party, player)
+        {
+            if (!player) {
+                player = eoleSession.player;
+            }
+
+            return null !== that.getPlayerPosition(party, player);
         };
     };
 
