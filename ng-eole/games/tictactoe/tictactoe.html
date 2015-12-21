@@ -9,11 +9,15 @@
             </ul>
         </div>
         <div class="col-sm-8">
-            <ul class="ttt-board">
+            <ul class="ttt-board" ng-class="{'ttt-finished': finished}">
                 <li
                     ng-repeat="symbol in tictactoe.grid.split('') track by $index"
-                    ng-class="['ttt-x', 'ttt-o']['XO'.indexOf(symbol)]"
-                    ng-click="('-' === symbol) && play($index % 3, Math.floor($index / 3))"
+                    ng-click="('-' === symbol) && !finished && play($index % 3, Math.floor($index / 3))"
+                    ng-class="{
+                        'ttt-x': 'X' === symbol,
+                        'ttt-o': 'O' === symbol,
+                        'animate': animate[$index]
+                    }"
                 ></li>
             </ul>
         </div>
