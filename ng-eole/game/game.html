@@ -5,10 +5,10 @@
     <ul>
         <li ng-repeat="party in parties" data-party="{{ party }}">
             {{ 'party.hosted.by.{username}'|translate:party.host }}
-            <a class="btn btn-primary" href="" ng-href="games/{{ game.name }}/parties/{{ party.id }}" ng-click="join(party)">
+            <a class="btn btn-primary" href="" ng-href="#!/games/{{ game.name }}/parties/{{ party.id }}" ng-click="join(party)">
                 {{ 'join'|translate }}
             </a>
-            <a class="btn btn-default" href="" ng-href="games/{{ game.name }}/parties/{{ party.id }}">
+            <a class="btn btn-default" href="" ng-href="#!/games/{{ game.name }}/parties/{{ party.id }}">
                 {{ 'watch'|translate }}
             </a>
         </li>

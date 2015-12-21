@@ -13,7 +13,10 @@ var ngEole = angular.module('ng-eole', [
 ]);
 
 ngEole.config(['$locationProvider', function ($locationProvider) {
-    $locationProvider.html5Mode(true);
+    $locationProvider
+        .html5Mode(false)
+        .hashPrefix('!')
+    ;
 }]);
 
 ngEole.config(['lockerProvider', function config(lockerProvider) {
@@ -28,12 +31,4 @@ ngEole.config(['lockerProvider', function config(lockerProvider) {
 
 ngEole.run(['eoleSession', '$rootScope', function (eoleSession, $rootScope) {
     $rootScope.eoleSession = eoleSession;
-}]);
-
-ngEole.run(['baseHref', '$browser', '$rootScope', function (baseHref, $browser, $rootScope) {
-    $rootScope.baseHref = baseHref;
-
-    $browser.baseHref = function() {
-        return baseHref;
-    };
 }]);

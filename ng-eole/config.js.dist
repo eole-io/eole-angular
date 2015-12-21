@@ -1,7 +1,6 @@
 'use strict';
 
 angular.module('ng-eole-config', [])
-    .constant('baseHref', '/eole-angular/')
     .constant('eoleApiUrl', 'http://127.0.0.1/eole-api/www/api.php/')
     .constant('webSocketUri', 'ws://127.0.0.1:8080')
 ;

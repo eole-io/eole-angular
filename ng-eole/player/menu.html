@@ -1,12 +1,12 @@
 <li class="dropdown">
-    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">{{ $root.eoleSession.player.username }} <span class="caret"></span></a>
+    <a href="" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">{{ $root.eoleSession.player.username }} <span class="caret"></span></a>
     <ul class="dropdown-menu" role="menu">
-        <li><a href="" ng-href="player/perso">{{ 'my.page'|translate }}</a></li>
+        <li><a href="" ng-href="#!/player/perso">{{ 'my.page'|translate }}</a></li>
 
         <li class="divider"></li>
 
-        <li ng-show="$root.eoleSession.player.guest"><a href="" ng-href="player/login">{{ 'login'|translate }}</a></li>
-        <li ng-show="$root.eoleSession.player.guest"><a href="" ng-href="player/register">{{ 'register'|translate }}</a></li>
+        <li ng-show="$root.eoleSession.player.guest"><a href="" ng-href="#!/player/login">{{ 'login'|translate }}</a></li>
+        <li ng-show="$root.eoleSession.player.guest"><a href="" ng-href="#!/player/register">{{ 'register'|translate }}</a></li>
 
         <li ng-hide="$root.eoleSession.player.guest" ng-click="$root.eoleSession.logout()"><a href="">{{ 'logout'|translate }}</a></li>
     </ul>
