@@ -39,18 +39,29 @@ ngEole.controller('TicTacToeController', ['$scope', '$routeParams', 'eoleApi', '
         });
     };
 
+    function init(event) {
+        $scope.party = event.party;
+        $scope.game = event.party.game;
+        $scope.tictactoe = event.tictactoe;
+        myColor = ['X', 'O'][partyManager.getPlayerPosition(event.party)];
+        $scope.myTurn = myColor === event.tictactoe.current_player;
+        $scope.displayJoinButton = (event.party.state === 0) && !partyManager.inParty(event.party);
+    }
+
     eoleWs.sessionPromise.then(function (ws) {
         ws.subscribe('eole/games/tictactoe/parties/'+partyId, function (topic, event) {
             console.log('ttt event', topic, event);
 
             switch (event.type) {
+                case 'restart':
+                    $timeout(function () {
+                        init(event);
+                        $scope.finished = false;
+                    }, 2800);
+                    break;
+
                 case 'init':
-                    $scope.party = event.party;
-                    $scope.game = event.party.game;
-                    $scope.tictactoe = event.tictactoe;
-                    myColor = ['X', 'O'][partyManager.getPlayerPosition(event.party)];
-                    $scope.myTurn = myColor === event.tictactoe.current_player;
-                    $scope.displayJoinButton = !partyManager.inParty(event.party);
+                    init(event);
                     break;
 
                 case 'move':
@@ -82,13 +93,13 @@ ngEole.controller('TicTacToeController', ['$scope', '$routeParams', 'eoleApi', '
                     for (var i = 0; i < 3; i++) {
                         $timeout(function () {
                             animate(event.brochette[0]);
-                        }, 500 + 1000 * i);
+                        }, 300 + 600 * i);
                         $timeout(function () {
                             animate(event.brochette[1]);
-                        }, 580 + 1000 * i);
+                        }, 380 + 600 * i);
                         $timeout(function () {
                             animate(event.brochette[2]);
-                        }, 660 + 1000 * i);
+                        }, 460 + 600 * i);
                     }
 
                     break;
