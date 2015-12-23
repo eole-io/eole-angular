@@ -3,7 +3,7 @@
         <div class="col-sm-4">
             <ul class="players">
                 <li ng-repeat="slot in party.slots">
-                    <p ng-if="null !== slot.player">{{ slot.player.username }}</p>
+                    <p ng-if="null !== slot.player">{{ slot.player.username }} ({{ slot.score }})</p>
                     <p ng-if="null === slot.player">{{ 'waiting.for.join'|translate }}</p>
                 </li>
             </ul>
