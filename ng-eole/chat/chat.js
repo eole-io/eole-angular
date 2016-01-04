@@ -17,8 +17,6 @@ ngEole.controller('ChatController', ['$scope', '$translate', 'eoleWs', function 
         });
     };
 
-    $translate('{player}.has.join.chat', { player: 'pti pd' }).then(function (msg) { console.log(msg) });
-
     eoleWs.sessionPromise.then(function (ws) {
         ws.subscribe('eole/core/chat', function (topic, event) {
             switch (event.type) {
