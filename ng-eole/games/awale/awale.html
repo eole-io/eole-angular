@@ -1,77 +1,29 @@
-<div class="awale-active">
-    <div id="board" class="row">
+<div class="container-fluid">
+    <div class="awale-board row">
         <!-- Left attic -->
         <div class="col-xs-2 col col-p0">
             <button type="button" class="btn btn-default box attic p0 attic-p0" disabled="disabled">
                 <div class="seeds"></div>
-                <p class="value">5</p>
+                <p class="value">{{ grid[0].attic }}</p>
             </button>
         </div>
         <!-- Containers -->
         <div class="col-xs-8 boxes">
             <!-- Top containers -->
             <div class="row row-p0 row-top">
-                <div class="col-xs-2">
-                    <button type="button" class="btn btn-default box p0 box-0" disabled="disabled" data-coords="0:0">
+                <div class="col-xs-2" ng-repeat="seeds in grid[0].seeds track by $index">
+                    <button type="button" class="btn btn-default box p0 box-{{ $index }}" disabled="disabled" data-coords="0:{{ $index }}">
                         <div class="seeds"></div>
-                        <p class="value">3</p>
-                    </button>
-                </div>
-                <div class="col-xs-2">
-                    <button type="button" class="btn btn-default box p0 box-1" disabled="disabled" data-coords="0:1">
-                        <div class="seeds"></div>
-                        <p class="value">3</p>
-                    </button>
-                </div>
-                <div class="col-xs-2">
-                    <button type="button" class="btn btn-default box p0 box-2" disabled="disabled" data-coords="0:2">
-                        <div class="seeds"></div>
-                        <p class="value">3</p>
-                    </button>
-                </div>
-                <div class="col-xs-2">
-                    <button type="button" class="btn btn-default box p0 box-3" disabled="disabled" data-coords="0:3">
-                        <div class="seeds"></div>
-                        <p class="value">3</p>
-                    </button>
-                </div>
-                <div class="col-xs-2">
-                    <button type="button" class="btn btn-default box p0 box-4" disabled="disabled" data-coords="0:4">
-                        <div class="seeds"></div>
-                        <p class="value">3</p>
+                        <p class="value">{{ seeds }}</p>
                     </button>
                 </div>
             </div>
             <!-- Bottom containers -->
             <div class="row row-p1 row-bottom">
-                <div class="col-xs-2">
-                    <button type="button" class="btn btn-default box p1 box-0" disabled="disabled" data-coords="0:0">
+                <div class="col-xs-2" ng-repeat="seeds in grid[1].seeds track by $index">
+                    <button type="button" ng-click="move($index)" class="btn btn-default box p1 box-{{ $index }}" data-coords="0:{{ $index }}">
                         <div class="seeds"></div>
-                        <p class="value">3</p>
-                    </button>
-                </div>
-                <div class="col-xs-2">
-                    <button type="button" class="btn btn-default box p1 box-1" disabled="disabled" data-coords="1:1">
-                        <div class="seeds"></div>
-                        <p class="value">3</p>
-                    </button>
-                </div>
-                <div class="col-xs-2">
-                    <button type="button" class="btn btn-default box p1 box-2" disabled="disabled" data-coords="1:2">
-                        <div class="seeds"></div>
-                        <p class="value">3</p>
-                    </button>
-                </div>
-                <div class="col-xs-2">
-                    <button type="button" class="btn btn-default box p1 box-3" disabled="disabled" data-coords="1:3">
-                        <div class="seeds"></div>
-                        <p class="value">3</p>
-                    </button>
-                </div>
-                <div class="col-xs-2">
-                    <button type="button" class="btn btn-default box p1 box-4" disabled="disabled" data-coords="1:4">
-                        <div class="seeds"></div>
-                        <p class="value">3</p>
+                        <p class="value">{{ seeds }}</p>
                     </button>
                 </div>
             </div>
@@ -80,26 +32,26 @@
         <div class="col-xs-2 col col-p1">
             <button type="button" class="btn btn-default box attic p1 attic-p1" disabled="disabled">
                 <div class="seeds"></div>
-                <p class="value">5</p>
+                <p class="value">{{ grid[1].attic }}</p>
             </button>
         </div>
     </div>
-    <div id="players">
-        <!-- Players -->
-        <div class="row scores">
+    <div class="awale-players">
+        <!-- Players and scores -->
+        <div class="row">
             <div class="p0 col-xs-6">
                 <p>
-                    <span class="pseudo">Player A</span>
-                    <span class="score">12</span>
+                    <span class="pseudo">{{ party.slots[0].player.username || '---' }}</span>
+                    <span class="score">{{ grid[0].attic }}</span>
                 </p>
             </div>
             <div class="p1 col-xs-6">
                 <p>
-                    <span class="score">15</span>
-                    <span class="pseudo">Player B</span>
+                    <span class="score">{{ grid[1].attic }}</span>
+                    <span class="pseudo">{{ party.slots[1].player.username || '---' }}</span>
                 </p>
             </div>
         </div>
-        <p class="text-center">Victory conditions</p>
     </div>
+    <p class="text-center">Victory conditions</p>
 </div>

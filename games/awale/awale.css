@@ -1,3 +1,14 @@
+.awale-board {
+    max-width: 800px;
+    margin: 2em auto 0 auto;
+}
+.awale-board .row:first-child {
+    margin-bottom: 16px;
+}
+.awale-board .col:first-child .attic {
+    margin-left: 38px;
+}
+
 .p0.box {
     background: linear-gradient(to bottom, #FFB1B1 0px, lightCoral 100%);
 }
@@ -66,43 +77,33 @@ div.seeds div.seed {
     background: url("../img/seeds.png") repeat scroll 0 0 transparent;
 }
 
-.awale-active #board .row:first-child {
-    margin-bottom: 16px;
+.awale-players {
+    margin: 2em auto 0 auto;
 }
-.awale-active #board .col:first-child .attic {
-    margin-left: 38px;
-}
-
-
-#players {
-    margin: 24px auto 48px auto;
-}
-#players > div {
+.awale-players > div {
     text-align: center;
 }
-#players .scores {
-}
-#players .scores p {
+.awale-players p {
     font-size: 22px;
     text-shadow: 0 1px 0px rgba(0, 0, 0, 0.3);
 }
-#players .scores .pseudo {
+.awale-players .pseudo {
 }
-#players .scores .score {
+.awale-players .score {
     font-weight: bold;
     font-size: 32px;
 }
-#players .scores .p0 .score {
+.awale-players .p0 .score {
     margin-left: 16px;
 }
-#players .scores .p1 .score {
+.awale-players .p1 .score {
     margin-right: 16px;
 }
-#players .scores .p0 {
+.awale-players .p0 {
     color: lightCoral;
     text-align: right;
 }
-#players .scores .p1 {
+.awale-players .p1 {
     color: lightBlue;
     text-align: left;
 }
