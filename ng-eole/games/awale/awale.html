@@ -1,27 +1,27 @@
 <div class="container-fluid">
     <div class="awale-board row">
         <!-- Left attic -->
-        <div class="col-xs-2 col col-p0">
-            <button type="button" class="btn btn-default box attic p0 attic-p0" disabled="disabled">
+        <div class="col-xs-2 col col-p{{ screenPlayer0 }}">
+            <button type="button" class="btn btn-default box attic p{{ screenPlayer0 }}" disabled="disabled">
                 <div class="seeds"></div>
-                <p class="value">{{ grid[0].attic }}</p>
+                <p class="value">{{ grid[screenPlayer0].attic }}</p>
             </button>
         </div>
         <!-- Containers -->
         <div class="col-xs-8 boxes">
             <!-- Top containers -->
-            <div class="row row-p0 row-top">
-                <div class="col-xs-2" ng-repeat="seeds in grid[0].seeds track by $index">
-                    <button type="button" class="btn btn-default box p0 box-{{ $index }}" disabled="disabled" data-coords="0:{{ $index }}">
+            <div class="row row-p{{ screenPlayer0 }} row-top">
+                <div class="col-xs-2" ng-repeat="seeds in (reverseBoard ? grid[screenPlayer0].seeds.slice().reverse() : grid[screenPlayer0].seeds) track by $index">
+                    <button type="button" class="btn btn-default box p{{ screenPlayer0 }}" disabled="disabled">
                         <div class="seeds"></div>
                         <p class="value">{{ seeds }}</p>
                     </button>
                 </div>
             </div>
             <!-- Bottom containers -->
-            <div class="row row-p1 row-bottom">
-                <div class="col-xs-2" ng-repeat="seeds in grid[1].seeds track by $index">
-                    <button type="button" ng-click="move($index)" class="btn btn-default box p1 box-{{ $index }}" data-coords="0:{{ $index }}">
+            <div class="row row-p{{ screenPlayer1 }} row-bottom">
+                <div class="col-xs-2" ng-repeat="seeds in (reverseBoard ? grid[screenPlayer1].seeds.slice().reverse() : grid[screenPlayer0].seeds) track by $index">
+                    <button type="button" ng-click="move(reverseOrder ? (5 - $index) : $index)" class="btn btn-default box p{{ screenPlayer1 }}">
                         <div class="seeds"></div>
                         <p class="value">{{ seeds }}</p>
                     </button>
@@ -29,10 +29,10 @@
             </div>
         </div>
         <!-- Right attic -->
-        <div class="col-xs-2 col col-p1">
-            <button type="button" class="btn btn-default box attic p1 attic-p1" disabled="disabled">
+        <div class="col-xs-2 col col-p{{ screenPlayer1 }}">
+            <button type="button" class="btn btn-default box attic p{{ screenPlayer1 }}" disabled="disabled">
                 <div class="seeds"></div>
-                <p class="value">{{ grid[1].attic }}</p>
+                <p class="value">{{ grid[screenPlayer1].attic }}</p>
             </button>
         </div>
     </div>
@@ -41,14 +41,21 @@
         <div class="row">
             <div class="p0 col-xs-6">
                 <p>
-                    <span class="pseudo">{{ party.slots[0].player.username || '---' }}</span>
+                    <span class="pseudo">
+                        {{ party.slots[0].player.username || 'waiting.for.join'|translate }}
+                    </span>
                     <span class="score">{{ grid[0].attic }}</span>
                 </p>
             </div>
             <div class="p1 col-xs-6">
                 <p>
                     <span class="score">{{ grid[1].attic }}</span>
-                    <span class="pseudo">{{ party.slots[1].player.username || '---' }}</span>
+                    <span class="pseudo" ng-if="!displayJoinButton">
+                        {{ party.slots[1].player.username || 'waiting.for.join'|translate }}
+                    </span>
+                    <button ng-if="displayJoinButton && !party.slots[1].player" class="btn btn-primary" ng-click="join()">
+                        {{ 'join'|translate }}
+                    </button>
                 </p>
             </div>
         </div>
