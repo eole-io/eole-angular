@@ -62,6 +62,18 @@ ngEole.controller('AwaleController', ['$scope', '$routeParams', 'eoleApi', 'eole
         }
     });
 
+    eoleWs.sessionPromise.then(function (ws) {
+        ws.subscribe('eole/games/awale/parties/'+partyId, function (topic, event) {
+            console.log(event);
+
+            switch (event.type) {
+                case 'played':
+                    animate(event.move.player, event.move.move);
+                    $scope.currentPlayer = event.current_player;
+            }
+        });
+    });
+
     function animate(player, move) {
         var animationSteps = [];
 
