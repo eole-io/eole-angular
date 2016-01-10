@@ -2,9 +2,17 @@
     <div class="awale-board row">
         <!-- Left attic -->
         <div class="col-xs-2 col col-p{{ screenPlayer0 }}">
-            <button type="button" class="btn btn-default box attic p{{ screenPlayer0 }}" disabled="disabled">
+            <button
+                type="button"
+                class="btn btn-default box attic p{{ screenPlayer0 }}"
+                disabled="disabled"
+            >
                 <div class="seeds">
-                    <div class="seed" ng-repeat="coord in seedsCoords[screenPlayer0].attic" ng-style="coord"></div>
+                    <div
+                        ng-repeat="coord in seedsCoords[screenPlayer0].attic"
+                        class="seed"
+                        ng-style="coord"
+                    ></div>
                 </div>
                 <p class="value">{{ grid[screenPlayer0].attic }}</p>
             </button>
@@ -13,10 +21,21 @@
         <div class="col-xs-8 boxes">
             <!-- Top containers -->
             <div class="row row-p{{ screenPlayer0 }} row-top">
-                <div class="col-xs-2" ng-repeat="seeds in (reverseBoard ? grid[screenPlayer0].seeds.slice().reverse() : grid[screenPlayer0].seeds) track by $index">
-                    <button type="button" class="btn btn-default box p{{ screenPlayer0 }}" disabled="disabled">
+                <div
+                    ng-repeat="seeds in (reverseBoard ? grid[screenPlayer0].seeds.slice().reverse() : grid[screenPlayer0].seeds) track by $index"
+                    class="col-xs-2"
+                >
+                    <button
+                        type="button"
+                        class="btn btn-default box p{{ screenPlayer0 }}"
+                        disabled="disabled"
+                    >
                         <div class="seeds">
-                            <div class="seed" ng-repeat="coord in seedsCoords[screenPlayer0].seeds[reverseBoard ? (5 - $index) : $index]" ng-style="coord"></div>
+                            <div
+                                ng-repeat="coord in seedsCoords[screenPlayer0].seeds[reverseBoard ? (5 - $index) : $index]"
+                                class="seed"
+                                ng-style="coord"
+                            ></div>
                         </div>
                         <p class="value">{{ seeds }}</p>
                     </button>
@@ -24,10 +43,23 @@
             </div>
             <!-- Bottom containers -->
             <div class="row row-p{{ screenPlayer1 }} row-bottom">
-                <div class="col-xs-2" ng-repeat="seeds in (reverseBoard ? grid[screenPlayer1].seeds.slice().reverse() : grid[screenPlayer1].seeds) track by $index">
-                    <button type="button" ng-click="move(reverseBoard ? (5 - $index) : $index)" class="btn btn-default box p{{ screenPlayer1 }}">
+                <div
+                    ng-repeat="seeds in (reverseBoard ? grid[screenPlayer1].seeds.slice().reverse() : grid[screenPlayer1].seeds) track by $index"
+                    class="col-xs-2"
+                >
+                    <button
+                        type="button"
+                        class="btn btn-default box p{{ screenPlayer1 }}"
+                        ng-class="{highlight: isMyTurn() && seeds}"
+                        ng-click="move(reverseBoard ? (5 - $index) : $index)"
+                        ng-disabled="!isMyTurn() || !seeds"
+                    >
                         <div class="seeds">
-                            <div class="seed" ng-repeat="coord in seedsCoords[screenPlayer1].seeds[reverseBoard ? (5 - $index) : $index]" ng-style="coord"></div>
+                            <div
+                                ng-repeat="coord in seedsCoords[screenPlayer1].seeds[reverseBoard ? (5 - $index) : $index]"
+                                class="seed"
+                                ng-style="coord"
+                            ></div>
                         </div>
                         <p class="value">{{ seeds }}</p>
                     </button>
@@ -36,9 +68,17 @@
         </div>
         <!-- Right attic -->
         <div class="col-xs-2 col col-p{{ screenPlayer1 }}">
-            <button type="button" class="btn btn-default box attic p{{ screenPlayer1 }}" disabled="disabled">
+            <button
+                type="button"
+                class="btn btn-default box attic p{{ screenPlayer1 }}"
+                disabled="disabled"
+            >
                 <div class="seeds">
-                    <div class="seed" ng-repeat="coord in seedsCoords[screenPlayer1].attic" ng-style="coord"></div>
+                    <div
+                        ng-repeat="coord in seedsCoords[screenPlayer1].attic"
+                        class="seed"
+                        ng-style="coord"
+                    ></div>
                 </div>
                 <p class="value">{{ grid[screenPlayer1].attic }}</p>
             </button>
