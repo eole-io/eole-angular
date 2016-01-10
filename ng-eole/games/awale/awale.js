@@ -9,11 +9,13 @@ ngEole.config(['$routeProvider', function ($routeProvider) {
 
 ngEole.controller('AwaleController', ['$scope', '$routeParams', 'eoleApi', 'eoleWs', '$timeout', 'partyManager', 'eoleSession', function ($scope, $routeParams, eoleApi, eoleWs, $timeout, partyManager, eoleSession) {
     var partyId = $routeParams.partyId;
+    var seedsCoords = new AwaleSeeds({x: 19, y: 19});
     $scope.reverseBoard = false;
     $scope.screenPlayer0 = 0;
     $scope.screenPlayer1 = 1;
     $scope.displayJoinButton = false;
     $scope.party = {};
+    $scope.seedsCoords = seedsCoords.toStyle();
     $scope.grid = [
         {
             seeds: [0, 0, 0, 0, 0, 0],
@@ -38,6 +40,9 @@ ngEole.controller('AwaleController', ['$scope', '$routeParams', 'eoleApi', 'eole
 
     eoleApi.callGame('awale', 'get', 'find-by-id/'+partyId).then(function (awaleParty) {
         $scope.grid = awaleParty.grid;
+        seedsCoords.setGrid(awaleParty.grid);
+        console.log(seedsCoords, seedsCoords.toStyle());
+        $scope.seedsCoords = seedsCoords.toStyle();
         $scope.party = awaleParty.party;
         $scope.displayJoinButton = (awaleParty.party.state === 0) && !partyManager.inParty(awaleParty.party);
         $scope.reverseBoard = 0 === partyManager.getPlayerPosition(awaleParty.party);

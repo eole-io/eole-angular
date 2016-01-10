@@ -74,7 +74,7 @@ div.seeds div.seed {
     position: absolute;
     width: 24px;
     height: 24px;
-    background: url("../img/seeds.png") repeat scroll 0 0 transparent;
+    background: url("seeds.png") repeat scroll 0 0 transparent;
 }
 
 .awale-players {
