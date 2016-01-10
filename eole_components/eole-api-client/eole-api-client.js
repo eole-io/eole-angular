@@ -38,6 +38,21 @@ function EoleApiClient($http, $q, eoleApiUrl, wsseTokenGenerator, $httpParamSeri
         });
     };
 
+    /**
+     * Api call for a game.
+     *
+     * @param {String} gameName
+     * @param {String} method 'get', 'post', ...
+     * @param {String} path example: 'api/players' (no starting slash).
+     * @param {Object} logged player with username, password and password_salt attributes.
+     * @param {Object} postData
+     *
+     * @returns {Promise}
+     */
+    this.callGame = function (gameName, method, path, loggedPlayer, postData) {
+        return that.call(method, 'api/games/'+gameName+'/'+path, loggedPlayer, postData);
+    };
+
     this.getPlayers = function () {
         return that.call('get', 'api/players');
     };

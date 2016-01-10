@@ -9,11 +9,11 @@ ngEole.config(['$routeProvider', function ($routeProvider) {
 
 ngEole.controller('AwaleController', ['$scope', '$routeParams', 'eoleApi', 'eoleWs', '$timeout', 'partyManager', 'eoleSession', function ($scope, $routeParams, eoleApi, eoleWs, $timeout, partyManager, eoleSession) {
     var partyId = $routeParams.partyId;
-    var awaleParty = null;
     $scope.reverseBoard = false;
     $scope.screenPlayer0 = 0;
     $scope.screenPlayer1 = 1;
     $scope.displayJoinButton = false;
+    $scope.party = {};
     $scope.grid = [
         {
             seeds: [0, 0, 0, 0, 0, 0],
@@ -24,21 +24,19 @@ ngEole.controller('AwaleController', ['$scope', '$routeParams', 'eoleApi', 'eole
             attic: 0
         }
     ];
-    $scope.party = {};
 
     $scope.join = function () {
         eoleApi.joinParty(eoleSession.player, 'awale', partyId);
     };
 
     $scope.move = function (move) {
-        eoleApi.call('post', 'api/games/awale/play', eoleSession.player, {
+        eoleApi.callGame('awale', 'post', 'play', eoleSession.player, {
             move: move,
             party_id: partyId
         });
     };
 
-    eoleApi.call('get', 'api/games/awale/find-by-id/'+partyId).then(function (data) {
-        awaleParty = data;
+    eoleApi.callGame('awale', 'get', 'find-by-id/'+partyId).then(function (awaleParty) {
         $scope.grid = awaleParty.grid;
         $scope.party = awaleParty.party;
         $scope.displayJoinButton = (awaleParty.party.state === 0) && !partyManager.inParty(awaleParty.party);
