@@ -25,7 +25,7 @@
             <!-- Bottom containers -->
             <div class="row row-p{{ screenPlayer1 }} row-bottom">
                 <div class="col-xs-2" ng-repeat="seeds in (reverseBoard ? grid[screenPlayer1].seeds.slice().reverse() : grid[screenPlayer1].seeds) track by $index">
-                    <button type="button" ng-click="move(reverseOrder ? (5 - $index) : $index)" class="btn btn-default box p{{ screenPlayer1 }}">
+                    <button type="button" ng-click="move(reverseBoard ? (5 - $index) : $index)" class="btn btn-default box p{{ screenPlayer1 }}">
                         <div class="seeds">
                             <div class="seed" ng-repeat="coord in seedsCoords[screenPlayer1].seeds[reverseBoard ? (5 - $index) : $index]" ng-style="coord"></div>
                         </div>
