@@ -52,14 +52,7 @@ ngEole.controller('AwaleController', ['$scope', '$routeParams', 'eoleApi', 'eole
         $scope.grid = awaleParty.grid;
         updateSeedsCoords();
         $scope.party = awaleParty.party;
-        $scope.currentPlayer = awaleParty.current_player;
-        $scope.displayJoinButton = (awaleParty.party.state === 0) && !partyManager.inParty(awaleParty.party);
-        playerPosition = partyManager.getPlayerPosition(awaleParty.party);
-        $scope.reverseBoard = 0 === playerPosition;
-        if ($scope.reverseBoard) {
-            $scope.screenPlayer0 = 1;
-            $scope.screenPlayer1 = 0;
-        }
+        updateBoardVariables();
     });
 
     eoleWs.sessionPromise.then(function (ws) {
@@ -67,10 +60,18 @@ ngEole.controller('AwaleController', ['$scope', '$routeParams', 'eoleApi', 'eole
             console.log(event);
 
             switch (event.type) {
+                case 'join':
+                    $scope.party = event.party;
+                    updateBoardVariables();
+                    break;
+
                 case 'played':
                     animate(event.move.player, event.move.move);
                     $scope.currentPlayer = event.current_player;
+                    break;
             }
+
+            $scope.$apply();
         });
     });
 
@@ -136,6 +137,17 @@ ngEole.controller('AwaleController', ['$scope', '$routeParams', 'eoleApi', 'eole
                 updateSeedsCoords();
             }, i * ANIMATION_DELAY);
         });
+    }
+
+    function updateBoardVariables() {
+        $scope.currentPlayer = $scope.party.current_player;
+        $scope.displayJoinButton = ($scope.party.state === 0) && !partyManager.inParty($scope.party);
+        playerPosition = partyManager.getPlayerPosition($scope.party);
+        $scope.reverseBoard = 0 === playerPosition;
+        if ($scope.reverseBoard) {
+            $scope.screenPlayer0 = 1;
+            $scope.screenPlayer1 = 0;
+        }
     }
 
     function updateSeedsCoords() {
