@@ -49,10 +49,11 @@ ngEole.controller('AwaleController', ['$scope', '$routeParams', 'eoleApi', 'eole
     };
 
     eoleApi.callGame('awale', 'get', 'find-by-id/'+partyId).then(function (awaleParty) {
-        $scope.grid = awaleParty.grid;
-        updateSeedsCoords();
         $scope.party = awaleParty.party;
+        $scope.grid = awaleParty.grid;
+        $scope.currentPlayer = awaleParty.current_player;
         updateBoardVariables();
+        updateSeedsCoords();
     });
 
     eoleWs.sessionPromise.then(function (ws) {
@@ -140,7 +141,6 @@ ngEole.controller('AwaleController', ['$scope', '$routeParams', 'eoleApi', 'eole
     }
 
     function updateBoardVariables() {
-        $scope.currentPlayer = $scope.party.current_player;
         $scope.displayJoinButton = ($scope.party.state === 0) && !partyManager.inParty($scope.party);
         playerPosition = partyManager.getPlayerPosition($scope.party);
         $scope.reverseBoard = 0 === playerPosition;
