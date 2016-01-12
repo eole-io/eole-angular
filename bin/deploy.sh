@@ -50,6 +50,10 @@ cd eole-angular
 bower install
 cd ..
 
+echo "Copy front configuration files"
+
+cp eole-angular/ng-eole/config.js.dist eole-angular/ng-eole/config.js
+
 echo "Minify and combine assets"
 
 cd eole-angular
@@ -71,10 +75,6 @@ sed 's/.*<title>.*/&\n        <link rel="stylesheet" href="assets\/all.min.css">
 rm index.html
 mv index.html.tmp index.html
 cd ..
-
-echo "Copy front configuration files"
-
-cp eole-angular/ng-eole/config.js.dist eole-angular/ng-eole/config.js
 
 echo "Launch react server"
 
