@@ -29,9 +29,14 @@
     outline: none !important;
     overflow: hidden;
     padding: 0;
+    transition: opacity 200ms ease;
 }
 .box[disabled] {
     opacity: 1;
+}
+.box.flash {
+    opacity: 0;
+    transition: opacity 0ms;
 }
 .box .value {
     position: relative;

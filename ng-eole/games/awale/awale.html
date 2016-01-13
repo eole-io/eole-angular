@@ -5,6 +5,7 @@
             <button
                 type="button"
                 class="btn btn-default box attic p{{ screenPlayer0 }}"
+                ng-class="{flash: flashed[screenPlayer0]['attic']}"
                 disabled="disabled"
             >
                 <div class="seeds">
@@ -28,6 +29,7 @@
                     <button
                         type="button"
                         class="btn btn-default box p{{ screenPlayer0 }}"
+                        ng-class="{flash: flashed[screenPlayer0]['seeds'][reverseBoard ? (5 - $index) : $index]}"
                         disabled="disabled"
                     >
                         <div class="seeds">
@@ -50,7 +52,7 @@
                     <button
                         type="button"
                         class="btn btn-default box p{{ screenPlayer1 }}"
-                        ng-class="{highlight: canMoveContainer(seeds)}"
+                        ng-class="{highlight: canMoveContainer(seeds), flash: flashed[screenPlayer1]['seeds'][reverseBoard ? (5 - $index) : $index]}"
                         ng-click="move(reverseBoard ? (5 - $index) : $index)"
                         ng-disabled="!canMoveContainer(seeds)"
                     >
@@ -71,6 +73,7 @@
             <button
                 type="button"
                 class="btn btn-default box attic p{{ screenPlayer1 }}"
+                ng-class="{flash: flashed[screenPlayer1]['attic']}"
                 disabled="disabled"
             >
                 <div class="seeds">

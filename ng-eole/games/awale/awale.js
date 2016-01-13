@@ -31,6 +31,16 @@ ngEole.controller('AwaleController', ['$scope', '$routeParams', 'eoleApi', 'eole
             attic: 0
         }
     ];
+    $scope.flashed = [
+        {
+            seeds: [false, false, false, false, false, false],
+            attic: false
+        },
+        {
+            seeds: [false, false, false, false, false, false],
+            attic: false
+        }
+    ];
 
     $scope.join = function () {
         eoleApi.joinParty(eoleSession.player, 'awale', partyId);
@@ -137,6 +147,7 @@ ngEole.controller('AwaleController', ['$scope', '$routeParams', 'eoleApi', 'eole
                 if ('store' === step[2]) {
                     $scope.grid[1 - step[0]]['attic'] += $scope.grid[step[0]]['seeds'][step[1]];
                     $scope.grid[step[0]]['seeds'][step[1]] = 0;
+                    flashAttic(1 - step[0]);
                 } else {
                     $scope.grid[step[0]]['seeds'][step[1]] += step[2];
 
@@ -144,6 +155,8 @@ ngEole.controller('AwaleController', ['$scope', '$routeParams', 'eoleApi', 'eole
                         $scope.grid[step[0]]['seeds'][step[1]] = 0;
                     }
                 }
+
+                flashBox(step[0], step[1]);
 
                 updateSeedsCoords();
             }, i * ANIMATION_DELAY);
@@ -175,6 +188,22 @@ ngEole.controller('AwaleController', ['$scope', '$routeParams', 'eoleApi', 'eole
                 $scope.bottomText = message;
             });
         }
+    }
+
+    function flashBox(player, box) {
+        $scope.flashed[player]['seeds'][box] = true;
+
+        $timeout(function () {
+            $scope.flashed[player]['seeds'][box] = false;
+        }, 50);
+    }
+
+    function flashAttic(player) {
+        $scope.flashed[player]['attic'] = true;
+
+        $timeout(function () {
+            $scope.flashed[player]['attic'] = false;
+        }, 50);
     }
 
     $scope.isMyTurn = function () {
