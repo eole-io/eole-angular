@@ -50,9 +50,9 @@
                     <button
                         type="button"
                         class="btn btn-default box p{{ screenPlayer1 }}"
-                        ng-class="{highlight: isMyTurn() && seeds}"
+                        ng-class="{highlight: canMoveContainer(seeds)}"
                         ng-click="move(reverseBoard ? (5 - $index) : $index)"
-                        ng-disabled="!isMyTurn() || !seeds"
+                        ng-disabled="!canMoveContainer(seeds)"
                     >
                         <div class="seeds">
                             <div
@@ -88,7 +88,7 @@
         <!-- Players and scores -->
         <div class="row">
             <div class="p0 col-xs-6">
-                <p>
+                <p ng-class="{lead: 0 === winner, small: 1 === winner}">
                     <span class="pseudo">
                         {{ party.slots[0].player.username || 'waiting.for.join'|translate }}
                     </span>
@@ -96,7 +96,7 @@
                 </p>
             </div>
             <div class="p1 col-xs-6">
-                <p>
+                <p ng-class="{lead: 1 === winner, small: 0 === winner}">
                     <span class="score">{{ grid[1].attic }}</span>
                     <span class="pseudo" ng-if="!displayJoinButton">
                         {{ party.slots[1].player.username || 'waiting.for.join'|translate }}
@@ -108,5 +108,5 @@
             </div>
         </div>
     </div>
-    <p class="text-center">Victory conditions</p>
+    <p class="text-center lead">{{ bottomText }}</p>
 </div>

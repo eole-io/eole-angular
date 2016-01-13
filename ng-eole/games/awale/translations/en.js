@@ -2,6 +2,7 @@
 
 ngEole.config(['$translateProvider', function ($translateProvider) {
     $translateProvider.translations('en', {
-        awale: 'Awele'
+        awale: 'Awele',
+        '{username}.won': '{{username}} won the game !'
     });
 }]);

@@ -7,18 +7,20 @@ ngEole.config(['$routeProvider', function ($routeProvider) {
     });
 }]);
 
-ngEole.controller('AwaleController', ['$scope', '$routeParams', 'eoleApi', 'eoleWs', '$timeout', 'partyManager', 'eoleSession', function ($scope, $routeParams, eoleApi, eoleWs, $timeout, partyManager, eoleSession) {
+ngEole.controller('AwaleController', ['$scope', '$routeParams', 'eoleApi', 'eoleWs', '$timeout', 'partyManager', 'eoleSession', '$translate', function ($scope, $routeParams, eoleApi, eoleWs, $timeout, partyManager, eoleSession, $translate) {
     var ANIMATION_DELAY = 250;
     var partyId = $routeParams.partyId;
     var seedsCoords = new AwaleSeeds({x: 19, y: 19});
     var playerPosition = null;
     $scope.currentPlayer = null;
     $scope.reverseBoard = false;
+    $scope.winner = null;
     $scope.screenPlayer0 = 0;
     $scope.screenPlayer1 = 1;
     $scope.displayJoinButton = false;
     $scope.party = {};
     $scope.seedsCoords = seedsCoords.toStyle();
+    $scope.bottomText = '';
     $scope.grid = [
         {
             seeds: [0, 0, 0, 0, 0, 0],
@@ -52,8 +54,10 @@ ngEole.controller('AwaleController', ['$scope', '$routeParams', 'eoleApi', 'eole
         $scope.party = awaleParty.party;
         $scope.grid = awaleParty.grid;
         $scope.currentPlayer = awaleParty.current_player;
+        $scope.winner = awaleParty.winner;
         updateBoardVariables();
         updateSeedsCoords();
+        updateWinner();
     });
 
     eoleWs.sessionPromise.then(function (ws) {
@@ -69,6 +73,12 @@ ngEole.controller('AwaleController', ['$scope', '$routeParams', 'eoleApi', 'eole
                 case 'played':
                     animate(event.move.player, event.move.move);
                     $scope.currentPlayer = event.current_player;
+                    break;
+
+                case 'party_end':
+                    $scope.party.state = 2;
+                    $scope.winner = event.winner;
+                    updateWinner();
                     break;
             }
 
@@ -155,7 +165,35 @@ ngEole.controller('AwaleController', ['$scope', '$routeParams', 'eoleApi', 'eole
         $scope.seedsCoords = seedsCoords.toStyle();
     }
 
+    function updateWinner() {
+        if (-1 !== [0, 1].indexOf($scope.winner)) {
+            $translate('{username}.won', $scope.party.slots[$scope.winner].player).then(function (message) {
+                $scope.bottomText = message;
+            });
+        } else {
+            $translate('party.drawn').then(function (message) {
+                $scope.bottomText = message;
+            });
+        }
+    }
+
     $scope.isMyTurn = function () {
         return (null !== playerPosition) && ($scope.currentPlayer === playerPosition);
+    };
+
+    $scope.canMove = function () {
+        return $scope.isPartyActive() && $scope.isMyTurn();
+    };
+
+    $scope.canMoveContainer = function (seedNumber) {
+        return $scope.canMove() && seedNumber;
+    };
+
+    $scope.isPartyActive = function () {
+        if (!$scope.party) {
+            return false;
+        }
+
+        return 1 === $scope.party.state;
     };
 }]);
