@@ -29,7 +29,12 @@
                     <button
                         type="button"
                         class="btn btn-default box p{{ screenPlayer0 }}"
-                        ng-class="{flash: flashed[screenPlayer0]['seeds'][reverseBoard ? (5 - $index) : $index]}"
+                        ng-class="{
+                            flash: flashed[screenPlayer0]['seeds'][reverseBoard ? (5 - $index) : $index],
+                            'move-start': -1 !== displayMove[screenPlayer0][reverseBoard ? (5 - $index) : $index].indexOf('start'),
+                            'move-feed':  -1 !== displayMove[screenPlayer0][reverseBoard ? (5 - $index) : $index].indexOf('feed'),
+                            'move-eat':   -1 !== displayMove[screenPlayer0][reverseBoard ? (5 - $index) : $index].indexOf('eat')
+                        }"
                         disabled="disabled"
                     >
                         <div class="seeds">
@@ -52,7 +57,13 @@
                     <button
                         type="button"
                         class="btn btn-default box p{{ screenPlayer1 }}"
-                        ng-class="{highlight: canMoveContainer(seeds), flash: flashed[screenPlayer1]['seeds'][reverseBoard ? (5 - $index) : $index]}"
+                        ng-class="{
+                            highlight: canMoveContainer(seeds),
+                            flash: flashed[screenPlayer1]['seeds'][reverseBoard ? (5 - $index) : $index],
+                            'move-start': -1 !== displayMove[screenPlayer1][reverseBoard ? (5 - $index) : $index].indexOf('start'),
+                            'move-feed':  -1 !== displayMove[screenPlayer1][reverseBoard ? (5 - $index) : $index].indexOf('feed'),
+                            'move-eat':   -1 !== displayMove[screenPlayer1][reverseBoard ? (5 - $index) : $index].indexOf('eat')
+                        }"
                         ng-click="move(reverseBoard ? (5 - $index) : $index)"
                         ng-disabled="!canMoveContainer(seeds)"
                     >

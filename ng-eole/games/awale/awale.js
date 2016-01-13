@@ -41,6 +41,8 @@ ngEole.controller('AwaleController', ['$scope', '$routeParams', 'eoleApi', 'eole
             attic: false
         }
     ];
+    $scope.displayMove = null;
+    initDisplayMove();
 
     $scope.join = function () {
         eoleApi.joinParty(eoleSession.player, 'awale', partyId);
@@ -56,6 +58,7 @@ ngEole.controller('AwaleController', ['$scope', '$routeParams', 'eoleApi', 'eole
             $scope.currentPlayer = 1 - $scope.currentPlayer;
         });
 
+        initDisplayMove();
         animate(playerPosition, move);
         $scope.currentPlayer = 1 - $scope.currentPlayer;
     };
@@ -81,6 +84,9 @@ ngEole.controller('AwaleController', ['$scope', '$routeParams', 'eoleApi', 'eole
                     break;
 
                 case 'played':
+                    if (playerPosition !== event.move.player) {
+                        initDisplayMove();
+                    }
                     animate(event.move.player, event.move.move);
                     $scope.currentPlayer = event.current_player;
                     break;
@@ -143,10 +149,13 @@ ngEole.controller('AwaleController', ['$scope', '$routeParams', 'eoleApi', 'eole
         }
 
         angular.forEach(animationSteps, function (step, i) {
+            $scope.displayMove[animationSteps[0][0]][animationSteps[0][1]].push('start');
+
             $timeout(function () {
                 if ('store' === step[2]) {
                     $scope.grid[1 - step[0]]['attic'] += $scope.grid[step[0]]['seeds'][step[1]];
                     $scope.grid[step[0]]['seeds'][step[1]] = 0;
+                    $scope.displayMove[step[0]][step[1]].push('eat');
                     flashAttic(1 - step[0]);
                 } else {
                     $scope.grid[step[0]]['seeds'][step[1]] += step[2];
@@ -156,6 +165,7 @@ ngEole.controller('AwaleController', ['$scope', '$routeParams', 'eoleApi', 'eole
                     }
                 }
 
+                $scope.displayMove[step[0]][step[1]].push('feed');
                 flashBox(step[0], step[1]);
 
                 updateSeedsCoords();
@@ -204,6 +214,13 @@ ngEole.controller('AwaleController', ['$scope', '$routeParams', 'eoleApi', 'eole
         $timeout(function () {
             $scope.flashed[player]['attic'] = false;
         }, 50);
+    }
+
+    function initDisplayMove() {
+        $scope.displayMove = [
+            [[], [], [], [], [], []],
+            [[], [], [], [], [], []]
+        ];
     }
 
     $scope.isMyTurn = function () {

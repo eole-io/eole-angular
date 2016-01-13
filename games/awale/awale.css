@@ -38,6 +38,15 @@
     opacity: 0;
     transition: opacity 0ms;
 }
+.box.move-feed {
+    border: 1px solid black;
+}
+.box.move-eat {
+    border: 1px solid red;
+}
+.box.move-start {
+    border: 1px solid #0C0;
+}
 .box .value {
     position: relative;
     font-weight: bold;
