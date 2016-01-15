@@ -75,9 +75,9 @@ ngEole.controller('AwaleController', ['$scope', '$routeParams', 'eoleApi', 'eole
                 case 'played':
                     if (playerPosition !== event.move.player) {
                         initLastMove();
+                        animate(event.move.player, event.move.move);
+                        $scope.currentPlayer = event.current_player;
                     }
-                    animate(event.move.player, event.move.move);
-                    $scope.currentPlayer = event.current_player;
                     break;
 
                 case 'party_end':
