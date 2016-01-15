@@ -42,6 +42,7 @@ ngEole.controller('AwaleController', ['$scope', '$routeParams', 'eoleApi', 'eole
         }
     ];
     $scope.displayMove = null;
+    var animationThreads = [];
     initDisplayMove();
 
     $scope.join = function () {
@@ -49,13 +50,19 @@ ngEole.controller('AwaleController', ['$scope', '$routeParams', 'eoleApi', 'eole
     };
 
     $scope.move = function (move) {
+        var lastGrid = cloneGrid($scope.grid);
+
         eoleApi.callGame('awale', 'post', 'play', eoleSession.player, {
             move: move,
             party_id: partyId
         }).then(function (r) {
             $scope.currentPlayer = r.currentPlayer;
         }).catch(function (r) {
+            stopAnimation();
+            $scope.grid = lastGrid;
             $scope.currentPlayer = 1 - $scope.currentPlayer;
+            updateSeedsCoords();
+            initDisplayMove();
         });
 
         initDisplayMove();
@@ -107,7 +114,7 @@ ngEole.controller('AwaleController', ['$scope', '$routeParams', 'eoleApi', 'eole
 
         var _player = player;
         var _move = move;
-        var simulationGrid = JSON.parse(JSON.stringify($scope.grid));
+        var simulationGrid = cloneGrid($scope.grid);
         var hand = simulationGrid[player]['seeds'][move];
 
         animationSteps.push([player, move, - simulationGrid[player]['seeds'][move]]);
@@ -151,7 +158,7 @@ ngEole.controller('AwaleController', ['$scope', '$routeParams', 'eoleApi', 'eole
         angular.forEach(animationSteps, function (step, i) {
             $scope.displayMove[animationSteps[0][0]][animationSteps[0][1]].push('start');
 
-            $timeout(function () {
+            var thread = $timeout(function () {
                 if ('store' === step[2]) {
                     $scope.grid[1 - step[0]]['attic'] += $scope.grid[step[0]]['seeds'][step[1]];
                     $scope.grid[step[0]]['seeds'][step[1]] = 0;
@@ -170,7 +177,15 @@ ngEole.controller('AwaleController', ['$scope', '$routeParams', 'eoleApi', 'eole
 
                 updateSeedsCoords();
             }, i * ANIMATION_DELAY);
+
+            animationThreads.push(thread);
         });
+    }
+
+    function stopAnimation() {
+        while (animationThreads.length > 0) {
+            clearTimeout(animationThreads.pop());
+        }
     }
 
     function updateBoardVariables() {
@@ -242,4 +257,8 @@ ngEole.controller('AwaleController', ['$scope', '$routeParams', 'eoleApi', 'eole
 
         return 1 === $scope.party.state;
     };
+
+    function cloneGrid(grid) {
+        return JSON.parse(JSON.stringify(grid));
+    }
 }]);
