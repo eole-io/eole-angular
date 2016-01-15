@@ -31,9 +31,9 @@
                         class="btn btn-default box p{{ screenPlayer0 }}"
                         ng-class="{
                             flash: flashed[screenPlayer0]['seeds'][reverseBoard ? (5 - $index) : $index],
-                            'move-start': -1 !== displayMove[screenPlayer0][reverseBoard ? (5 - $index) : $index].indexOf('start'),
-                            'move-feed':  -1 !== displayMove[screenPlayer0][reverseBoard ? (5 - $index) : $index].indexOf('feed'),
-                            'move-eat':   -1 !== displayMove[screenPlayer0][reverseBoard ? (5 - $index) : $index].indexOf('eat')
+                            'move-start': -1 !== lastMove[screenPlayer0][reverseBoard ? (5 - $index) : $index].indexOf('start'),
+                            'move-feed':  -1 !== lastMove[screenPlayer0][reverseBoard ? (5 - $index) : $index].indexOf('feed'),
+                            'move-eat':   -1 !== lastMove[screenPlayer0][reverseBoard ? (5 - $index) : $index].indexOf('eat')
                         }"
                         disabled="disabled"
                     >
@@ -60,9 +60,9 @@
                         ng-class="{
                             highlight: canMoveContainer(seeds),
                             flash: flashed[screenPlayer1]['seeds'][reverseBoard ? (5 - $index) : $index],
-                            'move-start': -1 !== displayMove[screenPlayer1][reverseBoard ? (5 - $index) : $index].indexOf('start'),
-                            'move-feed':  -1 !== displayMove[screenPlayer1][reverseBoard ? (5 - $index) : $index].indexOf('feed'),
-                            'move-eat':   -1 !== displayMove[screenPlayer1][reverseBoard ? (5 - $index) : $index].indexOf('eat')
+                            'move-start': -1 !== lastMove[screenPlayer1][reverseBoard ? (5 - $index) : $index].indexOf('start'),
+                            'move-feed':  -1 !== lastMove[screenPlayer1][reverseBoard ? (5 - $index) : $index].indexOf('feed'),
+                            'move-eat':   -1 !== lastMove[screenPlayer1][reverseBoard ? (5 - $index) : $index].indexOf('eat')
                         }"
                         ng-click="move(reverseBoard ? (5 - $index) : $index)"
                         ng-disabled="!canMoveContainer(seeds)"
@@ -102,7 +102,7 @@
         <!-- Players and scores -->
         <div class="row">
             <div class="p0 col-xs-6">
-                <p ng-class="{lead: 0 === winner, small: 1 === winner}">
+                <p ng-class="{lead: 0 === winner || -1 === winner, small: 1 === winner}">
                     <span class="pseudo">
                         {{ party.slots[0].player.username || 'waiting.for.join'|translate }}
                     </span>
@@ -110,7 +110,7 @@
                 </p>
             </div>
             <div class="p1 col-xs-6">
-                <p ng-class="{lead: 1 === winner, small: 0 === winner}">
+                <p ng-class="{lead: 1 === winner || -1 === winner, small: 0 === winner}">
                     <span class="score">{{ grid[1].attic }}</span>
                     <span class="pseudo" ng-if="!displayJoinButton">
                         {{ party.slots[1].player.username || 'waiting.for.join'|translate }}

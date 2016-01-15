@@ -7,7 +7,7 @@ ngEole.config(['$routeProvider', function ($routeProvider) {
     });
 }]);
 
-ngEole.controller('AwaleController', ['$scope', '$routeParams', 'eoleApi', 'eoleWs', '$timeout', 'partyManager', 'eoleSession', '$translate', function ($scope, $routeParams, eoleApi, eoleWs, $timeout, partyManager, eoleSession, $translate) {
+ngEole.controller('AwaleController', ['$scope', '$routeParams', 'eoleApi', 'eoleWs', '$timeout', 'partyManager', 'eoleSession', '$translate', 'gridManager', 'animHighlight', function ($scope, $routeParams, eoleApi, eoleWs, $timeout, partyManager, eoleSession, $translate, gridManager, animHighlight) {
     var ANIMATION_DELAY = 250;
     var partyId = $routeParams.partyId;
     var seedsCoords = new AwaleSeeds({x: 19, y: 19});
@@ -21,36 +21,18 @@ ngEole.controller('AwaleController', ['$scope', '$routeParams', 'eoleApi', 'eole
     $scope.party = {};
     $scope.seedsCoords = seedsCoords.toStyle();
     $scope.bottomText = '';
-    $scope.grid = [
-        {
-            seeds: [0, 0, 0, 0, 0, 0],
-            attic: 0
-        },
-        {
-            seeds: [0, 0, 0, 0, 0, 0],
-            attic: 0
-        }
-    ];
-    $scope.flashed = [
-        {
-            seeds: [false, false, false, false, false, false],
-            attic: false
-        },
-        {
-            seeds: [false, false, false, false, false, false],
-            attic: false
-        }
-    ];
-    $scope.displayMove = null;
+    $scope.grid = gridManager.createInitGrid();
+    $scope.flashed = animHighlight.initFlashGrid();
+    $scope.lastMove = null;
     var animationThreads = [];
-    initDisplayMove();
+    initLastMove();
 
     $scope.join = function () {
         eoleApi.joinParty(eoleSession.player, 'awale', partyId);
     };
 
     $scope.move = function (move) {
-        var lastGrid = cloneGrid($scope.grid);
+        var lastGrid = gridManager.cloneGrid($scope.grid);
 
         eoleApi.callGame('awale', 'post', 'play', eoleSession.player, {
             move: move,
@@ -62,10 +44,10 @@ ngEole.controller('AwaleController', ['$scope', '$routeParams', 'eoleApi', 'eole
             $scope.grid = lastGrid;
             $scope.currentPlayer = 1 - $scope.currentPlayer;
             updateSeedsCoords();
-            initDisplayMove();
+            initLastMove();
         });
 
-        initDisplayMove();
+        initLastMove();
         animate(playerPosition, move);
         $scope.currentPlayer = 1 - $scope.currentPlayer;
     };
@@ -92,7 +74,7 @@ ngEole.controller('AwaleController', ['$scope', '$routeParams', 'eoleApi', 'eole
 
                 case 'played':
                     if (playerPosition !== event.move.player) {
-                        initDisplayMove();
+                        initLastMove();
                     }
                     animate(event.move.player, event.move.move);
                     $scope.currentPlayer = event.current_player;
@@ -114,11 +96,11 @@ ngEole.controller('AwaleController', ['$scope', '$routeParams', 'eoleApi', 'eole
 
         var _player = player;
         var _move = move;
-        var simulationGrid = cloneGrid($scope.grid);
-        var hand = simulationGrid[player]['seeds'][move];
+        var simulationGrid = gridManager.cloneGrid($scope.grid);
+        var hand = gridManager.getSeedsNumber(simulationGrid, player, move);
 
-        animationSteps.push([player, move, - simulationGrid[player]['seeds'][move]]);
-        simulationGrid[player]['seeds'][move] = 0;
+        animationSteps.push([player, move, - gridManager.getSeedsNumber(simulationGrid, player, move)]);
+        gridManager.clearSeedsNumber(simulationGrid, player, move);
 
         while (hand > 0) {
             if (0 === _player) {
@@ -142,38 +124,33 @@ ngEole.controller('AwaleController', ['$scope', '$routeParams', 'eoleApi', 'eole
             }
 
             hand--;
-            simulationGrid[_player]['seeds'][_move]++;
+            gridManager.addSeeds(simulationGrid, _player, _move, 1);
             animationSteps.push([_player, _move, 1]);
         }
 
         while (
             (_player !== player) &&
             (-1 !== [0, 1, 2, 3, 4, 5].indexOf(_move)) &&
-            (-1 !== [2, 3].indexOf(simulationGrid[_player]['seeds'][_move]))
+            (gridManager.has2Or3Seeds(simulationGrid, _player, _move))
         ) {
             animationSteps.push([_player, _move, 'store']);
             _move += _player ? -1 : 1;
         }
 
         angular.forEach(animationSteps, function (step, i) {
-            $scope.displayMove[animationSteps[0][0]][animationSteps[0][1]].push('start');
+            $scope.lastMove[animationSteps[0][0]][animationSteps[0][1]].push('start');
 
             var thread = $timeout(function () {
                 if ('store' === step[2]) {
-                    $scope.grid[1 - step[0]]['attic'] += $scope.grid[step[0]]['seeds'][step[1]];
-                    $scope.grid[step[0]]['seeds'][step[1]] = 0;
-                    $scope.displayMove[step[0]][step[1]].push('eat');
-                    flashAttic(1 - step[0]);
+                    gridManager.storeSeeds($scope.grid, step[0], step[1])
+                    $scope.lastMove[step[0]][step[1]].push('eat');
+                    animHighlight.flashAttic($scope.flashed, 1 - step[0]);
                 } else {
-                    $scope.grid[step[0]]['seeds'][step[1]] += step[2];
-
-                    if ($scope.grid[step[0]]['seeds'][step[1]] < 0) {
-                        $scope.grid[step[0]]['seeds'][step[1]] = 0;
-                    }
+                    gridManager.addSeeds($scope.grid, step[0], step[1], step[2]);
                 }
 
-                $scope.displayMove[step[0]][step[1]].push('feed');
-                flashBox(step[0], step[1]);
+                $scope.lastMove[step[0]][step[1]].push('feed');
+                animHighlight.flashBox($scope.flashed, step[0], step[1]);
 
                 updateSeedsCoords();
             }, i * ANIMATION_DELAY);
@@ -215,24 +192,8 @@ ngEole.controller('AwaleController', ['$scope', '$routeParams', 'eoleApi', 'eole
         }
     }
 
-    function flashBox(player, box) {
-        $scope.flashed[player]['seeds'][box] = true;
-
-        $timeout(function () {
-            $scope.flashed[player]['seeds'][box] = false;
-        }, 50);
-    }
-
-    function flashAttic(player) {
-        $scope.flashed[player]['attic'] = true;
-
-        $timeout(function () {
-            $scope.flashed[player]['attic'] = false;
-        }, 50);
-    }
-
-    function initDisplayMove() {
-        $scope.displayMove = [
+    function initLastMove() {
+        $scope.lastMove = [
             [[], [], [], [], [], []],
             [[], [], [], [], [], []]
         ];
@@ -257,8 +218,4 @@ ngEole.controller('AwaleController', ['$scope', '$routeParams', 'eoleApi', 'eole
 
         return 1 === $scope.party.state;
     };
-
-    function cloneGrid(grid) {
-        return JSON.parse(JSON.stringify(grid));
-    }
 }]);
