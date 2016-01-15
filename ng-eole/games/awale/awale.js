@@ -187,10 +187,12 @@ ngEole.controller('AwaleController', ['$scope', '$routeParams', 'eoleApi', 'eole
             $translate('{username}.won', $scope.party.slots[$scope.winner].player).then(function (message) {
                 $scope.bottomText = message;
             });
-        } else {
+        } else if (-1 === $scope.winner) {
             $translate('party.drawn').then(function (message) {
                 $scope.bottomText = message;
             });
+        } else {
+            $scope.bottomText = '';
         }
     }
 

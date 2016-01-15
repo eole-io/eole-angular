@@ -102,7 +102,7 @@
         <!-- Players and scores -->
         <div class="row">
             <div class="p0 col-xs-6">
-                <p ng-class="{lead: 0 === winner || -1 === winner, small: 1 === winner}">
+                <p ng-class="{lead: (0 === winner) || (-1 === winner), small: 1 === winner}">
                     <span class="pseudo">
                         {{ party.slots[0].player.username || 'waiting.for.join'|translate }}
                     </span>
@@ -110,7 +110,7 @@
                 </p>
             </div>
             <div class="p1 col-xs-6">
-                <p ng-class="{lead: 1 === winner || -1 === winner, small: 0 === winner}">
+                <p ng-class="{lead: (1 === winner) || (-1 === winner), small: 0 === winner}">
                     <span class="score">{{ grid[1].attic }}</span>
                     <span class="pseudo" ng-if="!displayJoinButton">
                         {{ party.slots[1].player.username || 'waiting.for.join'|translate }}
