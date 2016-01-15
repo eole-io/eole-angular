@@ -50,12 +50,32 @@ ngEole.factory('gridManager', [function () {
             return that.setSeedsNumber(grid, player, box, 0);
         };
 
+        this.willStarveOpponent = function (grid, player, row, box) {
+            if ((0 === row && 0 === box) || (1 === row && 5 === box)) {
+                if ((row !== player) && that.allSeedsVulnerable(grid, row)) {
+                    return true;
+                }
+            }
+
+            return false;
+        };
+
         this.cloneGrid = function (grid) {
             return JSON.parse(JSON.stringify(grid));
         };
 
         this.has2Or3Seeds = function (grid, row, box) {
             return -1 !== [2, 3].indexOf(grid[row]['seeds'][box]);
+        };
+
+        this.allSeedsVulnerable = function (grid, row) {
+            for (var i = 0; i < 5; i++) {
+                if (!that.has2Or3Seeds(grid, row, i)) {
+                    return false;
+                }
+            }
+
+            return true;
         };
     };
 

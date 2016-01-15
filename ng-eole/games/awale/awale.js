@@ -128,13 +128,15 @@ ngEole.controller('AwaleController', ['$scope', '$routeParams', 'eoleApi', 'eole
             animationSteps.push([_player, _move, 1]);
         }
 
-        while (
-            (_player !== player) &&
-            (-1 !== [0, 1, 2, 3, 4, 5].indexOf(_move)) &&
-            (gridManager.has2Or3Seeds(simulationGrid, _player, _move))
-        ) {
-            animationSteps.push([_player, _move, 'store']);
-            _move += _player ? -1 : 1;
+        if (!gridManager.willStarveOpponent(simulationGrid, player, _player, _move)) {
+            while (
+                (_player !== player) &&
+                (-1 !== [0, 1, 2, 3, 4, 5].indexOf(_move)) &&
+                (gridManager.has2Or3Seeds(simulationGrid, _player, _move))
+            ) {
+                animationSteps.push([_player, _move, 'store']);
+                _move += _player ? -1 : 1;
+            }
         }
 
         angular.forEach(animationSteps, function (step, i) {
