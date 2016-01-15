@@ -163,7 +163,7 @@ ngEole.controller('AwaleController', ['$scope', '$routeParams', 'eoleApi', 'eole
 
     function stopAnimation() {
         while (animationThreads.length > 0) {
-            clearTimeout(animationThreads.pop());
+            $timeout.cancel(animationThreads.pop());
         }
     }
 
