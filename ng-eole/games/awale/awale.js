@@ -64,8 +64,6 @@ ngEole.controller('AwaleController', ['$scope', '$routeParams', 'eoleApi', 'eole
 
     eoleWs.sessionPromise.then(function (ws) {
         ws.subscribe('eole/games/awale/parties/'+partyId, function (topic, event) {
-            console.log(event);
-
             switch (event.type) {
                 case 'join':
                     $scope.party = event.party;
