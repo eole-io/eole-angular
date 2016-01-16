@@ -1,0 +1,130 @@
+.awale-board {
+    max-width: 800px;
+    margin: 2em auto 0 auto;
+}
+.awale-board .row:first-child {
+    margin-bottom: 16px;
+}
+.awale-board .col:first-child .attic {
+    margin-left: 38px;
+}
+
+.p0.box {
+    background: linear-gradient(to bottom, #FFB1B1 0px, lightCoral 100%);
+}
+.p1.box {
+    background: linear-gradient(to bottom, #BFEAEE 0px, lightBlue 100%);
+}
+.p0.box:hover {
+    background: linear-gradient(to bottom, #FFB1B1 0px, #F58585 100%);
+}
+.p1.box:hover {
+    background: linear-gradient(to bottom, #C4EFF3 0px, #B0DBE9 100%);
+}
+
+.box {
+    border-radius: 1000px;
+    width: 64px;
+    height: 64px;
+    outline: none !important;
+    overflow: hidden;
+    padding: 0;
+    transition: opacity 200ms ease;
+}
+.box[disabled] {
+    opacity: 1;
+}
+.box.flash {
+    opacity: 0;
+    transition: opacity 0ms;
+}
+.box.move-feed {
+    border: 1px solid black;
+}
+.box.move-eat {
+    border: 1px solid red;
+}
+.box.move-start {
+    border: 1px solid #0C0;
+}
+.box .value {
+    position: relative;
+    font-weight: bold;
+    font-size: 16px;
+    margin-top: 28px;
+    background-color: rgba(255, 255, 255, 0.35);
+    padding: 0 0 10px;
+    width: 62px;
+    top: 8px;
+}
+.attic .value {
+    top: 52px;
+}
+.box.highlight {
+    box-shadow: 0 2px 4px gray;
+}
+.box .change {
+    font-weight: bold;
+    font-size: 14px;
+    position: absolute;
+    margin-top: 4px;
+    text-shadow: 0 0 3px white;
+}
+.box .change.positive {
+    color: #009933;
+}
+.box .change.negative {
+    color: #AA3333;
+}
+.attic {
+    width: 64px;
+    height: 144px;
+}
+
+div.seeds {
+    position: relative;
+}
+div.seeds div.seed {
+    position: absolute;
+    width: 24px;
+    height: 24px;
+    background: url("seeds.png") repeat scroll 0 0 transparent;
+}
+
+.awale-players {
+    margin: 2em auto 0 auto;
+}
+.awale-players > div {
+    text-align: center;
+}
+.awale-players p {
+    font-size: 22px;
+    text-shadow: 0 1px 0px rgba(0, 0, 0, 0.3);
+    transition: font-size 0.8s ease;
+}
+.awale-players p.lead {
+    font-size: 26px;
+}
+.awale-players p.small {
+    font-size: 18px;
+}
+.awale-players .pseudo {
+}
+.awale-players .score {
+    font-weight: bold;
+    font-size: 32px;
+}
+.awale-players .p0 .score {
+    margin-left: 16px;
+}
+.awale-players .p1 .score {
+    margin-right: 16px;
+}
+.awale-players .p0 {
+    color: lightCoral;
+    text-align: right;
+}
+.awale-players .p1 {
+    color: lightBlue;
+    text-align: left;
+}

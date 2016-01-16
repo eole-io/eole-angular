@@ -3,82 +3,86 @@
 function EoleApiClient($http, $q, eoleApiUrl, wsseTokenGenerator, $httpParamSerializer) {
     var that = this;
 
-    this.getPlayers = function () {
+    /**
+     * @param {String} method 'get', 'post', ...
+     * @param {String} path example: 'api/players' (no starting slash).
+     * @param {Object} logged player with username, password and password_salt attributes.
+     * @param {Object} postData
+     *
+     * @returns {Promise}
+     */
+    this.call = function (method, path, loggedPlayer, postData) {
+        var headers = {};
+        var data = {};
+
+        if (loggedPlayer) {
+            headers['x-wsse'] = wsseTokenGenerator.createWsseToken(loggedPlayer.username, loggedPlayer.password, loggedPlayer.password_salt);
+        }
+
+        if (postData) {
+            headers['Content-Type'] = 'application/x-www-form-urlencoded';
+            data = $httpParamSerializer(postData);
+        }
+
         return $q(function (resolve, reject) {
             $http({
-                method: 'get',
-                url: eoleApiUrl+'api/players'
+                method: method,
+                url: eoleApiUrl+path,
+                headers: headers,
+                data: data
             }).then(function (r) {
                 resolve(r.data);
             }).catch(function (r) {
                 reject(r);
             });
         });
+    };
+
+    /**
+     * Api call for a game.
+     *
+     * @param {String} gameName
+     * @param {String} method 'get', 'post', ...
+     * @param {String} path example: 'api/players' (no starting slash).
+     * @param {Object} logged player with username, password and password_salt attributes.
+     * @param {Object} postData
+     *
+     * @returns {Promise}
+     */
+    this.callGame = function (gameName, method, path, loggedPlayer, postData) {
+        return that.call(method, 'api/games/'+gameName+'/'+path, loggedPlayer, postData);
+    };
+
+    this.getPlayers = function () {
+        return that.call('get', 'api/players');
     };
 
     this.getPlayer = function (username) {
-        return $q(function (resolve, reject) {
-            $http({
-                method: 'get',
-                url: eoleApiUrl+'api/players/'+username
-            }).then(function (r) {
-                resolve(r.data);
-            }).catch(function (r) {
-                reject(r);
-            });
-        });
+        return that.call('get', 'api/players/'+username);
     };
 
     this.createPlayer = function (username, password) {
-        return $q(function (resolve, reject) {
-            $http({
-                method: 'post',
-                url: eoleApiUrl+'api/players',
-                headers: {
-                    'Content-Type': 'application/x-www-form-urlencoded'
-                },
-                data: $httpParamSerializer({
-                    username: username,
-                    password: password
-                })
-            }).then(function (r) {
-                resolve(r.data);
-            }).catch(function (r) {
-                reject(r);
-            });
+        return that.call('post', 'api/players', false, {
+            username: username,
+            password: password
         });
     };
 
     this.createGuest = function (password) {
-        return $q(function (resolve, reject) {
-            $http({
-                method: 'post',
-                url: eoleApiUrl+'api/players/guest',
-                headers: {
-                    'Content-Type': 'application/x-www-form-urlencoded'
-                },
-                data: $httpParamSerializer({
-                    password: password
-                })
-            }).then(function (r) {
-                resolve(r.data);
-            }).catch(function (r) {
-                reject(r);
-            });
+        return that.call('post', 'api/players/guest', false, {
+            password: password
         });
     };
 
     this.authMe = function (username, password) {
         return $q(function (resolve, reject) {
             that.getPlayer(username).then(function (player) {
-                $http({
-                    method: 'get',
-                    url: eoleApiUrl+'api/auth/me',
-                    headers: {
-                        'x-wsse': wsseTokenGenerator.createWsseToken(player.username, password, player.password_salt)
-                    }
+                that.call('get', 'api/auth/me', {
+                    username: player.username,
+                    password: password,
+                    password_salt: player.password_salt
                 }).then(function (r) {
-                    resolve(r.data);
+                    resolve(r);
                 }).catch(function (r) {
                     reject(r);
                 });
@@ -89,99 +93,30 @@ function EoleApiClient($http, $q, eoleApiUrl, wsseTokenGenerator, $httpParamSeri
     };
 
     this.getGames = function () {
-        return $q(function (resolve, reject) {
-            $http({
-                method: 'get',
-                url: eoleApiUrl+'api/games'
-            }).then(function (r) {
-                resolve(r.data);
-            }).catch(function (r) {
-                reject(r);
-            });
-        });
+        return that.call('get', 'api/games');
     };
 
     this.getGameByName = function (name) {
-        return $q(function (resolve, reject) {
-            $http({
-                method: 'get',
-                url: eoleApiUrl+'api/games/'+name
-            }).then(function (r) {
-                resolve(r.data);
-            }).catch(function (r) {
-                reject(r);
-            });
-        });
+        return that.call('get', 'api/games/'+name);
     };
 
     this.createParty = function (gameName, host) {
-        return $q(function (resolve, reject) {
-            $http({
-                method: 'post',
-                url: eoleApiUrl+'api/games/'+gameName+'/parties',
-                headers: {
-                    'x-wsse': wsseTokenGenerator.createWsseToken(host.username, host.password, host.password_salt)
-                }
-            }).then(function (r) {
-                resolve(r.data);
-            }).catch(function (r) {
-                reject(r);
-            });
-        });
+        return that.call('post', 'api/games/'+gameName+'/parties', host);
     };
 
     this.getParties = function () {
-        return $q(function (resolve, reject) {
-            $http({
-                method: 'get',
-                url: eoleApiUrl+'api/parties'
-            }).then(function (r) {
-                resolve(r.data);
-            }).catch(function (r) {
-                reject(r);
-            });
-        });
+        return that.call('get', 'api/parties/');
     };
 
     this.getPartiesForGame = function (gameName) {
-        return $q(function (resolve, reject) {
-            $http({
-                method: 'get',
-                url: eoleApiUrl+'api/games/'+gameName+'/parties'
-            }).then(function (r) {
-                resolve(r.data);
-            }).catch(function (r) {
-                reject(r);
-            });
-        });
+        return that.call('get', 'api/games/'+gameName+'/parties');
     };
 
     this.getParty = function (gameName, partyId) {
-        return $q(function (resolve, reject) {
-            $http({
-                method: 'get',
-                url: eoleApiUrl+'api/games/'+gameName+'/parties/'+partyId
-            }).then(function (r) {
-                resolve(r.data);
-            }).catch(function (r) {
-                reject(r);
-            });
-        });
+        return that.call('get', 'api/games/'+gameName+'/parties/'+partyId);
     };
 
     this.joinParty = function (player, gameName, partyId) {
-        return $q(function (resolve, reject) {
-            $http({
-                method: 'patch',
-                url: eoleApiUrl+'api/games/'+gameName+'/parties/'+partyId+'/join',
-                headers: {
-                    'x-wsse': wsseTokenGenerator.createWsseToken(player.username, player.password, player.password_salt)
-                }
-            }).then(function (r) {
-                resolve(r.data);
-            }).catch(function (r) {
-                reject(r);
-            });
-        });
+        return that.call('patch', 'api/games/'+gameName+'/parties/'+partyId+'/join', player);
     };
 }
