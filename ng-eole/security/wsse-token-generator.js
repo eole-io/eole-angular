@@ -1,6 +1,9 @@
 'use strict';
 
-function WsseTokenGenerator() {
+/**
+ * @param {PasswordEncoder} passwordEncoder
+ */
+function WsseTokenGenerator(passwordEncoder) {
     var that = this;
 
     /**
@@ -16,7 +19,7 @@ function WsseTokenGenerator() {
     {
         var nonce = Math.random().toString(36).substr(2);
         var created = new Date().toISOString();
-        var secret = that.encodePassword(password, password_salt);
+        var secret = passwordEncoder.encodePassword(password, password_salt);
         var digest = CryptoJS.SHA1(nonce+created+secret).toString(CryptoJS.enc.Base64);
 
         return {
@@ -47,27 +50,5 @@ function WsseTokenGenerator() {
             .replace('_nonce_', tokenValues.nonce)
             .replace('_created_', tokenValues.created)
         ;
-    };
-
-    /**
-     * Encode a password as default Symfony algorithm does.
-     *
-     * @param {String} password
-     * @param {String} password_salt
-     *
-     * @returns {String}
-     */
-    this.encodePassword = function (password, password_salt)
-    {
-        if (!password) {
-            throw new Error('Password must be defined.');
-        }
-
-        if (!password_salt) {
-            throw new Error('Salt must be defined.');
-        }
-
-        var encoder = new CryptoJsPasswordEncoder('sha512', true, 42);
-        return encoder.encodePassword(password, password_salt);
     };
 }
