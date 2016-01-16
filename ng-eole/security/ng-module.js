@@ -2,7 +2,7 @@ angular.module('eoleSecurity', [])
     .factory('passwordEncoder', [function () {
         return new PasswordEncoder();
     }])
-    .factory('wsseTokenGenerator', [function () {
-        return new WsseTokenGenerator();
+    .factory('wsseTokenGenerator', ['passwordEncoder', function (passwordEncoder) {
+        return new WsseTokenGenerator(passwordEncoder);
     }])
 ;
