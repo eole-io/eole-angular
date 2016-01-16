@@ -1,3 +1,5 @@
+'use strict';
+
 ngEole.factory('eoleSession', ['locker', 'eoleApi', '$rootScope', function (locker, eoleApi, $rootScope) {
     var eoleSession = {
 
@@ -28,7 +30,7 @@ ngEole.factory('eoleSession', ['locker', 'eoleApi', '$rootScope', function (lock
          * @returns {Promise} Created guest.
          */
         loginAsGuest: function () {
-            var password = Math.random().toString(36).substr(2) + Math.random().toString(36).substr(2);
+            var password = eoleSession.generateRandomPassword();
             var promise = eoleApi.createGuest(password);
 
             promise.then(function (player) {
@@ -38,6 +40,13 @@ ngEole.factory('eoleSession', ['locker', 'eoleApi', '$rootScope', function (lock
             });
 
             return promise;
+        },
+
+        /**
+         * @returns {String}
+         */
+        generateRandomPassword: function () {
+            return Math.random().toString(36).substr(2) + Math.random().toString(36).substr(2);
         },
 
         /**
