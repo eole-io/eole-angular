@@ -1,16 +1,6 @@
 'use strict';
 
-angular.module('eoleWs', []).factory('eoleWs', ['$q', 'eoleSession', 'wsseTokenGenerator', '$rootScope', 'webSocketUri', function ($q, eoleSession, wsseTokenGenerator, $rootScope, webSocketUri) {
-    var generateWsseToken = function () {
-        var wsseTokenValues = wsseTokenGenerator.createWsseTokenValues(
-            eoleSession.player.username,
-            eoleSession.player.password,
-            eoleSession.player.password_salt
-        );
-
-        return btoa(JSON.stringify(wsseTokenValues));
-    };
-
+angular.module('eoleWs', []).factory('eoleWs', ['$q', 'eoleSession', '$rootScope', 'webSocketUri', function ($q, eoleSession, $rootScope, webSocketUri) {
     // Override autobahn _connect method to add a new wsse token on connect
     ab._connect_old = ab._connect;
 
@@ -20,7 +10,7 @@ angular.module('eoleWs', []).factory('eoleWs', ['$q', 'eoleSession', 'wsseTokenG
             wsuri.wsuri = wsuri.wsuri.substr(0, lastPosition);
         }
 
-        wsuri.wsuri += '/?wsse_token='+generateWsseToken();
+        wsuri.wsuri += '/?wsse_token=XXX';
 
         console.log('connect', wsuri);
         return ab._connect_old(wsuri, onconnect, onhangup, options);

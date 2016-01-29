@@ -3,10 +3,10 @@ angular.module('eoleApi', [])
         '$http',
         '$q',
         'eoleApiUrl',
-        'wsseTokenGenerator',
         '$httpParamSerializer',
-        function ($http, $q, eoleApiUrl, wsseTokenGenerator, $httpParamSerializer) {
-            return new EoleApiClient($http, $q, eoleApiUrl, wsseTokenGenerator, $httpParamSerializer);
+        'oauthConfig',
+        function ($http, $q, eoleApiUrl, $httpParamSerializer, oauthConfig) {
+            return new EoleApiClient($http, $q, eoleApiUrl, $httpParamSerializer, oauthConfig);
         }
     ])
 ;

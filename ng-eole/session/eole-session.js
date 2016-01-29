@@ -1,12 +1,19 @@
 'use strict';
 
-ngEole.factory('eoleSession', ['locker', 'eoleApi', '$rootScope', function (locker, eoleApi, $rootScope) {
+ngEole.factory('eoleSession', ['$q', 'locker', 'eoleApi', '$rootScope', function ($q, locker, eoleApi, $rootScope) {
     var eoleSession = {
 
         /**
          * {Object}
          */
         player: null,
+
+        /**
+         * A token object with keys "access_token", "token_type" and "expires_in".
+         *
+         * {Object}
+         */
+        oauthToken: null,
 
         /**
          * @param {Object} player
@@ -31,12 +38,15 @@ ngEole.factory('eoleSession', ['locker', 'eoleApi', '$rootScope', function (lock
          */
         loginAsGuest: function () {
             var password = eoleSession.generateRandomPassword();
-            var promise = eoleApi.createGuest(password);
-
-            promise.then(function (player) {
-                player.password = password;
-                eoleSession.setAndSavePlayer(player);
-                eoleSession.dispatchLoggedEvent();
+            var promise = $q(function (resolve, reject) {
+                eoleApi.createGuest(password).then(function (player) {
+                    eoleApi.createOAuth2Token(player.username, password).then(function (token) {
+                        eoleSession.oauthToken = token;
+                        eoleSession.setAndSavePlayer(player);
+                        eoleSession.dispatchLoggedEvent();
+                        resolve(player);
+                    });
+                });
             });
 
             return promise;
@@ -53,13 +63,17 @@ ngEole.factory('eoleSession', ['locker', 'eoleApi', '$rootScope', function (lock
          * @returns {Promise} Logged in player or false on invalid credentials.
          */
         login: function (username, password) {
-            var promise = eoleApi.authMe(username, password);
-
-            promise.then(function (player) {
-                player.password = password;
-                eoleSession.setAndSavePlayer(player);
-                eoleSession.dispatchLoggedEvent();
+            var promise = $q(function (resolve, reject) {
+                eoleApi.createOAuth2Token(username, password).then(function (token) {
+                    eoleApi.authMe(token).then(function (player) {
+                        eoleSession.oauthToken = token;
+                        eoleSession.setAndSavePlayer(player);
+                        eoleSession.dispatchLoggedEvent();
+                        resolve(player);
+                    });
+                }).catch(reject);
             });
+
 
             return promise;
         },
@@ -83,9 +97,7 @@ ngEole.factory('eoleSession', ['locker', 'eoleApi', '$rootScope', function (lock
             var promise = eoleApi.createPlayer(username, password);
 
             promise.then(function (player) {
-                player.password = password;
-                eoleSession.setAndSavePlayer(player);
-                eoleSession.dispatchLoggedEvent();
+                eoleSession.login(username, password);
             });
 
             return promise;

@@ -1,22 +1,22 @@
 'use strict';
 
-function EoleApiClient($http, $q, eoleApiUrl, wsseTokenGenerator, $httpParamSerializer) {
+function EoleApiClient($http, $q, eoleApiUrl, $httpParamSerializer, oauthConfig) {
     var that = this;
 
     /**
      * @param {String} method 'get', 'post', ...
      * @param {String} path example: 'api/players' (no starting slash).
-     * @param {Object} logged player with username, password and password_salt attributes.
+     * @param {String} OAuth2 token.
      * @param {Object} postData
      *
      * @returns {Promise}
      */
-    this.call = function (method, path, loggedPlayer, postData) {
+    this.call = function (method, path, oauthToken, postData) {
         var headers = {};
         var data = {};
 
-        if (loggedPlayer) {
-            headers['x-wsse'] = wsseTokenGenerator.createWsseToken(loggedPlayer.username, loggedPlayer.password, loggedPlayer.password_salt);
+        if (oauthToken) {
+            headers.Authorization = [oauthToken.token_type, oauthToken.access_token].join(' ');
         }
 
         if (postData) {
@@ -43,14 +43,24 @@ function EoleApiClient($http, $q, eoleApiUrl, wsseTokenGenerator, $httpParamSeri
      *
      * @param {String} gameName
      * @param {String} method 'get', 'post', ...
-     * @param {String} path example: 'api/players' (no starting slash).
-     * @param {Object} logged player with username, password and password_salt attributes.
+     * @param {String} path example: 'play/a2' (no starting slash).
+     * @param {String} OAuth2 token.
      * @param {Object} postData
      *
      * @returns {Promise}
      */
-    this.callGame = function (gameName, method, path, loggedPlayer, postData) {
-        return that.call(method, 'api/games/'+gameName+'/'+path, loggedPlayer, postData);
+    this.callGame = function (gameName, method, path, oauthToken, postData) {
+        return that.call(method, 'api/games/'+gameName+'/'+path, oauthToken, postData);
+    };
+
+    this.createOAuth2Token = function (username, password) {
+        return that.call('post', 'oauth/access-token', false, {
+            grant_type: 'password',
+            client_id: oauthConfig.clientId,
+            client_secret: oauthConfig.clientSecret,
+            username: username,
+            password: password
+        });
     };
 
     this.getPlayers = function () {
@@ -61,8 +71,32 @@ function EoleApiClient($http, $q, eoleApiUrl, wsseTokenGenerator, $httpParamSeri
         return that.call('get', 'api/players/'+username);
     };
 
+    /**
+     * @param {String} username
+     * @param {String} password
+     *
+     * @returns {Promise}
+     */
     this.createPlayer = function (username, password) {
+        console.warn('eoleApi.registerGuest should be used instead of eoleApi.createPlayer when a guest is logged in.');
+
         return that.call('post', 'api/players', false, {
+            username: username,
+            password: password
+        });
+    };
+
+    /**
+     * Upgrades a guest account into a regular account.
+     *
+     * @param {String} username
+     * @param {String} password
+     * @param {String} oauthToken
+     *
+     * @returns {Promise}
+     */
+    this.registerGuest = function (username, password, oauthToken) {
+        return that.call('post', 'api/players/register', oauthToken, {
             username: username,
             password: password
         });
@@ -74,22 +108,8 @@ function EoleApiClient($http, $q, eoleApiUrl, wsseTokenGenerator, $httpParamSeri
         });
     };
 
-    this.authMe = function (username, password) {
-        return $q(function (resolve, reject) {
-            that.getPlayer(username).then(function (player) {
-                that.call('get', 'api/auth/me', {
-                    username: player.username,
-                    password: password,
-                    password_salt: player.password_salt
-                }).then(function (r) {
-                    resolve(r);
-                }).catch(function (r) {
-                    reject(r);
-                });
-            }).catch(function (r) {
-                reject(r);
-            });
-        });
+    this.authMe = function (oauthToken) {
+        return that.call('get', 'api/auth/me', oauthToken);
     };
 
     this.getGames = function () {
@@ -100,8 +120,8 @@ function EoleApiClient($http, $q, eoleApiUrl, wsseTokenGenerator, $httpParamSeri
         return that.call('get', 'api/games/'+name);
     };
 
-    this.createParty = function (gameName, host) {
-        return that.call('post', 'api/games/'+gameName+'/parties', host);
+    this.createParty = function (gameName, oauthToken) {
+        return that.call('post', 'api/games/'+gameName+'/parties', oauthToken);
     };
 
     this.getParties = function () {
@@ -116,7 +136,7 @@ function EoleApiClient($http, $q, eoleApiUrl, wsseTokenGenerator, $httpParamSeri
         return that.call('get', 'api/games/'+gameName+'/parties/'+partyId);
     };
 
-    this.joinParty = function (player, gameName, partyId) {
-        return that.call('patch', 'api/games/'+gameName+'/parties/'+partyId+'/join', player);
+    this.joinParty = function (oauthToken, gameName, partyId) {
+        return that.call('patch', 'api/games/'+gameName+'/parties/'+partyId+'/join', oauthToken);
     };
 }

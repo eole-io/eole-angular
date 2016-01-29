@@ -26,7 +26,7 @@ ngEole.controller('GameController', ['$scope', 'eoleApi', '$routeParams', 'eoleW
     var gameName = $routeParams.gameName;
 
     $scope.createParty = function () {
-        eoleApi.createParty(gameName, eoleSession.player).then(function (party) {
+        eoleApi.createParty(gameName, eoleSession.oauthToken).then(function (party) {
             $location.path('/games/'+gameName+'/parties/'+party.id);
         });
     };

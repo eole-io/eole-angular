@@ -3,7 +3,6 @@
 var ngEole = angular.module('ng-eole', [
     'ng-eole-config',
     'eoleApi',
-    'eoleSecurity',
     'eoleWs',
     'ngRoute',
     'schemaForm',
