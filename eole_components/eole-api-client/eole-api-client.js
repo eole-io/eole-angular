@@ -72,6 +72,22 @@ function EoleApiClient($http, $q, eoleApiUrl, $httpParamSerializer, oauthConfig)
     };
 
     /**
+     * Refresh access token from Authorization server.
+     *
+     * @param {Object} oauthToken
+     *
+     * @returns {Promise} An access token promise.
+     */
+    this.refreshOAuth2Token = function (oauthToken) {
+        return that.call('post', 'oauth/access-token', false, {
+            grant_type: 'refresh_token',
+            client_id: oauthConfig.clientId,
+            client_secret: oauthConfig.clientSecret,
+            refresh_token: oauthToken.refresh_token
+        });
+    };
+
+    /**
      * @returns {Promise} A Player[] promise.
      */
     this.getPlayers = function () {

@@ -9,19 +9,22 @@ angular.module('eoleWs', []).factory('eoleWs', ['$q', 'eoleSession', '$rootScope
 
         var openSocket = function () {
             that.sessionPromise = $q(function (resolve, reject) {
-                ab.connect(
-                    webSocketUri+'?access_token='+eoleSession.oauthToken.access_token,
-                    function (session) {
-                        resolve(session);
-                    },
-                    function (code, reason, detail) {
-                        reject([code, reason, detail]);
-                    },
-                    {
-                        maxRetries: 0,
-                        retryDelay: 2000
-                    }
-                );
+                var successCallback = function (session) {
+                    resolve(session);
+                };
+                var failCallback = function (code, reason, detail) {
+                    reject([code, reason, detail]);
+                };
+                var options = {
+                    maxRetries: 0,
+                    retryDelay: 2000
+                };
+
+                eoleSession.oauthTokenPromise.then(function (token) {
+                    var authenticatedUri = webSocketUri+'?access_token='+token.access_token;
+
+                    ab.connect(authenticatedUri, successCallback, failCallback, options);
+                });
             });
         };
 
