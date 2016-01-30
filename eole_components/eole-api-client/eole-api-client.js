@@ -53,6 +53,14 @@ function EoleApiClient($http, $q, eoleApiUrl, $httpParamSerializer, oauthConfig)
         return that.call(method, 'api/games/'+gameName+'/'+path, oauthToken, postData);
     };
 
+    /**
+     * Request an access token from Authorization server.
+     *
+     * @param {String} username
+     * @param {String} password
+     *
+     * @returns {Promise} An access token promise.
+     */
     this.createOAuth2Token = function (username, password) {
         return that.call('post', 'oauth/access-token', false, {
             grant_type: 'password',
@@ -63,10 +71,18 @@ function EoleApiClient($http, $q, eoleApiUrl, $httpParamSerializer, oauthConfig)
         });
     };
 
+    /**
+     * @returns {Promise} A Player[] promise.
+     */
     this.getPlayers = function () {
         return that.call('get', 'api/players');
     };
 
+    /**
+     * @param {String} username
+     *
+     * @returns {Promise} A Player promise.
+     */
     this.getPlayer = function (username) {
         return that.call('get', 'api/players/'+username);
     };
@@ -75,7 +91,7 @@ function EoleApiClient($http, $q, eoleApiUrl, $httpParamSerializer, oauthConfig)
      * @param {String} username
      * @param {String} password
      *
-     * @returns {Promise}
+     * @returns {Promise} A Player promise.
      */
     this.createPlayer = function (username, password) {
         console.warn('eoleApi.registerGuest should be used instead of eoleApi.createPlayer when a guest is logged in.');
@@ -93,7 +109,7 @@ function EoleApiClient($http, $q, eoleApiUrl, $httpParamSerializer, oauthConfig)
      * @param {String} password
      * @param {String} oauthToken
      *
-     * @returns {Promise}
+     * @returns {Promise} A Player promise.
      */
     this.registerGuest = function (username, password, oauthToken) {
         return that.call('post', 'api/players/register', oauthToken, {
@@ -102,12 +118,26 @@ function EoleApiClient($http, $q, eoleApiUrl, $httpParamSerializer, oauthConfig)
         });
     };
 
+    /**
+     * Create a guest player that could be upgraded to a player later.
+     *
+     * @param {String} password
+     *
+     * @returns {Promise} A Player promise.
+     */
     this.createGuest = function (password) {
         return that.call('post', 'api/players/guest', false, {
             password: password
         });
     };
 
+    /**
+     * Test authentication.
+     *
+     * @param {Object} oauthToken
+     *
+     * @returns {Promise} A Player promise.
+     */
     this.authMe = function (oauthToken) {
         return that.call('get', 'api/auth/me', oauthToken);
     };

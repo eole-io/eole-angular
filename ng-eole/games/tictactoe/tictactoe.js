@@ -26,7 +26,7 @@ ngEole.controller('TicTacToeController', ['$scope', '$routeParams', 'eoleApi', '
     });
 
     $scope.join = function () {
-        eoleApi.joinParty(eoleSession.player, 'tictactoe', $scope.party.id);
+        eoleApi.joinParty(eoleSession.oauthToken, 'tictactoe', $scope.party.id);
     };
 
     $scope.play = function (col, row) {

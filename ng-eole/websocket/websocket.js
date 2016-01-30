@@ -1,51 +1,21 @@
 'use strict';
 
 angular.module('eoleWs', []).factory('eoleWs', ['$q', 'eoleSession', '$rootScope', 'webSocketUri', function ($q, eoleSession, $rootScope, webSocketUri) {
-    // Override autobahn _connect method to add a new wsse token on connect
-    ab._connect_old = ab._connect;
-
-    ab._connect = function (wsuri, onconnect, onhangup, options) {
-        var lastPosition = wsuri.wsuri.indexOf('/?wsse_token=');
-        if (-1 !== lastPosition) {
-            wsuri.wsuri = wsuri.wsuri.substr(0, lastPosition);
-        }
-
-        wsuri.wsuri += '/?wsse_token=XXX';
-
-        console.log('connect', wsuri);
-        return ab._connect_old(wsuri, onconnect, onhangup, options);
-    };
 
     function EoleWs() {
         var that = this;
 
-        this.sessionPromise = null;
-
-        var lastSession = null;
+        that.sessionPromise = null;
 
         var openSocket = function () {
             that.sessionPromise = $q(function (resolve, reject) {
                 ab.connect(
-                    webSocketUri,
+                    webSocketUri+'?access_token='+eoleSession.oauthToken.access_token,
                     function (session) {
-                        console.log('websocket open');
-
-                        if (null !== lastSession) {
-                            angular.forEach(lastSession._subscriptions, function (callbacks, topic) {
-                                session.subscribe(topic, callbacks[0]);
-                            });
-                        }
-
-                        lastSession = session;
                         resolve(session);
-                        window['eoleWsSession'] = session;
                     },
                     function (code, reason, detail) {
-                        console.log('socket closed', code, reason, detail);
                         reject([code, reason, detail]);
-                        if (0 !== code) {
-                            setTimeout(that.reopenSocket, 2000);
-                        }
                     },
                     {
                         maxRetries: 0,
@@ -64,7 +34,6 @@ angular.module('eoleWs', []).factory('eoleWs', ['$q', 'eoleSession', '$rootScope
         };
 
         this.reopenSocket = function () {
-            console.log('reopening socket...');
             that.closeSocket();
             openSocket();
         };
@@ -79,8 +48,6 @@ angular.module('eoleWs', []).factory('eoleWs', ['$q', 'eoleSession', '$rootScope
     };
 
     var eoleWs = new EoleWs();
-
-    window['eoleWs'] = eoleWs;
 
     $rootScope.$on('eole.session.logged', function () {
         eoleWs.reopenSocket();

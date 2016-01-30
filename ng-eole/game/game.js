@@ -32,7 +32,7 @@ ngEole.controller('GameController', ['$scope', 'eoleApi', '$routeParams', 'eoleW
     };
 
     $scope.join = function (party) {
-        eoleApi.joinParty(eoleSession.player, gameName, party.id);
+        eoleApi.joinParty(eoleSession.oauthToken, gameName, party.id);
     };
 
     eoleApi.getGameByName(gameName).then(function (game) {
