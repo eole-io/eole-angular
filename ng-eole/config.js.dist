@@ -3,4 +3,8 @@
 angular.module('ng-eole-config', [])
     .constant('eoleApiUrl', 'http://127.0.0.1/eole-api/www/api.php/')
     .constant('webSocketUri', 'ws://127.0.0.1:8080')
+    .constant('oauthConfig', {
+        clientId: 'eole-angular',
+        clientSecret: 'eole-angular-secret'
+    })
 ;

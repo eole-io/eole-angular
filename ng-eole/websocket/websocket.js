@@ -1,67 +1,30 @@
 'use strict';
 
-angular.module('eoleWs', []).factory('eoleWs', ['$q', 'eoleSession', 'wsseTokenGenerator', '$rootScope', 'webSocketUri', function ($q, eoleSession, wsseTokenGenerator, $rootScope, webSocketUri) {
-    var generateWsseToken = function () {
-        var wsseTokenValues = wsseTokenGenerator.createWsseTokenValues(
-            eoleSession.player.username,
-            eoleSession.player.password,
-            eoleSession.player.password_salt
-        );
-
-        return btoa(JSON.stringify(wsseTokenValues));
-    };
-
-    // Override autobahn _connect method to add a new wsse token on connect
-    ab._connect_old = ab._connect;
-
-    ab._connect = function (wsuri, onconnect, onhangup, options) {
-        var lastPosition = wsuri.wsuri.indexOf('/?wsse_token=');
-        if (-1 !== lastPosition) {
-            wsuri.wsuri = wsuri.wsuri.substr(0, lastPosition);
-        }
-
-        wsuri.wsuri += '/?wsse_token='+generateWsseToken();
-
-        console.log('connect', wsuri);
-        return ab._connect_old(wsuri, onconnect, onhangup, options);
-    };
+angular.module('eoleWs', []).factory('eoleWs', ['$q', 'eoleSession', '$rootScope', 'webSocketUri', function ($q, eoleSession, $rootScope, webSocketUri) {
 
     function EoleWs() {
         var that = this;
 
-        this.sessionPromise = null;
-
-        var lastSession = null;
+        that.sessionPromise = null;
 
         var openSocket = function () {
             that.sessionPromise = $q(function (resolve, reject) {
-                ab.connect(
-                    webSocketUri,
-                    function (session) {
-                        console.log('websocket open');
+                var successCallback = function (session) {
+                    resolve(session);
+                };
+                var failCallback = function (code, reason, detail) {
+                    reject([code, reason, detail]);
+                };
+                var options = {
+                    maxRetries: 0,
+                    retryDelay: 2000
+                };
 
-                        if (null !== lastSession) {
-                            angular.forEach(lastSession._subscriptions, function (callbacks, topic) {
-                                session.subscribe(topic, callbacks[0]);
-                            });
-                        }
+                eoleSession.oauthTokenPromise.then(function (token) {
+                    var authenticatedUri = webSocketUri+'?access_token='+token.access_token;
 
-                        lastSession = session;
-                        resolve(session);
-                        window['eoleWsSession'] = session;
-                    },
-                    function (code, reason, detail) {
-                        console.log('socket closed', code, reason, detail);
-                        reject([code, reason, detail]);
-                        if (0 !== code) {
-                            setTimeout(that.reopenSocket, 2000);
-                        }
-                    },
-                    {
-                        maxRetries: 0,
-                        retryDelay: 2000
-                    }
-                );
+                    ab.connect(authenticatedUri, successCallback, failCallback, options);
+                });
             });
         };
 
@@ -74,7 +37,6 @@ angular.module('eoleWs', []).factory('eoleWs', ['$q', 'eoleSession', 'wsseTokenG
         };
 
         this.reopenSocket = function () {
-            console.log('reopening socket...');
             that.closeSocket();
             openSocket();
         };
@@ -89,8 +51,6 @@ angular.module('eoleWs', []).factory('eoleWs', ['$q', 'eoleSession', 'wsseTokenG
     };
 
     var eoleWs = new EoleWs();
-
-    window['eoleWs'] = eoleWs;
 
     $rootScope.$on('eole.session.logged', function () {
         eoleWs.reopenSocket();

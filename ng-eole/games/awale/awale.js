@@ -28,23 +28,27 @@ ngEole.controller('AwaleController', ['$scope', '$routeParams', 'eoleApi', 'eole
     initLastMove();
 
     $scope.join = function () {
-        eoleApi.joinParty(eoleSession.player, 'awale', partyId);
+        eoleSession.oauthTokenPromise.then(function (token) {
+            eoleApi.joinParty(token, 'awale', partyId);
+        });
     };
 
     $scope.move = function (move) {
         var lastGrid = gridManager.cloneGrid($scope.grid);
 
-        eoleApi.callGame('awale', 'post', 'play', eoleSession.player, {
-            move: move,
-            party_id: partyId
-        }).then(function (r) {
-            $scope.currentPlayer = r.currentPlayer;
-        }).catch(function (r) {
-            stopAnimation();
-            $scope.grid = lastGrid;
-            $scope.currentPlayer = 1 - $scope.currentPlayer;
-            updateSeedsCoords();
-            initLastMove();
+        eoleSession.oauthTokenPromise.then(function (token) {
+            eoleApi.callGame('awale', 'post', 'play', token, {
+                move: move,
+                party_id: partyId
+            }).then(function (r) {
+                $scope.currentPlayer = r.currentPlayer;
+            }).catch(function (r) {
+                stopAnimation();
+                $scope.grid = lastGrid;
+                $scope.currentPlayer = 1 - $scope.currentPlayer;
+                updateSeedsCoords();
+                initLastMove();
+            });
         });
 
         initLastMove();
