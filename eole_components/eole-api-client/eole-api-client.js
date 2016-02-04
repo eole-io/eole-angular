@@ -158,30 +158,71 @@ function EoleApiClient($http, $q, eoleApiUrl, $httpParamSerializer, oauthConfig)
         return that.call('get', 'api/auth/me', oauthToken);
     };
 
+    /**
+     * @returns {Promise} Promise of the array of all games.
+     */
     this.getGames = function () {
         return that.call('get', 'api/games');
     };
 
+    /**
+     * @param {String} name
+     *
+     * @returns {Promise} Promise of a game object.
+     */
     this.getGameByName = function (name) {
         return that.call('get', 'api/games/'+name);
     };
 
+    /**
+     * Player logged with provided oauthToken creates and hosts a new party on a game.
+     *
+     * @param {String} gameName
+     * @param {Object} oauthToken
+     *
+     * @returns {Promise}
+     */
     this.createParty = function (gameName, oauthToken) {
         return that.call('post', 'api/games/'+gameName+'/parties', oauthToken);
     };
 
+    /**
+     * @returns {Promise} Promise of an array of all parties of all games.
+     */
     this.getParties = function () {
         return that.call('get', 'api/parties/');
     };
 
+    /**
+     * @param {String} gameName
+     *
+     * @returns {Promise} Promise of an array of all parties of a defined game.
+     */
     this.getPartiesForGame = function (gameName) {
         return that.call('get', 'api/games/'+gameName+'/parties');
     };
 
+    /**
+     * Get a party by id on a defined game.
+     *
+     * @param {String} gameName
+     * @param {Integer} partyId
+     *
+     * @returns {Promise} Promise of a party object.
+     */
     this.getParty = function (gameName, partyId) {
         return that.call('get', 'api/games/'+gameName+'/parties/'+partyId);
     };
 
+    /**
+     * Player logged with provided oauthToken joins party with id partyId on gameName.
+     *
+     * @param {Object} oauthToken
+     * @param {String} gameName
+     * @param {Integer} partyId
+     *
+     * @returns {Promise} with position in slots of the player who joined.
+     */
     this.joinParty = function (oauthToken, gameName, partyId) {
         return that.call('patch', 'api/games/'+gameName+'/parties/'+partyId+'/join', oauthToken);
     };
