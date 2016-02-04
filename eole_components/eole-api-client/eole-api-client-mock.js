@@ -1,6 +1,6 @@
 'use strict';
 
-function EoleApiClient($http, $q, eoleApiUrl, $httpParamSerializer, oauthConfig) {
+function EoleApiClientMock($q) {
     var that = this;
 
     var deferedResponse = function (response) {
