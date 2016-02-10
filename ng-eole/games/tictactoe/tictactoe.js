@@ -18,10 +18,10 @@ ngEole.controller('TicTacToeController', ['$scope', '$routeParams', 'eoleApi', '
     $scope.myTurn = false;
     $scope.displayJoinButton = false;
     $scope.tictactoe = {
-        grid: '-'.repeat(9),
+        grid: '---------',
         last_move: null
     };
-    $scope.animate = ' '.repeat(9).split('').map(function () {
+    $scope.animate = '         '.split('').map(function () {
         return false;
     });
 
