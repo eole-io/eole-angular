@@ -1,5 +1,10 @@
 ul.ttt-board {
-    margin: 5em 0 0 0;
+    margin: 32px 0 0 0;
+}
+@media (min-width: 560px) {
+    ul.ttt-board {
+        margin-top: 64px;
+    }
 }
 ul.ttt-board.my-turn {
     box-shadow: 0 0 12px rgba(0, 0, 0, 0.4);
