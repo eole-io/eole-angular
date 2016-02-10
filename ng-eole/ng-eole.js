@@ -1,7 +1,7 @@
 'use strict';
 
-var ngEole = angular.module('ng-eole', [
-    'ng-eole-config',
+var ngEole = angular.module('eole', [
+    'eole.config',
     'eoleApi',
     'eoleWs',
     'ngRoute',
@@ -9,7 +9,7 @@ var ngEole = angular.module('ng-eole', [
     'ui.bootstrap',
     'pascalprecht.translate',
     'angular-locker'
-]);
+].concat(gameModules));
 
 ngEole.config(['$locationProvider', function ($locationProvider) {
     $locationProvider
