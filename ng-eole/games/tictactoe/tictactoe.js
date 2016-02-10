@@ -21,9 +21,7 @@ ngEole.controller('TicTacToeController', ['$scope', '$routeParams', 'eoleApi', '
         grid: '---------',
         last_move: null
     };
-    $scope.animate = '         '.split('').map(function () {
-        return false;
-    });
+    $scope.animate = [false, false, false, false, false, false, false, false, false];
 
     $scope.join = function () {
         eoleSession.oauthTokenPromise.then(function (token) {

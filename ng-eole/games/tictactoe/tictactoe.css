@@ -25,6 +25,11 @@ ul.players li:last-child {
     color: lightBlue;
 }
 ul.ttt-board > li.animate {
-    border-width: 70px;
+    border-width: 40px;
     transition: none;
+}
+@media (min-width: 560px) {
+    ul.ttt-board > li.animate {
+        border-width: 70px;
+    }
 }
