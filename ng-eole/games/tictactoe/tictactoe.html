@@ -1,17 +1,6 @@
 <div class="container-fluid">
     <div class="row">
-        <div class="col-sm-4">
-            <ul class="players">
-                <li ng-repeat="slot in party.slots">
-                    <p ng-if="null !== slot.player">{{ slot.player.username }} ({{ slot.score }})</p>
-                    <p ng-if="null === slot.player">{{ 'waiting.for.join'|translate }}</p>
-                </li>
-            </ul>
-            <p ng-if="displayJoinButton">
-                <button class="btn btn-primary" ng-click="join()">{{ 'join'|translate }}</button>
-            </p>
-        </div>
-        <div class="col-sm-8">
+        <div class="col-sm-8 col-sm-push-4">
             <ul class="ttt-board clearfix" ng-class="{'ttt-finished': finished, 'my-turn': myTurn}">
                 <li
                     ng-repeat="symbol in tictactoe.grid.split('') track by $index"
@@ -23,6 +12,17 @@
                     }"
                 ></li>
             </ul>
+        </div>
+        <div class="col-sm-4 col-sm-pull-8">
+            <ul class="players">
+                <li ng-repeat="slot in party.slots">
+                    <p ng-if="null !== slot.player">{{ slot.player.username }} ({{ slot.score }})</p>
+                    <p ng-if="null === slot.player">{{ 'waiting.for.join'|translate }}</p>
+                </li>
+            </ul>
+            <p ng-if="displayJoinButton">
+                <button class="btn btn-primary" ng-click="join()">{{ 'join'|translate }}</button>
+            </p>
         </div>
     </div>
 </div>

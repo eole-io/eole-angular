@@ -1,16 +1,26 @@
 ul.ttt-board {
-    width: 420px;
+    width: 240px;
     list-style: none;
     padding-left: 0;
 }
 ul.ttt-board > li {
-    width: 140px;
-    height: 140px;
+    width: 80px;
+    height: 80px;
     float: left;
     cursor: pointer;
     transition: border-width 200ms ease 0s;
-    border-width: 70px;
+    border-width: 40px;
     border-style: solid;
+}
+@media (min-width: 460px) {
+    ul.ttt-board {
+        width: 420px;
+    }
+    ul.ttt-board > li {
+        width: 140px;
+        height: 140px;
+        border-width: 70px;
+    }
 }
 ul.ttt-board.ttt-finished > li {
     cursor: initial;
