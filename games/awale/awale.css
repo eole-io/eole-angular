@@ -2,11 +2,12 @@
     max-width: 800px;
     margin: 2em auto 0 auto;
 }
-.awale-board .row:first-child {
+.awale-board .row-top {
     margin-bottom: 16px;
 }
 .awale-board .col:first-child .attic {
-    margin-left: 38px;
+    display: block;
+    margin: auto;
 }
 
 .p0.box {
@@ -22,14 +23,26 @@
     background: linear-gradient(to bottom, #C4EFF3 0px, #B0DBE9 100%);
 }
 
+.boxes .row > div {
+    padding: 0;
+}
+
 .box {
     border-radius: 1000px;
-    width: 64px;
-    height: 64px;
+    width: 48px;
+    height: 48px;
     outline: none !important;
     overflow: hidden;
     padding: 0;
     transition: opacity 200ms ease;
+    display: block;
+    margin: auto;
+}
+@media (min-width: 560px) {
+    .box {
+        width: 64px;
+        height: 64px;
+    }
 }
 .box[disabled] {
     opacity: 1;
@@ -49,13 +62,21 @@
 }
 .box .value {
     position: relative;
-    font-weight: bold;
-    font-size: 16px;
-    margin-top: 28px;
-    background-color: rgba(255, 255, 255, 0.35);
-    padding: 0 0 10px;
-    width: 62px;
-    top: 8px;
+    background-color: rgba(255, 255, 255, 0.50);
+    font-size: 28px;
+    width: 46px;
+    height: 46px;
+}
+@media (min-width: 560px) {
+    .box .value {
+        background-color: rgba(255, 255, 255, 0.35);
+        font-weight: bold;
+        font-size: 16px;
+        margin-top: 28px;
+        padding: 0 0 10px;
+        width: 62px;
+        top: 8px;
+    }
 }
 .attic .value {
     top: 52px;
@@ -83,6 +104,12 @@
 
 div.seeds {
     position: relative;
+}
+@media (max-width: 560px) {
+    div.seeds {
+        top: -7px;
+        left: -7px;
+    }
 }
 div.seeds div.seed {
     position: absolute;
