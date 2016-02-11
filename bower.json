@@ -14,13 +14,13 @@
         "tests"
     ],
     "dependencies": {
-        "angular": "~1.4.0",
+        "angular": "~1.5",
         "angular-bootstrap": "0.10.0",
         "angular-locker": "~2.0.2",
-        "angular-mocks": "~1.4.6",
-        "angular-route": "~1.4.0",
+        "angular-mocks": "~1.5",
+        "angular-route": "~1.5",
         "angular-schema-form": "~0.8.2",
-        "angular-translate": "~2.7.2",
+        "angular-translate": "2.9.0.1",
         "autobahn-old": "~0.8.2",
         "bootstrap": "~3.3.5",
         "cryptojslib": "~3.1.2",
