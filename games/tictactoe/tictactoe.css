@@ -12,7 +12,7 @@ ul.ttt-board > li {
     border-width: 40px;
     border-style: solid;
 }
-@media (min-width: 460px) and (min-height: 460px) {
+@media (min-width: 480px) and (min-height: 560px) {
     ul.ttt-board {
         width: 420px;
     }

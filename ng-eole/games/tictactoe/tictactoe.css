@@ -1,7 +1,7 @@
 ul.ttt-board {
     margin: 32px 0 0 0;
 }
-@media (min-width: 560px) {
+@media (min-width: 480px) and (min-height: 560px) {
     ul.ttt-board {
         margin-top: 64px;
     }
@@ -28,7 +28,7 @@ ul.ttt-board > li.animate {
     border-width: 40px;
     transition: none;
 }
-@media (min-width: 560px) {
+@media (min-width: 480px) and (min-height: 560px) {
     ul.ttt-board > li.animate {
         border-width: 70px;
     }
