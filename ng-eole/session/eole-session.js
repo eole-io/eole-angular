@@ -35,12 +35,15 @@ ngEole.factory('eoleSession', ['$q', 'locker', 'eoleApi', '$rootScope', function
          */
         loginAsGuest: function () {
             var password = eoleSession.generateRandomPassword();
+            var deferredToken = $q.defer();
 
             var promise = $q(function (resolve, reject) {
                 eoleApi.createGuest(password).then(function (player) {
                     var tokenPromise = eoleApi.createOAuth2Token(player.username, password);
 
-                    eoleSession.oauthTokenPromise = tokenPromise;
+                    tokenPromise.then(function (token) {
+                        deferredToken.resolve(token);
+                    });
                     eoleSession.planRefreshToken();
                     eoleSession.player = player;
                     eoleSession.save();
@@ -50,6 +53,8 @@ ngEole.factory('eoleSession', ['$q', 'locker', 'eoleApi', '$rootScope', function
                     tokenPromise.then(eoleSession.saveReceivedOAuthToken);
                 });
             });
+
+            eoleSession.oauthTokenPromise = deferredToken.promise;
 
             return promise;
         },
