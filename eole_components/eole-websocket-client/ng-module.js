@@ -6,7 +6,11 @@
             'webSocketUri',
             '$q',
             function (webSocketUri, $q) {
-                return new EoleWebsocketClient(autobahn, webSocketUri, $q);
+                if ('mock' === webSocketUri) {
+                    return new EoleWebsocketClientMock($q);
+                } else {
+                    return new EoleWebsocketClient(autobahn, webSocketUri, $q);
+                }
             }
         ])
     ;

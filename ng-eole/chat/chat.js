@@ -29,10 +29,11 @@ ngEole.controller('ChatController', ['$scope', '$translate', 'eoleWs', function 
                     break;
 
                 case 'message':
-                    $scope.messages.push({
-                        content: event.player.username+' > '+event.message
+                    $scope.$apply(function () {
+                        $scope.messages.push({
+                            content: event.player.username+' > '+event.message
+                        });
                     });
-                    $scope.$apply();
                     break;
 
                 case 'leave':

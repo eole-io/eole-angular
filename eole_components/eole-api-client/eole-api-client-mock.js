@@ -25,6 +25,78 @@ function EoleApiClientMock($q) {
      */
     this.call = function (method, path, oauthToken, postData) {
         switch (path) {
+            case 'api/games/awale/find-by-id/2':
+                return deferedResponse({
+                    winner: null,
+                    grid: [
+                        {
+                            seeds: [4, 4, 4, 4, 4, 4],
+                            attic: 0
+                        },
+                        {
+                            seeds: [4, 4, 4, 4, 4, 4],
+                            attic: 0
+                        }
+                    ],
+                    seeds_per_container: 4,
+                    current_player: 1,
+                    last_move: [ ],
+                    party:
+                    {
+                        id: 3,
+                        game: {
+                            id: 3,
+                            name: 'awale'
+                        },
+                        host:
+                        {
+                            id: 3,
+                            player: {
+                                id: 42,
+                                username: 'Tyler Durden',
+                                date_created: "2016-02-03T02:50:44+0100",
+                                guest: false,
+                                roles: ['ROLE_PLAYER']
+                            },
+                            party: null,
+                            score: 0
+                        },
+                        state: 1,
+                        slots: [
+                            {
+                                id: 3,
+                                player: {
+                                    id: 42,
+                                    username: 'Tyler Durden',
+                                    date_created: "2016-02-03T02:50:44+0100",
+                                    guest: false,
+                                    roles: ['ROLE_PLAYER']
+                                },
+                                party: null,
+                                score: 0
+                            },
+                            {
+                                id: 4,
+                                player: {
+                                    id: 1,
+                                    username: 'Me',
+                                    date_created: "2016-02-03T02:50:44+0100",
+                                    guest: false,
+                                    roles: ['ROLE_PLAYER']
+                                },
+                                party: null,
+                                score: 0
+                            }
+                        ]
+                    }
+                });
+                break;
+
+            case 'api/games/awale/play':
+                return deferedResponse({
+                    currentPlayer: 1
+                });
+
             default:
                 console.warn('No mock for '+method+' '+path);
                 return deferedFail();
