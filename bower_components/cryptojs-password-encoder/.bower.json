@@ -1,0 +1,41 @@
+{
+  "name": "cryptojs-password-encoder",
+  "version": "0.1.1",
+  "authors": [
+    "Cyrille Bourgois <cyrille.bourgois@gmail.com>"
+  ],
+  "description": "Simple Message Digest Password Encoder with CryptoJS Lib",
+  "main": "CryptoJsPasswordEncoder.js",
+  "moduleType": [
+    "amd",
+    "globals"
+  ],
+  "keywords": [
+    "crypto",
+    "password",
+    "encoder",
+    "message",
+    "digest"
+  ],
+  "license": "MIT",
+  "homepage": "http://github.com/cbourgois/cryptoJsPasswordEncoder",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "cryptojslib": "~3.1.2"
+  },
+  "_release": "0.1.1",
+  "_resolution": {
+    "type": "version",
+    "tag": "v0.1.1",
+    "commit": "f6f3eb5c19a7c4d686088d64531e03ee8889a4cc"
+  },
+  "_source": "git://github.com/cbourgois/cryptoJsPasswordEncoder.git",
+  "_target": "~0.1.0",
+  "_originalSource": "cryptojs-password-encoder"
+}
