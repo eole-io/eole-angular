@@ -11,14 +11,14 @@ ngEole.controller('ChatController', ['$scope', '$translate', 'eoleWs', function 
     $scope.messages = [];
 
     $scope.sendMessage = function () {
-        eoleWs.sessionPromise.then(function (ws) {
-            ws.publish('eole/core/chat', $scope.message);
+        eoleWs.socketPromise.then(function (socket) {
+            socket.publish('eole/core/chat', $scope.message);
             $scope.message = '';
         });
     };
 
-    eoleWs.sessionPromise.then(function (ws) {
-        ws.subscribe('eole/core/chat', function (topic, event) {
+    eoleWs.socketPromise.then(function (socket) {
+        socket.subscribe('eole/core/chat', function (topic, event) {
             switch (event.type) {
                 case 'join':
                     $translate('{player}.has.join.chat', { player: event.player.username }).then(function (message) {

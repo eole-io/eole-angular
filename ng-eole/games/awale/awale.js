@@ -69,8 +69,8 @@
             updateWinner();
         });
 
-        eoleWs.sessionPromise.then(function (ws) {
-            ws.subscribe('eole/games/awale/parties/'+partyId, function (topic, event) {
+        eoleWs.socketPromise.then(function (socket) {
+            socket.subscribe('eole/games/awale/parties/'+partyId, function (topic, event) {
                 switch (event.type) {
                     case 'join':
                         $scope.party = event.party;

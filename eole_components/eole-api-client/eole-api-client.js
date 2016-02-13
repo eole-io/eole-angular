@@ -110,7 +110,7 @@ function EoleApiClient($http, $q, eoleApiUrl, $httpParamSerializer, oauthConfig)
      * @returns {Promise} A Player promise.
      */
     this.createPlayer = function (username, password) {
-        console.warn('eoleApi.registerGuest should be used instead of eoleApi.createPlayer when a guest is logged in.');
+        console.warn('eoleApi.registerGuest should be used instead of eoleApi.createPlayer when a guest is creating a new account.');
 
         return that.call('post', 'api/players', false, {
             username: username,

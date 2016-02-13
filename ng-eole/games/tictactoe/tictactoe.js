@@ -33,8 +33,8 @@
         };
 
         $scope.play = function (col, row) {
-            eoleWs.sessionPromise.then(function (ws) {
-                ws.publish('eole/games/tictactoe/parties/'+partyId, {
+            eoleWs.socketPromise.then(function (socket) {
+                socket.publish('eole/games/tictactoe/parties/'+partyId, {
                     type: 'move',
                     col: col,
                     row: row
@@ -51,8 +51,8 @@
             $scope.displayJoinButton = (event.party.state === 0) && !partyManager.inParty(event.party);
         }
 
-        eoleWs.sessionPromise.then(function (ws) {
-            ws.subscribe('eole/games/tictactoe/parties/'+partyId, function (topic, event) {
+        eoleWs.socketPromise.then(function (socket) {
+            socket.subscribe('eole/games/tictactoe/parties/'+partyId, function (topic, event) {
                 console.log('ttt event', topic, event);
 
                 switch (event.type) {
@@ -111,7 +111,7 @@
                 $scope.$apply();
             });
 
-            ws.publish('eole/games/tictactoe/parties/'+partyId, {
+            socket.publish('eole/games/tictactoe/parties/'+partyId, {
                 type: 'need-refresh'
             });
         });
