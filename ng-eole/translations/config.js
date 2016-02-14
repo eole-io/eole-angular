@@ -1,4 +1,11 @@
 ngEole.config(['$translateProvider', function ($translateProvider) {
-    $translateProvider.determinePreferredLanguage();
-    $translateProvider.useSanitizeValueStrategy();
+    $translateProvider
+        .registerAvailableLanguageKeys(['en', 'fr'], {
+            'en_*': 'en',
+            'fr_*': 'fr'
+        })
+        .determinePreferredLanguage()
+        .fallbackLanguage('en')
+        .useSanitizeValueStrategy()
+    ;
 }]);
