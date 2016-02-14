@@ -9,3 +9,7 @@ ngEole.config(['$translateProvider', function ($translateProvider) {
         .useSanitizeValueStrategy()
     ;
 }]);
+
+ngEole.run(['$translate', '$rootScope', function ($translate, $rootScope) {
+    $rootScope.lang = $translate.use();
+}]);
