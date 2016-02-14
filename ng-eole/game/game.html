@@ -2,15 +2,19 @@
     <h1>{{ game.name|translate }}</h1>
     <button class="btn btn-success" ng-click="createParty()">{{ 'create.party'|translate }}</button>
     <h2>{{ 'parties'|translate }}</h2>
-    <ul>
+    <ul class="list-unstyled">
         <li ng-repeat="party in parties" data-party="{{ party }}">
-            {{ 'party.hosted.by.{username}'|translate:party.host }}
-            <a class="btn btn-primary" href="" ng-href="#!/games/{{ game.name }}/parties/{{ party.id }}" ng-click="join(party)">
-                {{ 'join'|translate }}
-            </a>
-            <a class="btn btn-default" href="" ng-href="#!/games/{{ game.name }}/parties/{{ party.id }}">
-                {{ 'watch'|translate }}
-            </a>
+            <p>
+                <span class="btn-group" role="group">
+                    <a class="btn btn-primary" href="" ng-href="#!/games/{{ game.name }}/parties/{{ party.id }}" ng-click="join(party)">
+                        {{ 'join'|translate }}
+                    </a>
+                    <a class="btn btn-default" href="" ng-href="#!/games/{{ game.name }}/parties/{{ party.id }}">
+                        {{ 'watch'|translate }}
+                    </a>
+                </span>
+                {{ 'party.hosted.by.{username}'|translate:party.host }}
+            </p>
         </li>
     </ul>
 </div>
