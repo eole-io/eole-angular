@@ -29,6 +29,10 @@ ngEole.controller('ChatController', ['$scope', '$translate', 'eoleWs', function 
                             player: event.player,
                             content: message
                         });
+
+                        if (willScrollBottom) {
+                            scrollBottom();
+                        }
                     });
                     break;
 
@@ -53,12 +57,12 @@ ngEole.controller('ChatController', ['$scope', '$translate', 'eoleWs', function 
                             player: event.player,
                             content: message
                         });
+
+                        if (willScrollBottom) {
+                            scrollBottom();
+                        }
                     });
                     break;
-            }
-
-            if (willScrollBottom) {
-                scrollBottom();
             }
         });
     });
