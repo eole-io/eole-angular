@@ -8,12 +8,12 @@
                 </span>
                 <div class="chat-body clearfix">
                     <div class="header">
-                        <strong class="primary-font">{{ message.player.username }}</strong>
+                        <strong class="primary-font">{{ message.meta ? message.content : message.player.username }}</strong>
                         <small class="pull-right text-muted">
                             <span class="glyphicon glyphicon-time"></span> {{ message.date|date:'HH:mm' }}
                         </small>
                     </div>
-                    <p>
+                    <p ng-if="!message.meta">
                         {{ message.content }}
                     </p>
                 </div>

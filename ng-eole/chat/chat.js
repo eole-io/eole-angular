@@ -25,6 +25,7 @@ ngEole.controller('ChatController', ['$scope', '$translate', 'eoleWs', function 
                 case 'join':
                     $translate('{player}.has.join.chat', { player: event.player.username }).then(function (message) {
                         $scope.messages.push({
+                            meta: true,
                             date: new Date(),
                             player: event.player,
                             content: message
@@ -39,6 +40,7 @@ ngEole.controller('ChatController', ['$scope', '$translate', 'eoleWs', function 
                 case 'message':
                     $scope.$apply(function () {
                         $scope.messages.push({
+                            meta: false,
                             date: new Date(),
                             player: event.player,
                             content: event.message
@@ -53,6 +55,7 @@ ngEole.controller('ChatController', ['$scope', '$translate', 'eoleWs', function 
                 case 'leave':
                     $translate('{player}.has.left.chat', { player: event.player.username }).then(function (message) {
                         $scope.messages.push({
+                            meta: true,
                             date: new Date(),
                             player: event.player,
                             content: message
