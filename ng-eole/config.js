@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('eole.config', [])
-    .constant('eoleApiUrl', 'mock')
+    .constant('eoleApiUrl', 'http://eole.herokuapp.com/www/api.php/')
     .constant('webSocketUri', 'mock')
     .constant('oauthConfig', {
         clientId: 'eole-angular',
