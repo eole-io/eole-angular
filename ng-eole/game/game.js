@@ -11,8 +11,12 @@ ngEole.config(['$routeProvider', function ($routeProvider) {
     });
 }]);
 
-ngEole.controller('GamesController', ['$scope', 'eoleApi', function ($scope, eoleApi) {
+ngEole.controller('GamesController', ['$scope', 'eoleApi', '$location', function ($scope, eoleApi, $location) {
     $scope.games = [];
+
+    $scope.go = function (path) {
+        $location.path(path);
+    };
 
     eoleApi.getGames().then(function (games) {
         $scope.games = games;

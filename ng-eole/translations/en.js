@@ -1,6 +1,7 @@
 ngEole.config(['$translateProvider', function ($translateProvider) {
     $translateProvider.translations('en', {
         'home.play': 'Play !',
+        play: 'Play',
         games: 'Games',
         pseudo: 'Pseudo',
         password: 'Password',

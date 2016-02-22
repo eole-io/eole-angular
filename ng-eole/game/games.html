@@ -1,10 +1,16 @@
 <div class="container-fluid">
     <h1>{{ 'games'|translate }}</h1>
-    <div>
-        <div ng-repeat="game in games">
-            <p>
-                <a ng-href="#!/games/{{ game.name }}">{{ game.name|translate }}</a>
-            </p>
+    <div class="row">
+        <div ng-repeat="game in games" class="col-sm-4 col-md-3 col-lg-2">
+            <div class="panel panel-default clickable" ng-click="go('games/' + game.name)">
+                <div class="panel-body">
+                    <p>
+                        {{ game.name|translate }}
+                        <br />
+                        <a ng-href="#!/games/{{ game.name }}">{{ 'play'|translate }}</a>
+                    </p>
+                </div>
+            </div>
         </div>
     </div>
 </div>
