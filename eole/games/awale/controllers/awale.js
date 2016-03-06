@@ -1,16 +1,7 @@
 (function (angular) {
     'use strict';
 
-    var awaleModule = angular.module('eole.games.awale', []);
-
-    awaleModule.config(['$routeProvider', function ($routeProvider) {
-        $routeProvider.when('/games/awale/parties/:partyId', {
-            controller: 'AwaleController',
-            templateUrl: 'eole/games/awale/awale.html'
-        });
-    }]);
-
-    awaleModule.controller('AwaleController', ['$scope', '$routeParams', 'eoleApi', 'eoleWs', '$timeout', 'partyManager', 'eoleSession', '$translate', 'gridManager', 'animHighlight', function ($scope, $routeParams, eoleApi, eoleWs, $timeout, partyManager, eoleSession, $translate, gridManager, animHighlight) {
+    angular.module('eole.games.awale').controller('AwaleController', ['$scope', '$routeParams', 'eoleApi', 'eoleWs', '$timeout', 'partyManager', 'eoleSession', '$translate', 'gridManager', 'animHighlight', function ($scope, $routeParams, eoleApi, eoleWs, $timeout, partyManager, eoleSession, $translate, gridManager, animHighlight) {
         var ANIMATION_DELAY = 250;
         var partyId = $routeParams.partyId;
         var seedsCoords = new AwaleSeeds({x: 19, y: 19});
@@ -228,4 +219,5 @@
             return 1 === $scope.party.state;
         };
     }]);
+
 })(angular);

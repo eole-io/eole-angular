@@ -1,16 +1,7 @@
-(function (angular) {
+(function (angular, Math) {
     'use strict';
 
-    var tictactoeModule = angular.module('eole.games.tictactoe', []);
-
-    tictactoeModule.config(['$routeProvider', function ($routeProvider) {
-        $routeProvider.when('/games/tictactoe/parties/:partyId', {
-            controller: 'TicTacToeController',
-            templateUrl: 'eole/games/tictactoe/tictactoe.html'
-        });
-    }]);
-
-    tictactoeModule.controller('TicTacToeController', ['$scope', '$routeParams', 'eoleApi', 'eoleWs', '$timeout', 'partyManager', 'eoleSession', function ($scope, $routeParams, eoleApi, eoleWs, $timeout, partyManager, eoleSession) {
+    angular.module('eole.games.tictactoe').controller('TicTacToeController', ['$scope', '$routeParams', 'eoleApi', 'eoleWs', '$timeout', 'partyManager', 'eoleSession', function ($scope, $routeParams, eoleApi, eoleWs, $timeout, partyManager, eoleSession) {
         var partyId = $routeParams.partyId;
         var myColor = null;
 
@@ -53,8 +44,6 @@
 
         eoleWs.socketPromise.then(function (socket) {
             socket.subscribe('eole/games/tictactoe/parties/'+partyId, function (topic, event) {
-                console.log('ttt event', topic, event);
-
                 switch (event.type) {
                     case 'restart':
                         $timeout(function () {
@@ -134,4 +123,5 @@
             }, 20);
         };
     }]);
-})(angular);
+
+})(angular, Math);

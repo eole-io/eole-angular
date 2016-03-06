@@ -1,7 +1,10 @@
-'use strict';
+(function (angular) {
+    'use strict';
 
-ngEole.config(['$translateProvider', function ($translateProvider) {
-    $translateProvider.translations('fr', {
-        tictactoe: 'Morpion'
-    });
-}]);
+    angular.module('eole.games.tictactoe').config(['$translateProvider', function ($translateProvider) {
+        $translateProvider.translations('fr', {
+            tictactoe: 'Morpion'
+        });
+    }]);
+
+})(angular);
