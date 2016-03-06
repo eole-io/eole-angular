@@ -1,15 +1,18 @@
-'use strict';
+(function (angular) {
+    'use strict';
 
-angular.module('eole.config', [])
-    .constant('eoleApiUrl', 'http://127.0.0.1/eole-api/www/api.php/')
-    .constant('webSocketUri', 'ws://127.0.0.1:8080')
-    .constant('oauthConfig', {
-        clientId: 'eole-angular',
-        clientSecret: 'eole-angular-secret'
-    })
-;
+    angular.module('eole.config', [])
+        .constant('eoleApiUrl', 'http://127.0.0.1/eole-api/www/api.php/')
+        .constant('webSocketUri', 'ws://127.0.0.1:8080')
+        .constant('oauthConfig', {
+            clientId: 'eole-angular',
+            clientSecret: 'eole-angular-secret'
+        })
+    ;
 
-var gameModules = [
-    'eole.games.tictactoe',
-    'eole.games.awale'
-];
+    angular.module('eole.games', [
+        'eole.games.tictactoe',
+        'eole.games.awale'
+    ]);
+
+})(angular);

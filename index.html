@@ -48,7 +48,7 @@
         <![endif]-->
     </head>
     <body>
-        <div ng-include="'ng-eole/menu/menu.html'"></div>
+        <div ng-include="'ng-eole/menu/views/menu.html'"></div>
 
         <div ng-view>
         </div>
@@ -84,13 +84,26 @@
         <script type="text/javascript" src="ng-eole/translations/schema-form.js"></script>
         <script type="text/javascript" src="ng-eole/translations/en.js"></script>
         <script type="text/javascript" src="ng-eole/translations/fr.js"></script>
-        <script type="text/javascript" src="ng-eole/menu/MenuController.js"></script>
-        <script type="text/javascript" src="ng-eole/home/home.js"></script>
-        <script type="text/javascript" src="ng-eole/player/login.js"></script>
-        <script type="text/javascript" src="ng-eole/player/register.js"></script>
-        <script type="text/javascript" src="ng-eole/player/perso.js"></script>
-        <script type="text/javascript" src="ng-eole/game/game.js"></script>
-        <script type="text/javascript" src="ng-eole/chat/chat.js"></script>
+        <script type="text/javascript" src="ng-eole/menu/module.js"></script>
+        <script type="text/javascript" src="ng-eole/menu/controllers/menu.js"></script>
+        <script type="text/javascript" src="ng-eole/home/module.js"></script>
+        <script type="text/javascript" src="ng-eole/home/routes.js"></script>
+        <script type="text/javascript" src="ng-eole/home/controllers/home.js"></script>
+        <script type="text/javascript" src="ng-eole/player/module.js"></script>
+        <script type="text/javascript" src="ng-eole/player/routes.js"></script>
+        <script type="text/javascript" src="ng-eole/player/controllers/login.js"></script>
+        <script type="text/javascript" src="ng-eole/player/controllers/profile.js"></script>
+        <script type="text/javascript" src="ng-eole/player/controllers/register.js"></script>
+        <script type="text/javascript" src="ng-eole/game/module.js"></script>
+        <script type="text/javascript" src="ng-eole/game/routes.js"></script>
+        <script type="text/javascript" src="ng-eole/game/controllers/game.js"></script>
+        <script type="text/javascript" src="ng-eole/game/controllers/games.js"></script>
+        <script type="text/javascript" src="ng-eole/default-game/module.js"></script>
+        <script type="text/javascript" src="ng-eole/default-game/routes.js"></script>
+        <script type="text/javascript" src="ng-eole/default-game/controllers/party.js"></script>
+        <script type="text/javascript" src="ng-eole/chat/module.js"></script>
+        <script type="text/javascript" src="ng-eole/chat/routes.js"></script>
+        <script type="text/javascript" src="ng-eole/chat/controllers/chat.js"></script>
 
         <script type="text/javascript" src="ng-eole/games/tictactoe/tictactoe.js"></script>
         <script type="text/javascript" src="ng-eole/games/tictactoe/translations/en.js"></script>
@@ -102,7 +115,5 @@
         <script type="text/javascript" src="ng-eole/games/awale/awale.js"></script>
         <script type="text/javascript" src="ng-eole/games/awale/translations/en.js"></script>
         <script type="text/javascript" src="ng-eole/games/awale/translations/fr.js"></script>
-
-        <script type="text/javascript" src="ng-eole/party/party.js"></script>
     </body>
 </html>

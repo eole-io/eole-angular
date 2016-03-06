@@ -1,15 +1,22 @@
 'use strict';
 
 var ngEole = angular.module('eole', [
-    'eole.config',
-    'eoleApi',
-    'eoleWs',
     'ngRoute',
     'schemaForm',
     'ui.bootstrap',
     'pascalprecht.translate',
-    'angular-locker'
-].concat(gameModules));
+    'angular-locker',
+    'eoleApi',
+    'eoleWs',
+    'eole.config',
+    'eole.core.home',
+    'eole.core.menu',
+    'eole.core.player',
+    'eole.core.game',
+    'eole.core.chat',
+    'eole.games',
+    'eole.core.default-game'
+]);
 
 ngEole.config(['$locationProvider', function ($locationProvider) {
     $locationProvider

@@ -4,7 +4,7 @@
         <ul class="chat list-unstyled">
             <li class="left clearfix" ng-repeat="message in messages">
                 <span class="chat-img pull-left">
-                    <img ng-src="{{ avatarUrl(message.player) }}" alt="{{ message.player.username }}'s avatar" class="img-circle" />
+                    <img ng-src="{{ avatarUrl(message.player) }}" alt="{{ playerInitials(message.player) }}" class="img-circle" />
                 </span>
                 <div class="chat-body clearfix">
                     <div class="header">
