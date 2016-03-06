@@ -6,7 +6,7 @@
     awaleModule.config(['$routeProvider', function ($routeProvider) {
         $routeProvider.when('/games/awale/parties/:partyId', {
             controller: 'AwaleController',
-            templateUrl: 'ng-eole/games/awale/awale.html'
+            templateUrl: 'eole/games/awale/awale.html'
         });
     }]);
 

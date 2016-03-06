@@ -4,7 +4,7 @@
     angular.module('eole.core.home').config(['$routeProvider', function ($routeProvider) {
         $routeProvider.when('/', {
             controller: 'HomeController',
-            templateUrl: 'ng-eole/home/views/home.html'
+            templateUrl: 'eole/home/views/home.html'
         });
     }]);
 

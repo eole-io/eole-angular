@@ -6,7 +6,7 @@
     tictactoeModule.config(['$routeProvider', function ($routeProvider) {
         $routeProvider.when('/games/tictactoe/parties/:partyId', {
             controller: 'TicTacToeController',
-            templateUrl: 'ng-eole/games/tictactoe/tictactoe.html'
+            templateUrl: 'eole/games/tictactoe/tictactoe.html'
         });
     }]);
 
