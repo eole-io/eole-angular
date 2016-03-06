@@ -1,6 +1,11 @@
 'use strict';
 
 function EoleWebsocketClient(autobahn, webSocketUri, $q) {
+
+    if (!webSocketUri.match(/wss?:\/\//)) {
+        throw 'Websocket URI must start with "ws://" or "wss://", got "'+webSocketUri+'".';
+    }
+
     /**
      * @param {String} accessToken
      *
