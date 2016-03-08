@@ -25,6 +25,10 @@ sed 's/.*<title>.*/&\n        <link rel="stylesheet" href="assets\/all.min.css">
 rm index.html
 mv index.html.tmp index.html
 
+# Fix Bootstrap fonts
+rm -fr fonts
+cp -r bower_components/bootstrap/fonts .
+
 # Done
 echo "Minified assets are now used."
 echo "To reuse unminified assets, type:"

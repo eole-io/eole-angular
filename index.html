@@ -12,7 +12,7 @@
         <link rel="stylesheet" href="css/all.css">
 
         <link rel="stylesheet" href="games/tictactoe/tictactoe.css">
-        <link rel="stylesheet" href="ng-eole/games/tictactoe/tictactoe.css">
+        <link rel="stylesheet" href="eole/games/tictactoe/css/tictactoe.css">
 
         <link rel="stylesheet" href="games/awale/awale.css">
 
@@ -48,7 +48,7 @@
         <![endif]-->
     </head>
     <body>
-        <div ng-include="'ng-eole/menu/menu.html'"></div>
+        <div ng-include="'eole/menu/views/menu.html'"></div>
 
         <div ng-view>
         </div>
@@ -75,34 +75,52 @@
         <script type="text/javascript" src="eole_components/eole-websocket-client/eole-websocket-client.js"></script>
         <script type="text/javascript" src="eole_components/eole-websocket-client/eole-websocket-client-mock.js"></script>
         <script type="text/javascript" src="eole_components/eole-websocket-client/ng-module.js"></script>
-        <script type="text/javascript" src="ng-eole/config.js"></script>
-        <script type="text/javascript" src="ng-eole/ng-eole.js"></script>
-        <script type="text/javascript" src="ng-eole/service/party-manager.js"></script>
-        <script type="text/javascript" src="ng-eole/websocket/websocket.js"></script>
-        <script type="text/javascript" src="ng-eole/session/eole-session.js"></script>
-        <script type="text/javascript" src="ng-eole/translations/config.js"></script>
-        <script type="text/javascript" src="ng-eole/translations/schema-form.js"></script>
-        <script type="text/javascript" src="ng-eole/translations/en.js"></script>
-        <script type="text/javascript" src="ng-eole/translations/fr.js"></script>
-        <script type="text/javascript" src="ng-eole/menu/MenuController.js"></script>
-        <script type="text/javascript" src="ng-eole/home/home.js"></script>
-        <script type="text/javascript" src="ng-eole/player/login.js"></script>
-        <script type="text/javascript" src="ng-eole/player/register.js"></script>
-        <script type="text/javascript" src="ng-eole/player/perso.js"></script>
-        <script type="text/javascript" src="ng-eole/game/game.js"></script>
-        <script type="text/javascript" src="ng-eole/chat/chat.js"></script>
+        <script type="text/javascript" src="eole/config.js"></script>
+        <script type="text/javascript" src="eole/module.js"></script>
+        <script type="text/javascript" src="eole/config/html5-mode.js"></script>
+        <script type="text/javascript" src="eole/config/locker.js"></script>
+        <script type="text/javascript" src="eole/service/party-manager.js"></script>
+        <script type="text/javascript" src="eole/service/eole-session.js"></script>
+        <script type="text/javascript" src="eole/service/websocket.js"></script>
+        <script type="text/javascript" src="eole/translations/module.js"></script>
+        <script type="text/javascript" src="eole/translations/config.js"></script>
+        <script type="text/javascript" src="eole/translations/schema-form.js"></script>
+        <script type="text/javascript" src="eole/translations/en.js"></script>
+        <script type="text/javascript" src="eole/translations/fr.js"></script>
+        <script type="text/javascript" src="eole/menu/module.js"></script>
+        <script type="text/javascript" src="eole/menu/controllers/menu.js"></script>
+        <script type="text/javascript" src="eole/home/module.js"></script>
+        <script type="text/javascript" src="eole/home/routes.js"></script>
+        <script type="text/javascript" src="eole/home/controllers/home.js"></script>
+        <script type="text/javascript" src="eole/player/module.js"></script>
+        <script type="text/javascript" src="eole/player/routes.js"></script>
+        <script type="text/javascript" src="eole/player/controllers/login.js"></script>
+        <script type="text/javascript" src="eole/player/controllers/profile.js"></script>
+        <script type="text/javascript" src="eole/player/controllers/register.js"></script>
+        <script type="text/javascript" src="eole/game/module.js"></script>
+        <script type="text/javascript" src="eole/game/routes.js"></script>
+        <script type="text/javascript" src="eole/game/controllers/game.js"></script>
+        <script type="text/javascript" src="eole/game/controllers/games.js"></script>
+        <script type="text/javascript" src="eole/default-game/module.js"></script>
+        <script type="text/javascript" src="eole/default-game/routes.js"></script>
+        <script type="text/javascript" src="eole/default-game/controllers/party.js"></script>
+        <script type="text/javascript" src="eole/chat/module.js"></script>
+        <script type="text/javascript" src="eole/chat/routes.js"></script>
+        <script type="text/javascript" src="eole/chat/controllers/chat.js"></script>
 
-        <script type="text/javascript" src="ng-eole/games/tictactoe/tictactoe.js"></script>
-        <script type="text/javascript" src="ng-eole/games/tictactoe/translations/en.js"></script>
-        <script type="text/javascript" src="ng-eole/games/tictactoe/translations/fr.js"></script>
+        <script type="text/javascript" src="eole/games/tictactoe/module.js"></script>
+        <script type="text/javascript" src="eole/games/tictactoe/routes.js"></script>
+        <script type="text/javascript" src="eole/games/tictactoe/controllers/tictactoe.js"></script>
+        <script type="text/javascript" src="eole/games/tictactoe/translations/en.js"></script>
+        <script type="text/javascript" src="eole/games/tictactoe/translations/fr.js"></script>
 
         <script type="text/javascript" src="games/awale/seeds.js"></script>
-        <script type="text/javascript" src="ng-eole/games/awale/grid-manager.js"></script>
-        <script type="text/javascript" src="ng-eole/games/awale/anim-highlight.js"></script>
-        <script type="text/javascript" src="ng-eole/games/awale/awale.js"></script>
-        <script type="text/javascript" src="ng-eole/games/awale/translations/en.js"></script>
-        <script type="text/javascript" src="ng-eole/games/awale/translations/fr.js"></script>
-
-        <script type="text/javascript" src="ng-eole/party/party.js"></script>
+        <script type="text/javascript" src="eole/games/awale/module.js"></script>
+        <script type="text/javascript" src="eole/games/awale/routes.js"></script>
+        <script type="text/javascript" src="eole/games/awale/controllers/awale.js"></script>
+        <script type="text/javascript" src="eole/games/awale/services/grid-manager.js"></script>
+        <script type="text/javascript" src="eole/games/awale/services/anim-highlight.js"></script>
+        <script type="text/javascript" src="eole/games/awale/translations/en.js"></script>
+        <script type="text/javascript" src="eole/games/awale/translations/fr.js"></script>
     </body>
 </html>

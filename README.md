@@ -39,7 +39,7 @@ bower install
  - Configuration file
 
 ``` bash
-cp ng-eole/config.js.dist ng-eole/config.js
+cp eole/config.js.dist eole/config.js
 ```
 
  - Set your API base url and websocket server, or set `mock` as url to use a mocked api.
