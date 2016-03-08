@@ -1,9 +1,7 @@
 (function (angular) {
     'use strict';
 
-    var eoleWsModule = angular.module('eoleWs', ['eoleWebsocket']);
-
-    eoleWsModule.factory('eoleWs', ['$q', 'eoleSession', 'eoleWebsocketClient', '$rootScope', function ($q, eoleSession, eoleWebsocketClient, $rootScope) {
+    angular.module('eole').factory('eoleWs', ['$q', 'eoleSession', 'eoleWebsocketClient', '$rootScope', function ($q, eoleSession, eoleWebsocketClient, $rootScope) {
         var createSocketPromise = function () {
             var deferedSocket = $q.defer();
 

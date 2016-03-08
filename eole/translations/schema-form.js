@@ -1,27 +1,32 @@
-var schemaFormPostProcess = null;
+(function (angular) {
+    'use strict';
 
-ngEole.config(['schemaFormProvider', function (schemaFormProvider) {
-    schemaFormPostProcess = schemaFormProvider.postProcess;
-}]);
+    var schemaFormPostProcess = null;
 
-ngEole.run(['$translate', function ($translate) {
-    schemaFormPostProcess(function (form) {
-        angular.forEach(form, function (field) {
-            if (field.description) {
-                field.description = $translate.instant(field.description);
-            }
+    angular.module('eole.core.translations').config(['schemaFormProvider', function (schemaFormProvider) {
+        schemaFormPostProcess = schemaFormProvider.postProcess;
+    }]);
 
-            if (field.title) {
-                field.title = $translate.instant(field.title);
-            }
+    angular.module('eole.core.translations').run(['$translate', function ($translate) {
+        schemaFormPostProcess(function (form) {
+            angular.forEach(form, function (field) {
+                if (field.description) {
+                    field.description = $translate.instant(field.description);
+                }
 
-            if (field.validationMessage) {
-                angular.forEach(field.validationMessage, function (message, key) {
-                    field.validationMessage[key] = $translate.instant(message);
-                });
-            }
+                if (field.title) {
+                    field.title = $translate.instant(field.title);
+                }
+
+                if (field.validationMessage) {
+                    angular.forEach(field.validationMessage, function (message, key) {
+                        field.validationMessage[key] = $translate.instant(message);
+                    });
+                }
+            });
+
+            return form;
         });
+    }]);
 
-        return form;
-    });
-}]);
+})(angular);
