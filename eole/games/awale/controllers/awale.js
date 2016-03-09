@@ -1,10 +1,10 @@
 (function (angular) {
     'use strict';
 
-    angular.module('eole.games.awale').controller('AwaleController', ['$scope', '$routeParams', 'eoleApi', 'eoleWs', '$timeout', 'partyManager', 'eoleSession', '$translate', 'gridManager', 'animHighlight', function ($scope, $routeParams, eoleApi, eoleWs, $timeout, partyManager, eoleSession, $translate, gridManager, animHighlight) {
+    angular.module('eole.games.awale').controller('AwaleController', ['$scope', '$routeParams', 'eoleApi', 'eoleWs', '$timeout', 'partyManager', 'eoleSession', '$translate', 'gridManager', 'animHighlight', 'Seeds', function ($scope, $routeParams, eoleApi, eoleWs, $timeout, partyManager, eoleSession, $translate, gridManager, animHighlight, Seeds) {
         var ANIMATION_DELAY = 250;
         var partyId = $routeParams.partyId;
-        var seedsCoords = new AwaleSeeds({x: 19, y: 19});
+        var seedsCoords = new Seeds({x: 19, y: 19});
         var playerPosition = null;
         $scope.currentPlayer = null;
         $scope.reverseBoard = false;

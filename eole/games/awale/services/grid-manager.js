@@ -1,4 +1,4 @@
-(function (angular) {
+(function (angular, JSON) {
     'use strict';
 
     angular.module('eole.games.awale').factory('gridManager', [function () {
@@ -83,4 +83,4 @@
         return new GridManager();
     }]);
 
-})(angular);
+})(angular, JSON);

@@ -1,35 +1,52 @@
 ul.ttt-board {
-    margin: 32px 0 0 0;
+    width: 240px;
+    list-style: none;
+    padding-left: 0;
+}
+ul.ttt-board > li {
+    width: 80px;
+    height: 80px;
+    float: left;
+    cursor: pointer;
+    transition: border-width 200ms ease 0s;
+    border-width: 40px;
+    border-style: solid;
 }
 @media (min-width: 480px) and (min-height: 560px) {
     ul.ttt-board {
-        margin-top: 64px;
+        width: 420px;
     }
-}
-ul.ttt-board.my-turn {
-    box-shadow: 0 0 12px rgba(0, 0, 0, 0.4);
-    transition-duration: 200ms;
-}
-ul.players {
-    list-style: none;
-    padding-left: 0;
-    margin-top: 4em;
-}
-ul.players li {
-    font-size: 20px;
-}
-ul.players li:first-child {
-    color: lightCoral;
-}
-ul.players li:last-child {
-    color: lightBlue;
-}
-ul.ttt-board > li.animate {
-    border-width: 40px;
-    transition: none;
-}
-@media (min-width: 480px) and (min-height: 560px) {
-    ul.ttt-board > li.animate {
+    ul.ttt-board > li {
+        width: 140px;
+        height: 140px;
         border-width: 70px;
     }
+}
+ul.ttt-board.ttt-finished > li {
+    cursor: initial;
+}
+ul.ttt-board > li:nth-child(odd) {
+    background-color: #f8f8f8;
+    border-color: #f8f8f8;
+}
+ul.ttt-board > li:nth-child(even) {
+    background-color: #f0f0f0;
+    border-color: #f0f0f0;
+}
+ul.ttt-board > li.ttt-x,
+ul.ttt-board > li.ttt-o {
+    cursor: initial;
+    border-width: 0;
+}
+ul.ttt-board > li.ttt-x:nth-child(odd) {
+    background-color: lightCoral;
+}
+ul.ttt-board > li.ttt-o:nth-child(odd) {
+    background-color: lightBlue;
+}
+ul.ttt-board > li.ttt-x:nth-child(even) {
+    background-color: #F78787;
+}
+ul.ttt-board > li.ttt-o:nth-child(even) {
+    background-color: #B5E0EE;
 }
