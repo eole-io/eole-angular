@@ -1,7 +1,7 @@
 (function (angular) {
     'use strict';
 
-    angular.module('eole.core.player').controller('LoginController', ['$scope', '$location', 'eoleSession', '$timeout', function ($scope, $location, eoleSession, $timeout) {
+    angular.module('eole.core.player').controller('LoginController', ['$scope', '$location', 'eoleSession', function ($scope, $location, eoleSession) {
         $scope.eoleSession = eoleSession;
 
         $scope.schema = {
@@ -61,17 +61,15 @@
             password: null
         };
 
-        $scope.onSubmit = function (loginForm)
-        {
+        $scope.onSubmit = function (loginForm) {
             $scope.$broadcast('schemaFormValidate');
 
             if (loginForm.$valid) {
-                eoleSession.login(login.pseudo, login.password).then(function (player) {
+                eoleSession.login(login.pseudo, login.password).then(function () {
                     $location.path('/player/profile');
                 });
             }
         };
     }]);
-
 
 })(angular);
