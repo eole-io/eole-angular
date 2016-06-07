@@ -1,6 +1,6 @@
 <li class="dropdown">
     <a href="" ng-init="playerMenuCollapsed = true" ng-click="playerMenuCollapsed = !playerMenuCollapsed" role="button" aria-expanded="false">{{ $root.eoleSession.player.username }} <span class="caret"></span></a>
-    <ul class="dropdown-menu" uib-collapse="playerMenuCollapsed" role="menu">
+    <ul class="dropdown-menu" uib-collapse="playerMenuCollapsed" role="menu" ng-click="playerMenuCollapsed = true">
         <li><a href="" ng-href="#!/player/profile">{{ 'my.page'|translate }}</a></li>
 
         <li class="divider"></li>
