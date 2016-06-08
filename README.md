@@ -28,7 +28,9 @@ bower install
 cp eole/config.js.dist eole/config.js
 ```
 
- - In `eole/config.js`, set your API base url and websocket server:, or set `mock` as url to use a mocked api.
+ - In `eole/config.js`, set your API base url and websocket server:
+
+_Assuming you have [installed Eole Api](https://github.com/eole-io/eole-api)_
 
 ``` js
 angular.module('eole.config', [])
@@ -37,7 +39,7 @@ angular.module('eole.config', [])
 ;
 ```
 
-_or you can set `mock` to just navigate with a mocked api and websocket:_
+_or if don't want to install Eole Api and just want to navigate with a mocked (faked) api and websocket, you can set `mock`:_
 
 ``` js
     .constant('eoleApiUrl', 'mock')
