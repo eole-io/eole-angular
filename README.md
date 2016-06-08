@@ -2,7 +2,7 @@
 
 Web application where we can play online to board games !
 
-It uses [Eole API](https://github.com/alcalyn/eole-api) as RestAPI.
+It uses [Eole API](https://github.com/eole-io/eole-api) as RestAPI.
 
 What Eole aims to be:
 
