@@ -1,20 +1,26 @@
 {
-    "name": "eole-angular",
-    "private": true,
-    "description": "Eole angular application",
-    "repository": "https://github.com/alcalyn/eole-api",
-    "license": "MIT",
-    "dependencies": {
-        "bower": "~1.3",
-        "minify": "~2.0"
-    },
-    "devDependencies": {
-        "karma": "~0.12",
-        "karma-jasmine": "^0.3.5",
-        "karma-firefox-launcher": "^0.1.6"
-    },
-    "scripts": {
-        "postinstall": "bower install",
-        "start": "ls"
-    }
+  "name": "eole-angular",
+  "private": true,
+  "description": "Eole angular application",
+  "author": "alcalyn",
+  "version": "1.0.0",
+  "homepage": "https://github.com/eole-io/eole-angular#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/eole-io/eole-angular.git"
+  },
+  "bugs": {
+    "url": "https://github.com/eole-io/eole-angular/issues"
+  },
+  "dependencies": {
+    "bower": "~1.3"
+  },
+  "devDependencies": {
+    "gulp": "^3.9.1"
+  },
+  "scripts": {
+    "postinstall": "bower install",
+    "start": "ls"
+  },
+  "license": "MIT"
 }
