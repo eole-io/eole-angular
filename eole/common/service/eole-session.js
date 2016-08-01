@@ -168,6 +168,8 @@
             eoleSession.loginAsGuest();
         } else if (eoleSession.oauthToken) {
             eoleSession.refreshAccessToken();
+        } else {
+            eoleSession.loginAsGuest();
         }
 
         return eoleSession;
