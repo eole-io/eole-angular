@@ -7,14 +7,7 @@
 
         <title>Eole</title>
 
-        <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.min.css">
-        <link rel="stylesheet" href="eole/chat/css/chat.css">
-        <link rel="stylesheet" href="eole/common/css/all.css">
-
-        <link rel="stylesheet" href="eole/games/tictactoe/css/tictactoe.css">
-        <link rel="stylesheet" href="eole/games/tictactoe/css/layout.css">
-
-        <link rel="stylesheet" href="eole/games/awale/css/awale.css">
+        <link rel="stylesheet" href="assets/css/eole.min.css">
 
         <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
         <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -53,75 +46,6 @@
         <div ng-view>
         </div>
 
-        <script type="text/javascript" src="bower_components/cryptojslib/rollups/sha1.js"></script>
-        <script type="text/javascript" src="bower_components/cryptojslib/rollups/sha512.js"></script>
-        <script type="text/javascript" src="bower_components/cryptojslib/components/enc-base64-min.js"></script>
-        <script type="text/javascript" src="bower_components/cryptojs-password-encoder/CryptoJsPasswordEncoder.js"></script>
-        <script type="text/javascript" src="bower_components/autobahn-old/autobahn.min.js"></script>
-        <script type="text/javascript" src="bower_components/angular/angular.js"></script>
-        <script type="text/javascript" src="bower_components/angular-locker/dist/angular-locker.min.js"></script>
-        <script type="text/javascript" src="bower_components/angular-translate/angular-translate.min.js"></script>
-        <script type="text/javascript" src="bower_components/angular-sanitize/angular-sanitize.min.js"></script>
-        <script type="text/javascript" src="bower_components/angular-route/angular-route.min.js"></script>
-        <script type="text/javascript" src="bower_components/angular-bootstrap/ui-bootstrap.min.js"></script>
-        <script type="text/javascript" src="bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js"></script>
-        <script type="text/javascript" src="bower_components/tv4/tv4.js"></script>
-        <script type="text/javascript" src="bower_components/objectpath/lib/ObjectPath.js"></script>
-        <script type="text/javascript" src="bower_components/angular-schema-form/dist/schema-form.min.js"></script>
-        <script type="text/javascript" src="bower_components/angular-schema-form/dist/bootstrap-decorator.min.js"></script>
-        <script type="text/javascript" src="eole_components/relative-path/relative-path.js"></script>
-        <script type="text/javascript" src="eole_components/eole-api-client/eole-api-client.js"></script>
-        <script type="text/javascript" src="eole_components/eole-api-client/eole-api-client-mock.js"></script>
-        <script type="text/javascript" src="eole_components/eole-api-client/ng-module.js"></script>
-        <script type="text/javascript" src="eole_components/eole-websocket-client/eole-websocket-client.js"></script>
-        <script type="text/javascript" src="eole_components/eole-websocket-client/eole-websocket-client-mock.js"></script>
-        <script type="text/javascript" src="eole_components/eole-websocket-client/ng-module.js"></script>
-        <script type="text/javascript" src="config/environment.js"></script>
-        <script type="text/javascript" src="eole/module.js"></script>
-        <script type="text/javascript" src="eole/common/config/html5-mode.js"></script>
-        <script type="text/javascript" src="eole/common/config/locker.js"></script>
-        <script type="text/javascript" src="eole/common/service/party-manager.js"></script>
-        <script type="text/javascript" src="eole/common/service/eole-session.js"></script>
-        <script type="text/javascript" src="eole/common/service/websocket.js"></script>
-        <script type="text/javascript" src="eole/common/translations/module.js"></script>
-        <script type="text/javascript" src="eole/common/translations/config.js"></script>
-        <script type="text/javascript" src="eole/common/translations/schema-form.js"></script>
-        <script type="text/javascript" src="eole/common/translations/en.js"></script>
-        <script type="text/javascript" src="eole/common/translations/fr.js"></script>
-        <script type="text/javascript" src="eole/menu/module.js"></script>
-        <script type="text/javascript" src="eole/menu/controllers/menu.js"></script>
-        <script type="text/javascript" src="eole/home/module.js"></script>
-        <script type="text/javascript" src="eole/home/routes.js"></script>
-        <script type="text/javascript" src="eole/home/controllers/home.js"></script>
-        <script type="text/javascript" src="eole/player/module.js"></script>
-        <script type="text/javascript" src="eole/player/routes.js"></script>
-        <script type="text/javascript" src="eole/player/controllers/login.js"></script>
-        <script type="text/javascript" src="eole/player/controllers/profile.js"></script>
-        <script type="text/javascript" src="eole/player/controllers/register.js"></script>
-        <script type="text/javascript" src="eole/game/module.js"></script>
-        <script type="text/javascript" src="eole/game/routes.js"></script>
-        <script type="text/javascript" src="eole/game/controllers/game.js"></script>
-        <script type="text/javascript" src="eole/game/controllers/games.js"></script>
-        <script type="text/javascript" src="eole/default-game/module.js"></script>
-        <script type="text/javascript" src="eole/default-game/routes.js"></script>
-        <script type="text/javascript" src="eole/default-game/controllers/party.js"></script>
-        <script type="text/javascript" src="eole/chat/module.js"></script>
-        <script type="text/javascript" src="eole/chat/routes.js"></script>
-        <script type="text/javascript" src="eole/chat/controllers/chat.js"></script>
-
-        <script type="text/javascript" src="eole/games/tictactoe/module.js"></script>
-        <script type="text/javascript" src="eole/games/tictactoe/routes.js"></script>
-        <script type="text/javascript" src="eole/games/tictactoe/controllers/tictactoe.js"></script>
-        <script type="text/javascript" src="eole/games/tictactoe/translations/en.js"></script>
-        <script type="text/javascript" src="eole/games/tictactoe/translations/fr.js"></script>
-
-        <script type="text/javascript" src="eole/games/awale/module.js"></script>
-        <script type="text/javascript" src="eole/games/awale/routes.js"></script>
-        <script type="text/javascript" src="eole/games/awale/model/seeds.js"></script>
-        <script type="text/javascript" src="eole/games/awale/services/grid-manager.js"></script>
-        <script type="text/javascript" src="eole/games/awale/services/anim-highlight.js"></script>
-        <script type="text/javascript" src="eole/games/awale/controllers/awale.js"></script>
-        <script type="text/javascript" src="eole/games/awale/translations/en.js"></script>
-        <script type="text/javascript" src="eole/games/awale/translations/fr.js"></script>
+        <script type="text/javascript" src="assets/js/eole.min.js"></script>
     </body>
 </html>

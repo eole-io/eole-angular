@@ -16,19 +16,19 @@ git clone git@github.com:alcalyn/eole-angular.git --branch=dev
 cd eole-angular
 ```
 
- - Install Bower dependencies
+ - Install Nodejs dependencies
 
 ``` bash
-bower install
+npm install
 ```
 
- - Create configuration file from dist
+ - Configure your environment
 
 ``` bash
-cp eole/config.js.dist eole/config.js
+cp config/environment.js.dist config/environment.js
 ```
 
- - In `eole/config.js`, set your API base url and websocket server:
+In `config/environment.js`, set your API base url and websocket server:
 
 _Assuming you have [installed Eole Api](https://github.com/eole-io/eole-api)_
 
@@ -44,6 +44,12 @@ _or if don't want to install Eole Api and just want to navigate with a mocked (f
 ``` js
     .constant('eoleApiUrl', 'mock')
     .constant('webSocketUri', 'mock')
+```
+
+ - Deploy application
+
+``` bash
+gulp deploy
 ```
 
 
