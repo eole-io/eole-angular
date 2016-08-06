@@ -1,6 +1,6 @@
 module.exports = {
     css: [
-        'bower_components/bootstrap/dist/css/bootstrap.min.css',
+        'bower_components/bootstrap/dist/css/bootstrap.css',
         'eole/chat/css/chat.css',
         'eole/common/css/all.css',
 
@@ -22,16 +22,16 @@ module.exports = {
         'bower_components/cryptojs-password-encoder/CryptoJsPasswordEncoder.js',
         'bower_components/autobahn-old/autobahn.min.js',
         'bower_components/angular/angular.js',
-        'bower_components/angular-locker/dist/angular-locker.min.js',
-        'bower_components/angular-translate/angular-translate.min.js',
-        'bower_components/angular-sanitize/angular-sanitize.min.js',
-        'bower_components/angular-route/angular-route.min.js',
-        'bower_components/angular-bootstrap/ui-bootstrap.min.js',
-        'bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js',
+        'bower_components/angular-locker/dist/angular-locker.js',
+        'bower_components/angular-translate/angular-translate.js',
+        'bower_components/angular-sanitize/angular-sanitize.js',
+        'bower_components/angular-route/angular-route.js',
+        'bower_components/angular-bootstrap/ui-bootstrap.js',
+        'bower_components/angular-bootstrap/ui-bootstrap-tpls.js',
         'bower_components/tv4/tv4.js',
         'bower_components/objectpath/lib/ObjectPath.js',
-        'bower_components/angular-schema-form/dist/schema-form.min.js',
-        'bower_components/angular-schema-form/dist/bootstrap-decorator.min.js',
+        'bower_components/angular-schema-form/dist/schema-form.js',
+        'bower_components/angular-schema-form/dist/bootstrap-decorator.js',
 
         'eole_components/relative-path/relative-path.js',
         'eole_components/eole-api-client/eole-api-client.js',
