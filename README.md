@@ -7,12 +7,18 @@ It uses [Eole API](https://github.com/eole-io/eole-api) as RestAPI.
 More information about Eole itself: [What is Eole ?](http://eole-io.github.io/eole-project/)
 
 
+## Requirements
+
+ - [Node.js](https://nodejs.org/en/)
+ - gulp-cli (install: `npm install --global gulp-cli`)
+
+
 ## Installation
 
  - Clone project
 
 ``` bash
-git clone git@github.com:alcalyn/eole-angular.git --branch=dev
+git clone git@github.com:eole-io/eole-angular.git --branch=dev
 cd eole-angular
 ```
 
@@ -22,13 +28,15 @@ cd eole-angular
 npm install
 ```
 
- - Configure your environment
+ - Deploy application for development
 
 ``` bash
-cp config/environment.js.dist config/environment.js
+gulp deploy
 ```
 
-In `config/environment.js`, set your API base url and websocket server:
+ - Configure your environment
+
+Go `config/environment.js`, set your API base url and websocket server:
 
 _Assuming you have [installed Eole Api](https://github.com/eole-io/eole-api)_
 
@@ -44,12 +52,6 @@ _or if don't want to install Eole Api and just want to navigate with a mocked (f
 ``` js
     .constant('eoleApiUrl', 'mock')
     .constant('webSocketUri', 'mock')
-```
-
- - Deploy application
-
-``` bash
-gulp deploy
 ```
 
 
