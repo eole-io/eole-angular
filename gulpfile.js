@@ -1,18 +1,53 @@
 var gulp = require('gulp');
+var gulpsync = require('gulp-sync')(gulp);
 var concat = require('gulp-concat');
 var cleanCSS = require('gulp-clean-css');
 var uglify = require('gulp-uglify');
 var fileExists = require('file-exists');
+var rename = require('gulp-rename');
 var bower = require('gulp-bower');
+var inject = require('gulp-inject');
 
-gulp.task('dump-assets', [
-    'dump-css',
-    'dump-js',
-    'dump-fonts'
+gulp.task('assets', [
+    'inject-assets'
 ]);
 
-gulp.task('dump-css', function () {
-    gulp
+gulp.task('assets-prod', [
+    'build-assets',
+    'inject-assets-prod'
+]);
+
+gulp.task('build-assets', [
+    'build-css',
+    'build-js',
+    'build-fonts'
+]);
+
+gulp.task('inject-assets-prod', function () {
+    var distAssets = gulp.src([
+        './assets/css/*.css',
+        './assets/js/*.js'
+    ]);
+
+    return gulp
+        .src('./index.html')
+        .pipe(inject(distAssets, {relative: true}))
+        .pipe(gulp.dest('./'))
+    ;
+});
+
+gulp.task('inject-assets', function () {
+    var devAssets = gulp.src([].concat(cssFiles, jsFiles));
+
+    return gulp
+        .src('./index.html')
+        .pipe(inject(devAssets, {relative: true}))
+        .pipe(gulp.dest('./'))
+    ;
+});
+
+gulp.task('build-css', function () {
+    return gulp
         .src(cssFiles)
         .pipe(concat('eole.min.css'))
         .pipe(cleanCSS())
@@ -20,8 +55,8 @@ gulp.task('dump-css', function () {
     ;
 });
 
-gulp.task('dump-js', function () {
-    gulp
+gulp.task('build-js', function () {
+    return gulp
         .src(jsFiles)
         .pipe(concat('eole.min.js'))
         .pipe(uglify())
@@ -29,28 +64,40 @@ gulp.task('dump-js', function () {
     ;
 });
 
-gulp.task('dump-fonts', function () {
-    gulp
+gulp.task('build-fonts', function () {
+    return gulp
         .src(fontFiles)
         .pipe(gulp.dest('./assets/fonts/'))
     ;
 });
 
-gulp.task('deploy', [
-    'check-environment-file',
-    'install-bower-dependencies',
-    'dump-assets'
-]);
+gulp.task('deploy', gulpsync.sync([
+    ['copy-environment-file', 'install-bower-dependencies'],
+    'assets'
+]));
+
+gulp.task('deploy-prod', gulpsync.sync([
+    ['check-environment-file', 'install-bower-dependencies'],
+    'assets-prod'
+]));
 
 gulp.task('install-bower-dependencies', function () {
     return bower({ cmd: 'install'});
 });
 
 gulp.task('check-environment-file', function () {
-    if (fileExists('./config/environment.js')) {
-        return true;
-    } else {
+    if (!fileExists('./config/environment.js')) {
         throw 'You must create your config/environment.js file from config/environment.js.dist';
+    }
+});
+
+gulp.task('copy-environment-file', function () {
+    if (!fileExists('./config/environment.js')) {
+        return gulp
+            .src('./config/environment.js.dist')
+            .pipe(rename('environment.js'))
+            .pipe(gulp.dest('./config/'))
+        ;
     }
 });
 
