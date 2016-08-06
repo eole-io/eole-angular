@@ -38,7 +38,7 @@ gulp deploy
 
 Go `config/environment.js`, set your API base url and websocket server:
 
-_Assuming you have [installed Eole Api](https://github.com/eole-io/eole-api)_
+_Assuming you have [installed Eole Api](https://github.com/eole-io/eole-api)_ on localhost:
 
 ``` js
 angular.module('eole.config', [])
@@ -47,12 +47,19 @@ angular.module('eole.config', [])
 ;
 ```
 
-_or if don't want to install Eole Api and just want to navigate with a mocked (faked) api and websocket, you can set `mock`:_
+_or if don't want to install Eole Api
+and just want to navigate with a mocked api and websocket,
+you can set `mock`:_
 
 ``` js
     .constant('eoleApiUrl', 'mock')
     .constant('webSocketUri', 'mock')
 ```
+
+
+## What next ?
+
+ - See [gulp commands](doc/gulp.md)
 
 
 ## License

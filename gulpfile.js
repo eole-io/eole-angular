@@ -8,7 +8,7 @@ var rename = require('gulp-rename');
 var bower = require('gulp-bower');
 var inject = require('gulp-inject');
 
-var eoleAssets = require('./assets.js');
+var eoleAssets = require('./index.assets.js');
 
 gulp.task('assets', [
     'inject-assets'
@@ -79,18 +79,12 @@ gulp.task('deploy', gulpsync.sync([
 ]));
 
 gulp.task('deploy-prod', gulpsync.sync([
-    ['check-environment-file', 'copy-index-html', 'install-bower-dependencies'],
+    ['copy-environment-file', 'copy-index-html', 'install-bower-dependencies'],
     'assets-prod'
 ]));
 
 gulp.task('install-bower-dependencies', function () {
     return bower({ cmd: 'install'});
-});
-
-gulp.task('check-environment-file', function () {
-    if (!fileExists('./config/environment.js')) {
-        throw 'You must create your config/environment.js file from config/environment.js.dist';
-    }
 });
 
 gulp.task('copy-environment-file', function () {
