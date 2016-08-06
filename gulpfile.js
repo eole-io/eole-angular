@@ -72,12 +72,12 @@ gulp.task('build-fonts', function () {
 });
 
 gulp.task('deploy', gulpsync.sync([
-    ['copy-environment-file', 'install-bower-dependencies'],
+    ['copy-environment-file', 'copy-index-html', 'install-bower-dependencies'],
     'assets'
 ]));
 
 gulp.task('deploy-prod', gulpsync.sync([
-    ['check-environment-file', 'install-bower-dependencies'],
+    ['check-environment-file', 'copy-index-html', 'install-bower-dependencies'],
     'assets-prod'
 ]));
 
@@ -97,6 +97,16 @@ gulp.task('copy-environment-file', function () {
             .src('./config/environment.js.dist')
             .pipe(rename('environment.js'))
             .pipe(gulp.dest('./config/'))
+        ;
+    }
+});
+
+gulp.task('copy-index-html', function () {
+    if (!fileExists('./index.html')) {
+        return gulp
+            .src('./index.html.dist')
+            .pipe(rename('index.html'))
+            .pipe(gulp.dest('./'))
         ;
     }
 });
