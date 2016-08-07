@@ -7,30 +7,38 @@ It uses [Eole API](https://github.com/eole-io/eole-api) as RestAPI.
 More information about Eole itself: [What is Eole ?](http://eole-io.github.io/eole-project/)
 
 
+## Requirements
+
+ - [Node.js](https://nodejs.org/en/)
+ - gulp-cli (install: `npm install --global gulp-cli`)
+
+
 ## Installation
 
  - Clone project
 
 ``` bash
-git clone git@github.com:alcalyn/eole-angular.git --branch=dev
+git clone git@github.com:eole-io/eole-angular.git --branch=dev
 cd eole-angular
 ```
 
- - Install Bower dependencies
+ - Install Nodejs dependencies
 
 ``` bash
-bower install
+npm install
 ```
 
- - Create configuration file from dist
+ - Deploy application for development
 
 ``` bash
-cp eole/config.js.dist eole/config.js
+gulp deploy
 ```
 
- - In `eole/config.js`, set your API base url and websocket server:
+ - Configure your environment
 
-_Assuming you have [installed Eole Api](https://github.com/eole-io/eole-api)_
+Go `config/environment.js`, set your API base url and websocket server:
+
+_Assuming you have [installed Eole Api](https://github.com/eole-io/eole-api)_ on localhost:
 
 ``` js
 angular.module('eole.config', [])
@@ -39,12 +47,19 @@ angular.module('eole.config', [])
 ;
 ```
 
-_or if don't want to install Eole Api and just want to navigate with a mocked (faked) api and websocket, you can set `mock`:_
+_or if don't want to install Eole Api
+and just want to navigate with a mocked api and websocket,
+you can set `mock`:_
 
 ``` js
     .constant('eoleApiUrl', 'mock')
     .constant('webSocketUri', 'mock')
 ```
+
+
+## What next ?
+
+ - See [gulp commands](doc/gulp.md)
 
 
 ## License
