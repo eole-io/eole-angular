@@ -14,16 +14,16 @@ gulp.task('assets', [
     'inject-assets'
 ]);
 
-gulp.task('assets-prod', [
+gulp.task('assets-prod', gulpsync.sync([
     'build-assets',
     'inject-assets-prod'
-]);
+]));
 
-gulp.task('build-assets', [
+gulp.task('build-assets', gulpsync.async([
     'build-css',
     'build-js',
     'build-fonts'
-]);
+]));
 
 gulp.task('inject-assets-prod', function () {
     var distAssets = gulp.src([
