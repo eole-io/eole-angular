@@ -1,5 +1,7 @@
 # Eole AngularJS
 
+[![XO code style](https://img.shields.io/badge/code_style-XO-5ed9c7.svg)](https://github.com/sindresorhus/xo)
+
 Web application where we can play online to board games !
 
 It uses [Eole API](https://github.com/eole-io/eole-api) as RestAPI.
