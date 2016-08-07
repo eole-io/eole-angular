@@ -13,5 +13,4 @@
             $scope.game = party.game;
         });
     }]);
-
 })(angular);

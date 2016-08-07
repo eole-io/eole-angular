@@ -4,20 +4,20 @@
     angular.module('eole.core.translations').config(['$translateProvider', function ($translateProvider) {
         $translateProvider.translations('fr', {
             'home.play': 'Jouer !',
-            play: 'Jouer',
-            games: 'Jeux',
-            pseudo: 'Pseudo',
-            password: 'Mot de passe',
+            'play': 'Jouer',
+            'games': 'Jeux',
+            'pseudo': 'Pseudo',
+            'password': 'Mot de passe',
             'password.repeat': 'Répétition du mot de passe',
-            register: 'Se créer un compte',
-            login: 'Se connecter',
-            logout: 'Se déconnecter',
-            chat: 'Tchat',
-            parties: 'Parties',
+            'register': 'Se créer un compte',
+            'login': 'Se connecter',
+            'logout': 'Se déconnecter',
+            'chat': 'Tchat',
+            'parties': 'Parties',
             'create.party': 'Créer une partie',
-            join: 'Rejoindre',
-            watch: 'Observer',
-            send: 'Envoyer',
+            'join': 'Rejoindre',
+            'watch': 'Observer',
+            'send': 'Envoyer',
             '{player}.has.join.chat': '{{ player }} a rejoind le tchat.',
             '{player}.has.left.chat': '{{ player }} a quitté le tchat.',
             'my.page': 'Ma page',
@@ -32,5 +32,4 @@
             'passwords.not.equals': 'Le mot de passe répété est différent'
         });
     }]);
-
 })(angular);

@@ -26,8 +26,7 @@
             /**
              * Dispatch logged event to rootScope.
              */
-            dispatchLoggedEvent: function ()
-            {
+            dispatchLoggedEvent: function () {
                 $rootScope.$emit('eole.session.logged', eoleSession);
             },
 
@@ -38,7 +37,7 @@
                 var password = eoleSession.generateRandomPassword();
                 var deferredToken = $q.defer();
 
-                var promise = $q(function (resolve, reject) {
+                var promise = $q(function (resolve) {
                     eoleApi.createGuest(password).then(function (player) {
                         var tokenPromise = eoleApi.createOAuth2Token(player.username, password);
 
@@ -137,15 +136,15 @@
             },
 
             /**
-             * @params {string} username
-             * @params {string} password
+             * @param {String} username
+             * @param {String} password
              *
              * @returns {Promise} Created player.
              */
             register: function (username, password) {
                 var promise = eoleApi.createPlayer(username, password);
 
-                promise.then(function (player) {
+                promise.then(function () {
                     eoleSession.login(username, password);
                 });
 
@@ -174,5 +173,4 @@
 
         return eoleSession;
     }]);
-
 })(angular);

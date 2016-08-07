@@ -7,5 +7,4 @@
             templateUrl: 'eole/chat/views/chat.html'
         });
     }]);
-
 })(angular);

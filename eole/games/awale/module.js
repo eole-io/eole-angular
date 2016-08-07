@@ -2,5 +2,4 @@
     'use strict';
 
     angular.module('eole.games.awale', ['ngRoute']);
-
 })(angular);

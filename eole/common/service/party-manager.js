@@ -11,8 +11,7 @@
              *
              * @returns {Number|null}
              */
-            this.getPlayerPosition = function (party, player)
-            {
+            this.getPlayerPosition = function (party, player) {
                 if (!player) {
                     player = eoleSession.player;
                 }
@@ -34,8 +33,7 @@
              *
              * @returns {Boolean}
              */
-            this.inParty = function (party, player)
-            {
+            this.inParty = function (party, player) {
                 if (!player) {
                     player = eoleSession.player;
                 }
@@ -46,5 +44,4 @@
 
         return new PartyManager(eoleSession);
     }]);
-
 })(angular);

@@ -7,6 +7,5 @@
             templateUrl: 'eole/default-game/views/party.html'
         });
     }]);
-
 })(angular);
 

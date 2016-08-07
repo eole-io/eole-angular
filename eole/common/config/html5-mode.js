@@ -7,5 +7,4 @@
             .hashPrefix('!')
         ;
     }]);
-
 })(angular);

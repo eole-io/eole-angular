@@ -7,6 +7,5 @@
             templateUrl: 'eole/home/views/home.html'
         });
     }]);
-
 })(angular);
 

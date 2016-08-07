@@ -61,11 +61,9 @@
         /**
          * Create random coords for the n-th seed.
          *
-         * @param {Integer} seedNumber
-         *
          * @returns {Array} with x;y
          */
-        this.createCoords = function (seedNumber) {
+        this.createCoords = function () {
             var alpha = Math.random() * Math.PI * 2;
             var dist = Math.random() * (CONTAINER_SIZE - SEEDS_PICTURES_SIZE) / 2;
 
@@ -145,9 +143,9 @@
          */
         this.coordsToStyle = function (coords) {
             return {
-                left: coords.x + 'px',
-                top: coords.y + 'px',
-                'background-position': (coords.seed * SEEDS_PICTURES_SIZE)+'px 0'
+                'left': coords.x + 'px',
+                'top': coords.y + 'px',
+                'background-position': (coords.seed * SEEDS_PICTURES_SIZE) + 'px 0'
             };
         };
 
@@ -182,6 +180,5 @@
 
             return styles;
         };
-    };
-
+    }
 })(angular, Math);

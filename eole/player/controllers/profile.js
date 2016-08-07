@@ -3,5 +3,4 @@
 
     angular.module('eole.core.player').controller('ProfileController', [function () {
     }]);
-
 })(angular);

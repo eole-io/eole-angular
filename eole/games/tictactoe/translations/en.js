@@ -6,5 +6,4 @@
             tictactoe: 'Tic Tac Toe'
         });
     }]);
-
 })(angular);

@@ -3,5 +3,4 @@
 
     angular.module('eole.core.menu').controller('MenuController', [function () {
     }]);
-
 })(angular);

@@ -24,5 +24,23 @@
     "gulp-sync": "^0.1.4",
     "gulp-uglify": "^2.0.0"
   },
+  "devDependencies": {
+    "xo": "^0.16.0"
+  },
+  "xo": {
+    "space": 4,
+    "rules": {
+      "no-undef": "off",
+      "max-params": "off",
+      "yoda": "off",
+      "camelcase": "off",
+      "default-case": "off",
+      "no-loop-func": "off"
+    },
+    "ignores": [
+      "config/environment.js",
+      "**/*-mock.js"
+    ]
+  },
   "license": "MIT"
 }

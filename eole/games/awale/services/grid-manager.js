@@ -25,24 +25,24 @@
             };
 
             this.storeSeeds = function (grid, player, box) {
-                grid[1 - player]['attic'] += grid[player]['seeds'][box];
-                grid[player]['seeds'][box] = 0;
+                grid[1 - player].attic += grid[player].seeds[box];
+                grid[player].seeds[box] = 0;
             };
 
             this.addSeeds = function (grid, player, box, number) {
-                grid[player]['seeds'][box] += number;
+                grid[player].seeds[box] += number;
 
-                if (grid[player]['seeds'][box] < 0) {
+                if (grid[player].seeds[box] < 0) {
                     that.clearSeedsNumber(grid, player, box);
                 }
             };
 
             this.getSeedsNumber = function (grid, player, box) {
-                return grid[player]['seeds'][box];
+                return grid[player].seeds[box];
             };
 
             this.setSeedsNumber = function (grid, player, box, number) {
-                grid[player]['seeds'][box] = number;
+                grid[player].seeds[box] = number;
 
                 return that;
             };
@@ -66,7 +66,7 @@
             };
 
             this.has2Or3Seeds = function (grid, row, box) {
-                return -1 !== [2, 3].indexOf(grid[row]['seeds'][box]);
+                return -1 !== [2, 3].indexOf(grid[row].seeds[box]);
             };
 
             this.allSeedsVulnerable = function (grid, row) {
@@ -82,5 +82,4 @@
 
         return new GridManager();
     }]);
-
 })(angular, JSON);

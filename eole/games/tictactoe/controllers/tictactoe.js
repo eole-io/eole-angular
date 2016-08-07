@@ -25,7 +25,7 @@
 
         $scope.play = function (col, row) {
             eoleWs.socketPromise.then(function (socket) {
-                socket.publish('eole/games/tictactoe/parties/'+partyId, {
+                socket.publish('eole/games/tictactoe/parties/' + partyId, {
                     type: 'move',
                     col: col,
                     row: row
@@ -42,8 +42,26 @@
             $scope.displayJoinButton = (event.party.state === 0) && !partyManager.inParty(event.party);
         }
 
+        var getIndex = function (col, row) {
+            return (row * 3) + col;
+        };
+
+        var replaceAt = function (string, col, row, character) {
+            var index = getIndex(col, row);
+
+            return string.substr(0, index) + character + string.substr(index + character.length);
+        };
+
+        var animate = function (index) {
+            $scope.animate[index] = true;
+
+            $timeout(function () {
+                $scope.animate[index] = false;
+            }, 20);
+        };
+
         eoleWs.socketPromise.then(function (socket) {
-            socket.subscribe('eole/games/tictactoe/parties/'+partyId, function (topic, event) {
+            socket.subscribe('eole/games/tictactoe/parties/' + partyId, function (topic, event) {
                 switch (event.type) {
                     case 'restart':
                         $timeout(function () {
@@ -85,13 +103,13 @@
                         for (var i = 0; i < 3; i++) {
                             $timeout(function () {
                                 animate(event.brochette[0]);
-                            }, 300 + 600 * i);
+                            }, 300 + (600 * i));
                             $timeout(function () {
                                 animate(event.brochette[1]);
-                            }, 380 + 600 * i);
+                            }, 380 + (600 * i));
                             $timeout(function () {
                                 animate(event.brochette[2]);
-                            }, 460 + 600 * i);
+                            }, 460 + (600 * i));
                         }
 
                         break;
@@ -100,28 +118,9 @@
                 $scope.$apply();
             });
 
-            socket.publish('eole/games/tictactoe/parties/'+partyId, {
+            socket.publish('eole/games/tictactoe/parties/' + partyId, {
                 type: 'need-refresh'
             });
         });
-
-        var getIndex = function (col, row) {
-            return row * 3 + col;
-        };
-
-        var replaceAt = function (string, col, row, character) {
-            var index = getIndex(col, row);
-
-            return string.substr(0, index) + character + string.substr(index + character.length);
-        };
-
-        var animate = function (index) {
-            $scope.animate[index] = true;
-
-            $timeout(function () {
-                $scope.animate[index] = false;
-            }, 20);
-        };
     }]);
-
 })(angular, Math);

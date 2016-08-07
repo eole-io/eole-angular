@@ -14,5 +14,4 @@
         'eole.games.tictactoe',
         'eole.games.awale'
     ]);
-
 })(angular);

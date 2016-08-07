@@ -10,7 +10,7 @@
         $scope.createParty = function () {
             eoleSession.oauthTokenPromise.then(function (token) {
                 eoleApi.createParty(gameName, token).then(function (party) {
-                    $location.path('/games/'+gameName+'/parties/'+party.id);
+                    $location.path('/games/' + gameName + '/parties/' + party.id);
                 });
             });
         };
@@ -30,7 +30,7 @@
         });
 
         eoleWs.socketPromise.then(function (socket) {
-            socket.subscribe('eole/core/game/'+gameName+'/parties', function (topic, event) {
+            socket.subscribe('eole/core/game/' + gameName + '/parties', function (topic, event) {
                 switch (event.type) {
                     case 'created':
                         $scope.parties.push(event.party);
@@ -47,5 +47,4 @@
             });
         });
     }]);
-
 })(angular);

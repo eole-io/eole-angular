@@ -84,7 +84,7 @@ gulp.task('deploy-prod', gulpsync.sync([
 ]));
 
 gulp.task('install-bower-dependencies', function () {
-    return bower({ cmd: 'install'});
+    return bower({cmd: 'install'});
 });
 
 gulp.task('copy-environment-file', function () {

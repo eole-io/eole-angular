@@ -11,5 +11,4 @@
             templateUrl: 'eole/game/views/game.html'
         });
     }]);
-
 })(angular);

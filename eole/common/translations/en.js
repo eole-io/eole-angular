@@ -4,20 +4,20 @@
     angular.module('eole.core.translations').config(['$translateProvider', function ($translateProvider) {
         $translateProvider.translations('en', {
             'home.play': 'Play !',
-            play: 'Play',
-            games: 'Games',
-            pseudo: 'Pseudo',
-            password: 'Password',
+            'play': 'Play',
+            'games': 'Games',
+            'pseudo': 'Pseudo',
+            'password': 'Password',
             'password.repeat': 'Password repeat',
-            register: 'Sign up',
-            login: 'Login',
-            logout: 'Logout',
-            chat: 'Chatroom',
-            parties: 'Games',
+            'register': 'Sign up',
+            'login': 'Login',
+            'logout': 'Logout',
+            'chat': 'Chatroom',
+            'parties': 'Games',
             'create.party': 'Create a new game',
-            join: 'Join',
-            watch: 'Watch',
-            send: 'Send',
+            'join': 'Join',
+            'watch': 'Watch',
+            'send': 'Send',
             '{player}.has.join.chat': '{{ player }} has join.',
             '{player}.has.left.chat': '{{ player }} has left.',
             'my.page': 'My page',
@@ -32,5 +32,4 @@
             'passwords.not.equals': 'Password repeat is invalid'
         });
     }]);
-
 })(angular);

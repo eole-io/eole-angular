@@ -13,9 +13,9 @@
                     description: 'your.pseudo'
                 },
                 password: {
-                    type: 'string',
-                    title: 'password',
-                    description: 'your.password',
+                    'type': 'string',
+                    'title': 'password',
+                    'description': 'your.password',
                     'x-schema-form': {
                         type: 'password'
                     }
@@ -71,5 +71,4 @@
             }
         };
     }]);
-
 })(angular);

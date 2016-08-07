@@ -11,17 +11,17 @@
                     description: 'your.pseudo'
                 },
                 password: {
-                    type: 'string',
-                    title: 'password',
-                    description: 'your.password',
+                    'type': 'string',
+                    'title': 'password',
+                    'description': 'your.password',
                     'x-schema-form': {
                         type: 'password'
                     }
                 },
                 passwordRepeat: {
-                    type: 'string',
-                    title: 'password.repeat',
-                    description: 'your.password.repeat',
+                    'type': 'string',
+                    'title': 'password.repeat',
+                    'description': 'your.password.repeat',
                     'x-schema-form': {
                         type: 'password'
                     }
@@ -64,7 +64,7 @@
                 },
                 $validators: {
                     notEmpty: isNotEmpty,
-                    passwordsAreEquals: function (value) {
+                    passwordsAreEquals: function () {
                         return true;
                     }
                 }
@@ -81,8 +81,7 @@
             passwordRepeat: null
         };
 
-        $scope.onSubmit = function (registerForm)
-        {
+        $scope.onSubmit = function (registerForm) {
             $scope.$broadcast('schemaFormValidate');
 
             if (registerForm.$valid) {
@@ -92,5 +91,4 @@
             }
         };
     }]);
-
 })(angular);

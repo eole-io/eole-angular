@@ -36,7 +36,7 @@
                     party_id: partyId
                 }).then(function (r) {
                     $scope.currentPlayer = r.currentPlayer;
-                }).catch(function (r) {
+                }).catch(function () {
                     stopAnimation();
                     $scope.grid = lastGrid;
                     $scope.currentPlayer = 1 - $scope.currentPlayer;
@@ -50,7 +50,7 @@
             $scope.currentPlayer = 1 - $scope.currentPlayer;
         };
 
-        eoleApi.callGame('awale', 'get', 'find-by-id/'+partyId).then(function (awaleParty) {
+        eoleApi.callGame('awale', 'get', 'find-by-id/' + partyId).then(function (awaleParty) {
             $scope.party = awaleParty.party;
             $scope.grid = awaleParty.grid;
             $scope.currentPlayer = awaleParty.current_player;
@@ -61,7 +61,7 @@
         });
 
         eoleWs.socketPromise.then(function (socket) {
-            socket.subscribe('eole/games/awale/parties/'+partyId, function (topic, event) {
+            socket.subscribe('eole/games/awale/parties/' + partyId, function (topic, event) {
                 switch (event.type) {
                     case 'join':
                         $scope.party = event.party;
@@ -95,7 +95,7 @@
             var simulationGrid = gridManager.cloneGrid($scope.grid);
             var hand = gridManager.getSeedsNumber(simulationGrid, player, move);
 
-            animationSteps.push([player, move, - gridManager.getSeedsNumber(simulationGrid, player, move)]);
+            animationSteps.push([player, move, -gridManager.getSeedsNumber(simulationGrid, player, move)]);
             gridManager.clearSeedsNumber(simulationGrid, player, move);
 
             while (hand > 0) {
@@ -125,8 +125,11 @@
             }
 
             if (!gridManager.willStarveOpponent(simulationGrid, player, _player, _move)) {
+                if (_player === player) {
+                    return;
+                }
+
                 while (
-                    (_player !== player) &&
                     (-1 !== [0, 1, 2, 3, 4, 5].indexOf(_move)) &&
                     (gridManager.has2Or3Seeds(simulationGrid, _player, _move))
                 ) {
@@ -140,7 +143,7 @@
 
                 var thread = $timeout(function () {
                     if ('store' === step[2]) {
-                        gridManager.storeSeeds($scope.grid, step[0], step[1])
+                        gridManager.storeSeeds($scope.grid, step[0], step[1]);
                         $scope.lastMove[step[0]][step[1]].push('eat');
                         animHighlight.flashAttic($scope.flashed, 1 - step[0]);
                     } else {
@@ -219,5 +222,4 @@
             return 1 === $scope.party.state;
         };
     }]);
-
 })(angular);

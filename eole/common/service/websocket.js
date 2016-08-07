@@ -14,7 +14,6 @@
             return deferedSocket.promise;
         };
 
-
         var eoleWs = {
             socketPromise: createSocketPromise()
         };

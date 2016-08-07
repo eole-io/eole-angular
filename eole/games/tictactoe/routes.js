@@ -7,5 +7,4 @@
             templateUrl: 'eole/games/tictactoe/views/tictactoe.html'
         });
     }]);
-
 })(angular);

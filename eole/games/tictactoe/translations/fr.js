@@ -6,5 +6,4 @@
             tictactoe: 'Morpion'
         });
     }]);
-
 })(angular);

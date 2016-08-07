@@ -23,5 +23,4 @@
     angular.module('eole').run(['eoleSession', '$rootScope', function (eoleSession, $rootScope) {
         $rootScope.eoleSession = eoleSession;
     }]);
-
 })(angular);

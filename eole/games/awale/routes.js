@@ -7,5 +7,4 @@
             templateUrl: 'eole/games/awale/views/awale.html'
         });
     }]);
-
 })(angular);

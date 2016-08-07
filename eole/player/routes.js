@@ -19,5 +19,4 @@
             templateUrl: 'eole/player/views/register.html'
         });
     }]);
-
 })(angular);

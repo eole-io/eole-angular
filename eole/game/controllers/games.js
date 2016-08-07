@@ -12,5 +12,4 @@
             $scope.games = games;
         });
     }]);
-
 })(angular);

@@ -1,8 +1,16 @@
-(function (angular, window, document, CryptoJS) {
+(function (angular, window, document, sha1, string) {
     'use strict';
 
     angular.module('eole.core.chat').controller('ChatController', ['$scope', '$translate', 'eoleWs', function ($scope, $translate, eoleWs) {
         $scope.messages = [];
+
+        var isBottom = function () {
+            return (window.innerHeight + window.scrollY) >= document.body.offsetHeight - 20;
+        };
+
+        var scrollBottom = function () {
+            window.scrollTo(0, document.body.scrollHeight);
+        };
 
         $scope.sendMessage = function () {
             eoleWs.socketPromise.then(function (socket) {
@@ -17,7 +25,7 @@
 
                 switch (event.type) {
                     case 'join':
-                        $translate('{player}.has.join.chat', { player: event.player.username }).then(function (message) {
+                        $translate('{player}.has.join.chat', {player: event.player.username}).then(function (message) {
                             $scope.messages.push({
                                 meta: true,
                                 date: new Date(),
@@ -47,7 +55,7 @@
                         break;
 
                     case 'leave':
-                        $translate('{player}.has.left.chat', { player: event.player.username }).then(function (message) {
+                        $translate('{player}.has.left.chat', {player: event.player.username}).then(function (message) {
                             $scope.messages.push({
                                 meta: true,
                                 date: new Date(),
@@ -72,22 +80,13 @@
 
         $scope.avatarUrl = function (player) {
             if (!avatarUrlCache[player.id]) {
-                var color = CryptoJS.SHA1(player.id+''+player.date_created).toString().substr(0, 6);
+                var color = sha1(string(player.id) + player.date_created).toString().substr(0, 6);
                 var initials = $scope.playerInitials(player);
 
-                avatarUrlCache[player.id] = 'http://placehold.it/50/'+color+'/fff&text='+initials;
+                avatarUrlCache[player.id] = 'http://placehold.it/50/' + color + '/fff&text=' + initials;
             }
 
             return avatarUrlCache[player.id];
         };
-
-        var isBottom = function () {
-            return (window.innerHeight + window.scrollY) >= document.body.offsetHeight - 20;
-        };
-
-        var scrollBottom = function () {
-            window.scrollTo(0, document.body.scrollHeight);
-        };
     }]);
-
-})(angular, window, document, CryptoJS);
+})(angular, window, document, CryptoJS.SHA1, String);

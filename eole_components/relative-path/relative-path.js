@@ -17,7 +17,7 @@
      */
     window.relativePath = function (path) {
         if (!document.currentScript) {
-            throw 'RelativePath: Impossible to get current script path. Is it called in a callback ?';
+            throw new Error('RelativePath: Impossible to get current script path. Is it called in a callback ?');
         }
 
         var scriptPath = document.currentScript.src;
@@ -29,5 +29,4 @@
 
         return scriptDir + path;
     };
-
 })(window, document);

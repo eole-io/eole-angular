@@ -16,5 +16,4 @@
     angular.module('eole.core.translations').run(['$translate', '$rootScope', function ($translate, $rootScope) {
         $rootScope.lang = $translate.use();
     }]);
-
 })(angular);

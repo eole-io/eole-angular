@@ -17,23 +17,22 @@
             };
 
             this.flashBox = function (flashed, player, box) {
-                flashed[player]['seeds'][box] = true;
+                flashed[player].seeds[box] = true;
 
                 $timeout(function () {
-                    flashed[player]['seeds'][box] = false;
+                    flashed[player].seeds[box] = false;
                 }, 50);
             };
 
             this.flashAttic = function (flashed, player) {
-                flashed[player]['attic'] = true;
+                flashed[player].attic = true;
 
                 $timeout(function () {
-                    flashed[player]['attic'] = false;
+                    flashed[player].attic = false;
                 }, 50);
             };
         };
 
         return new AnimHighlight($timeout);
     }]);
-
 })(angular);
