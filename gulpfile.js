@@ -10,12 +10,13 @@ var inject = require('gulp-inject');
 
 var eoleAssets = require('./index.assets.js');
 
-gulp.task('assets', [
+gulp.task('assets', gulpsync.sync([
+    'copy-index-html',
     'inject-assets'
-]);
+]));
 
 gulp.task('assets-prod', gulpsync.sync([
-    'build-assets',
+    ['build-assets', 'copy-index-html'],
     'inject-assets-prod'
 ]));
 
@@ -74,12 +75,12 @@ gulp.task('build-fonts', function () {
 });
 
 gulp.task('deploy', gulpsync.sync([
-    ['copy-environment-file', 'copy-index-html', 'install-bower-dependencies'],
+    ['copy-environment-file', 'install-bower-dependencies'],
     'assets'
 ]));
 
 gulp.task('deploy-prod', gulpsync.sync([
-    ['copy-environment-file', 'copy-index-html', 'install-bower-dependencies'],
+    ['copy-environment-file', 'install-bower-dependencies'],
     'assets-prod'
 ]));
 
@@ -98,13 +99,11 @@ gulp.task('copy-environment-file', function () {
 });
 
 gulp.task('copy-index-html', function () {
-    if (!fileExists('./index.html')) {
-        return gulp
-            .src('./index.html.dist')
-            .pipe(rename('index.html'))
-            .pipe(gulp.dest('./'))
-        ;
-    }
+    return gulp
+        .src('./index.html.dist')
+        .pipe(rename('index.html'))
+        .pipe(gulp.dest('./'))
+    ;
 });
 
 gulp.task('default', function () {
