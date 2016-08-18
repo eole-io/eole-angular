@@ -3,7 +3,7 @@
 (function (angular, Math) {
     'use strict';
 
-    angular.module('eole.games.tictactoe').controller('TicTacToeController', ['$scope', '$routeParams', 'eoleApi', 'eoleWs', '$timeout', 'partyManager', 'eoleSession', function ($scope, $routeParams, eoleApi, eoleWs, $timeout, partyManager, eoleSession) {
+    angular.module('eole.games.tictactoe').controller('TicTacToeController', function ($scope, $routeParams, eoleApi, eoleWs, $timeout, partyManager, eoleSession) {
         var partyId = $routeParams.partyId;
         var myColor = null;
 
@@ -124,5 +124,5 @@
                 type: 'need-refresh'
             });
         });
-    }]);
+    });
 })(angular, Math);

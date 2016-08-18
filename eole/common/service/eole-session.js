@@ -3,7 +3,7 @@
 (function (angular) {
     'use strict';
 
-    angular.module('eole').factory('eoleSession', ['$q', 'locker', 'eoleApi', '$rootScope', function ($q, locker, eoleApi, $rootScope) {
+    angular.module('eole').factory('eoleSession', function ($q, locker, eoleApi, $rootScope) {
         var eoleSession = {
 
             /**
@@ -174,5 +174,5 @@
         }
 
         return eoleSession;
-    }]);
+    });
 })(angular);

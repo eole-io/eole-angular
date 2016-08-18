@@ -3,7 +3,7 @@
 (function (angular) {
     'use strict';
 
-    angular.module('eole').config(['lockerProvider', function (lockerProvider) {
+    angular.module('eole').config(function (lockerProvider) {
         lockerProvider.defaults({
             driver: 'local',
             namespace: 'eole',
@@ -11,5 +11,5 @@
             eventsEnabled: true,
             extend: {}
         });
-    }]);
+    });
 })(angular);

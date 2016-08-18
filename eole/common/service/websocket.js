@@ -3,7 +3,7 @@
 (function (angular) {
     'use strict';
 
-    angular.module('eole').factory('eoleWs', ['$q', 'eoleSession', 'eoleWebsocketClient', '$rootScope', function ($q, eoleSession, eoleWebsocketClient, $rootScope) {
+    angular.module('eole').factory('eoleWs', function ($q, eoleSession, eoleWebsocketClient, $rootScope) {
         var createSocketPromise = function () {
             var deferedSocket = $q.defer();
 
@@ -25,5 +25,5 @@
         });
 
         return eoleWs;
-    }]);
+    });
 })(angular);

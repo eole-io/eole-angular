@@ -5,11 +5,11 @@
 
     var schemaFormPostProcess = null;
 
-    angular.module('eole.core.translations').config(['schemaFormProvider', function (schemaFormProvider) {
+    angular.module('eole.core.translations').config(function (schemaFormProvider) {
         schemaFormPostProcess = schemaFormProvider.postProcess;
-    }]);
+    });
 
-    angular.module('eole.core.translations').run(['$translate', function ($translate) {
+    angular.module('eole.core.translations').run(function ($translate) {
         schemaFormPostProcess(function (form) {
             angular.forEach(form, function (field) {
                 if (field.description) {
@@ -29,5 +29,5 @@
 
             return form;
         });
-    }]);
+    });
 })(angular);

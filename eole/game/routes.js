@@ -3,7 +3,7 @@
 (function (angular) {
     'use strict';
 
-    angular.module('eole.core.game').config(['$routeProvider', function ($routeProvider) {
+    angular.module('eole.core.game').config(function ($routeProvider) {
         $routeProvider.when('/games', {
             controller: 'GamesController',
             templateUrl: 'eole/game/views/games.html'
@@ -12,5 +12,5 @@
             controller: 'GameController',
             templateUrl: 'eole/game/views/game.html'
         });
-    }]);
+    });
 })(angular);

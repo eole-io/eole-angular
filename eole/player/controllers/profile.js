@@ -3,6 +3,6 @@
 (function (angular) {
     'use strict';
 
-    angular.module('eole.core.player').controller('ProfileController', [function () {
-    }]);
+    angular.module('eole.core.player').controller('ProfileController', function () {
+    });
 })(angular);

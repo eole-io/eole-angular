@@ -3,7 +3,7 @@
 (function (angular) {
     'use strict';
 
-    angular.module('eole.core.translations').config(['$translateProvider', function ($translateProvider) {
+    angular.module('eole.core.translations').config(function ($translateProvider) {
         $translateProvider.translations('en', {
             'home.play': 'Play !',
             'play': 'Play',
@@ -33,5 +33,5 @@
             'party.hosted.by.{username}': 'Game hosted by {{username}}',
             'passwords.not.equals': 'Password repeat is invalid'
         });
-    }]);
+    });
 })(angular);

@@ -3,7 +3,7 @@
 (function (angular) {
     'use strict';
 
-    angular.module('eole.core.translations').config(['$translateProvider', function ($translateProvider) {
+    angular.module('eole.core.translations').config(function ($translateProvider) {
         $translateProvider
             .registerAvailableLanguageKeys(['en', 'fr'], {
                 'en_*': 'en',
@@ -13,9 +13,9 @@
             .fallbackLanguage('en')
             .useSanitizeValueStrategy()
         ;
-    }]);
+    });
 
-    angular.module('eole.core.translations').run(['$translate', '$rootScope', function ($translate, $rootScope) {
+    angular.module('eole.core.translations').run(function ($translate, $rootScope) {
         $rootScope.lang = $translate.use();
-    }]);
+    });
 })(angular);

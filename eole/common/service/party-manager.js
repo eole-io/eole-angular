@@ -3,7 +3,7 @@
 (function (angular) {
     'use strict';
 
-    angular.module('eole').factory('partyManager', ['eoleSession', function (eoleSession) {
+    angular.module('eole').factory('partyManager', function (eoleSession) {
         var PartyManager = function (eoleSession) {
             var that = this;
 
@@ -45,5 +45,5 @@
         };
 
         return new PartyManager(eoleSession);
-    }]);
+    });
 })(angular);

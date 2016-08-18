@@ -22,7 +22,7 @@
         'eole.core.default-game'
     ]);
 
-    angular.module('eole').run(['eoleSession', '$rootScope', function (eoleSession, $rootScope) {
+    angular.module('eole').run(function (eoleSession, $rootScope) {
         $rootScope.eoleSession = eoleSession;
-    }]);
+    });
 })(angular);

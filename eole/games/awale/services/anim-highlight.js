@@ -3,7 +3,7 @@
 (function (angular) {
     'use strict';
 
-    angular.module('eole.games.awale').factory('animHighlight', ['$timeout', function ($timeout) {
+    angular.module('eole.games.awale').factory('animHighlight', function ($timeout) {
         var AnimHighlight = function ($timeout) {
             this.initFlashGrid = function () {
                 return [
@@ -36,5 +36,5 @@
         };
 
         return new AnimHighlight($timeout);
-    }]);
+    });
 })(angular);

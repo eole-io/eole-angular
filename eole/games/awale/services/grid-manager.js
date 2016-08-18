@@ -3,7 +3,7 @@
 (function (angular, JSON) {
     'use strict';
 
-    angular.module('eole.games.awale').factory('gridManager', [function () {
+    angular.module('eole.games.awale').factory('gridManager', function () {
         var GridManager = function () {
             var that = this;
 
@@ -83,5 +83,5 @@
         };
 
         return new GridManager();
-    }]);
+    });
 })(angular, JSON);

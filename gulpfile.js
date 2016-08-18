@@ -2,6 +2,7 @@ var gulp = require('gulp');
 var gulpsync = require('gulp-sync')(gulp);
 var concat = require('gulp-concat');
 var cleanCSS = require('gulp-clean-css');
+var ngAnnotate = require('gulp-ng-annotate');
 var uglify = require('gulp-uglify');
 var fileExists = require('file-exists');
 var rename = require('gulp-rename');
@@ -61,6 +62,7 @@ gulp.task('build-css', function () {
 gulp.task('build-js', function () {
     return gulp
         .src(eoleAssets.js)
+        .pipe(ngAnnotate())
         .pipe(concat('eole.min.js'))
         .pipe(uglify())
         .pipe(gulp.dest('./assets/js/'))

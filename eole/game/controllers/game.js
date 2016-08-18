@@ -3,7 +3,7 @@
 (function (angular) {
     'use strict';
 
-    angular.module('eole.core.game').controller('GameController', ['$scope', 'eoleApi', '$routeParams', 'eoleWs', 'eoleSession', '$location', function ($scope, eoleApi, $routeParams, eoleWs, eoleSession, $location) {
+    angular.module('eole.core.game').controller('GameController', function ($scope, eoleApi, $routeParams, eoleWs, eoleSession, $location) {
         $scope.game = null;
         $scope.parties = [];
 
@@ -48,5 +48,5 @@
                 $scope.$apply();
             });
         });
-    }]);
+    });
 })(angular);

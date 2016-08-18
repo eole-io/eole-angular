@@ -3,7 +3,7 @@
 (function (angular) {
     'use strict';
 
-    angular.module('eole.core.game').controller('GamesController', ['$scope', 'eoleApi', '$location', function ($scope, eoleApi, $location) {
+    angular.module('eole.core.game').controller('GamesController', function ($scope, eoleApi, $location) {
         $scope.games = [];
 
         $scope.go = function (path) {
@@ -13,5 +13,5 @@
         eoleApi.getGames().then(function (games) {
             $scope.games = games;
         });
-    }]);
+    });
 })(angular);

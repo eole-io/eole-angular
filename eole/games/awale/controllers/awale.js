@@ -3,7 +3,7 @@
 (function (angular) {
     'use strict';
 
-    angular.module('eole.games.awale').controller('AwaleController', ['$scope', '$routeParams', 'eoleApi', 'eoleWs', '$timeout', 'partyManager', 'eoleSession', '$translate', 'gridManager', 'animHighlight', 'Seeds', function ($scope, $routeParams, eoleApi, eoleWs, $timeout, partyManager, eoleSession, $translate, gridManager, animHighlight, Seeds) {
+    angular.module('eole.games.awale').controller('AwaleController', function ($scope, $routeParams, eoleApi, eoleWs, $timeout, partyManager, eoleSession, $translate, gridManager, animHighlight, Seeds) {
         var ANIMATION_DELAY = 250;
         var partyId = $routeParams.partyId;
         var seedsCoords = new Seeds({x: 19, y: 19});
@@ -223,5 +223,5 @@
 
             return 1 === $scope.party.state;
         };
-    }]);
+    });
 })(angular);

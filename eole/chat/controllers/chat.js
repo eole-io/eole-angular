@@ -7,7 +7,7 @@
 (function (angular, window, document, sha1, string) {
     'use strict';
 
-    angular.module('eole.core.chat').controller('ChatController', ['$scope', '$translate', 'eoleWs', function ($scope, $translate, eoleWs) {
+    angular.module('eole.core.chat').controller('ChatController', function ($scope, $translate, eoleWs) {
         $scope.messages = [];
 
         var isBottom = function () {
@@ -94,5 +94,5 @@
 
             return avatarUrlCache[player.id];
         };
-    }]);
+    });
 })(angular, window, document, CryptoJS.SHA1, String);

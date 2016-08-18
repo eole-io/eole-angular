@@ -3,7 +3,7 @@
 (function (angular) {
     'use strict';
 
-    angular.module('eole.core.player').controller('RegisterController', ['$scope', '$location', 'eoleSession', function ($scope, $location, eoleSession) {
+    angular.module('eole.core.player').controller('RegisterController', function ($scope, $location, eoleSession) {
         $scope.schema = {
             type: 'object',
             properties: {
@@ -92,5 +92,5 @@
                 });
             }
         };
-    }]);
+    });
 })(angular);

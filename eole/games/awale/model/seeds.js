@@ -3,9 +3,9 @@
 (function (angular, Math) {
     'use strict';
 
-    angular.module('eole.games.awale').factory('Seeds', [function () {
+    angular.module('eole.games.awale').factory('Seeds', function () {
         return Seeds;
-    }]);
+    });
 
     /**
      * @param {Object} containerOrigin coords of container center.

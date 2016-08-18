@@ -3,10 +3,10 @@
 (function (angular) {
     'use strict';
 
-    angular.module('eole').config(['$locationProvider', function ($locationProvider) {
+    angular.module('eole').config(function ($locationProvider) {
         $locationProvider
             .html5Mode(false)
             .hashPrefix('!')
         ;
-    }]);
+    });
 })(angular);
