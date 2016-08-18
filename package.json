@@ -27,6 +27,9 @@
   "devDependencies": {
     "xo": "^0.16.0"
   },
+  "scripts": {
+    "test": "xo"
+  },
   "xo": {
     "space": 4,
     "rules": {
