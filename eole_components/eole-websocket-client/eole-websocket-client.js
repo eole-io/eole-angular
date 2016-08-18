@@ -1,7 +1,9 @@
+/* global window */
+
 (function (window) {
     'use strict';
 
-    function EoleWebsocketClient(autobahn, webSocketUri, $q) {
+    window.EoleWebsocketClient = function (autobahn, webSocketUri, $q) {
         if (!webSocketUri.match(/wss?:\/\//)) {
             throw new Error('Websocket URI must start with "ws://" or "wss://", got "' + webSocketUri + '".');
         }
@@ -31,7 +33,5 @@
                 autobahn.connect(authenticatedUri, successCallback, failCallback, options);
             });
         };
-    }
-
-    window.EoleWebsocketClient = EoleWebsocketClient;
+    };
 })(window);

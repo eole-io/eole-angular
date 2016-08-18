@@ -1,7 +1,9 @@
+/* global window */
+
 (function (window) {
     'use strict';
 
-    function EoleApiClient($http, $q, eoleApiUrl, $httpParamSerializer, oauthConfig) {
+    window.EoleApiClient = function ($http, $q, eoleApiUrl, $httpParamSerializer, oauthConfig) {
         var that = this;
 
         /**
@@ -227,7 +229,5 @@
         this.joinParty = function (oauthToken, gameName, partyId) {
             return that.call('patch', 'api/games/' + gameName + '/parties/' + partyId + '/join', oauthToken);
         };
-    }
-
-    window.EoleApiClient = EoleApiClient;
+    };
 })(window);

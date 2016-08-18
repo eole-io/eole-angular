@@ -1,3 +1,9 @@
+/* global angular */
+/* global window */
+/* global document */
+/* global CryptoJS */
+/* global String */
+
 (function (angular, window, document, sha1, string) {
     'use strict';
 

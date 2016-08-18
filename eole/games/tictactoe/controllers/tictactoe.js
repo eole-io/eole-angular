@@ -1,3 +1,5 @@
+/* global angular */
+
 (function (angular, Math) {
     'use strict';
 

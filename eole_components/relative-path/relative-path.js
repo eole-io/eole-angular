@@ -1,3 +1,6 @@
+/* global window */
+/* global document */
+
 (function (window, document) {
     'use strict';
 

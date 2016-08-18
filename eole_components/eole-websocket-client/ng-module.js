@@ -1,4 +1,8 @@
-(function (angular, autobahn) {
+/* global angular */
+/* global ab */
+/* global window */
+
+(function (angular, autobahn, EoleWebsocketClient, EoleWebsocketClientMock) {
     'use strict';
 
     angular.module('eoleWebsocket', [])
@@ -14,4 +18,4 @@
             }
         ])
     ;
-})(angular, ab);
+})(angular, ab, window.EoleWebsocketClient, window.EoleWebsocketClientMock);

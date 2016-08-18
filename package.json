@@ -33,7 +33,6 @@
   "xo": {
     "space": 4,
     "rules": {
-      "no-undef": "off",
       "max-params": "off",
       "yoda": "off",
       "camelcase": "off",
