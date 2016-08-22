@@ -38,6 +38,7 @@
       "yoda": "off",
       "camelcase": "off",
       "default-case": "off",
+      "max-nested-callbacks": "off",
       "no-loop-func": "off"
     },
     "ignores": [

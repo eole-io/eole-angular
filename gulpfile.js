@@ -8,8 +8,8 @@ var fileExists = require('file-exists');
 var rename = require('gulp-rename');
 var bower = require('gulp-bower');
 var inject = require('gulp-inject');
-
 var eole = require('.');
+
 var eoleAssets = eole.getAllAssets();
 
 gulp.task('assets', gulpsync.sync([
@@ -36,7 +36,7 @@ gulp.task('inject-assets-prod', function () {
 
     return gulp
         .src('./index.html')
-        .pipe(inject(distAssets, {relative: true}))
+        .pipe(inject(distAssets, {relative: true, removeTags: true}))
         .pipe(gulp.dest('./'))
     ;
 });

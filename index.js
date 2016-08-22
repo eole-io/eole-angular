@@ -1,5 +1,5 @@
 var eole = {
-    gamesModules: {
+    games: {
         tictactoe: require('./eole/games/tictactoe'),
         awale: require('./eole/games/awale')
     },
@@ -78,9 +78,9 @@ var eole = {
 eole.getAllAssets = function () {
     var assets = eole.assets;
 
-    for (gameName in eole.gamesModules) {
-        if (Object.hasOwnProperty.call(eole.gamesModules, gameName)) {
-            var gameAssets = eole.gamesModules[gameName].assets;
+    for (var gameName in eole.games) {
+        if (Object.hasOwnProperty.call(eole.games, gameName)) {
+            var gameAssets = eole.games[gameName].assets;
 
             if (gameAssets.css) {
                 assets.css = assets.css.concat(gameAssets.css);
