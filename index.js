@@ -1,8 +1,4 @@
 var eole = {
-    games: {
-        tictactoe: require('./eole/games/tictactoe'),
-        awale: require('./eole/games/awale')
-    },
     assets: {
         css: [
             'bower_components/bootstrap/dist/css/bootstrap.css',
@@ -75,23 +71,25 @@ var eole = {
     }
 };
 
+eole.plugins = require('./config/plugins.js');
+
 eole.getAllAssets = function () {
     var assets = eole.assets;
 
-    for (var gameName in eole.games) {
-        if (Object.hasOwnProperty.call(eole.games, gameName)) {
-            var gameAssets = eole.games[gameName].assets;
+    for (var pluginName in eole.plugins) {
+        if (Object.hasOwnProperty.call(eole.plugins, pluginName)) {
+            var pluginAssets = eole.plugins[pluginName].assets;
 
-            if (gameAssets.css) {
-                assets.css = assets.css.concat(gameAssets.css);
+            if (pluginAssets.css) {
+                assets.css = assets.css.concat(pluginAssets.css);
             }
 
-            if (gameAssets.js) {
-                assets.js = assets.js.concat(gameAssets.js);
+            if (pluginAssets.js) {
+                assets.js = assets.js.concat(pluginAssets.js);
             }
 
-            if (gameAssets.fonts) {
-                assets.fonts = assets.fonts.concat(gameAssets.fonts);
+            if (pluginAssets.fonts) {
+                assets.fonts = assets.fonts.concat(pluginAssets.fonts);
             }
         }
     }
