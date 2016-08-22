@@ -9,7 +9,8 @@ var rename = require('gulp-rename');
 var bower = require('gulp-bower');
 var inject = require('gulp-inject');
 
-var eoleAssets = require('./index.assets.js');
+var eole = require('.');
+var eoleAssets = eole.getAllAssets();
 
 gulp.task('assets', gulpsync.sync([
     'copy-index-html',
