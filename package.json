@@ -29,6 +29,7 @@
     "xo": "^0.16.0"
   },
   "scripts": {
+    "preinstall": "cp config/plugins.js.dist config/plugins.js",
     "test": "xo"
   },
   "xo": {
