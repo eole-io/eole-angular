@@ -1,17 +1,19 @@
+var path = require('path');
+
 module.exports = {
     assets: {
         css: [
-            'eole/games/awale/css/awale.css'
+            path.resolve(__dirname, 'css/awale.css')
         ],
         js: [
-            'eole/games/awale/module.js',
-            'eole/games/awale/routes.js',
-            'eole/games/awale/model/seeds.js',
-            'eole/games/awale/services/grid-manager.js',
-            'eole/games/awale/services/anim-highlight.js',
-            'eole/games/awale/controllers/awale.js',
-            'eole/games/awale/translations/en.js',
-            'eole/games/awale/translations/fr.js'
+            path.resolve(__dirname, 'module.js'),
+            path.resolve(__dirname, 'routes.js'),
+            path.resolve(__dirname, 'model/seeds.js'),
+            path.resolve(__dirname, 'services/grid-manager.js'),
+            path.resolve(__dirname, 'services/anim-highlight.js'),
+            path.resolve(__dirname, 'controllers/awale.js'),
+            path.resolve(__dirname, 'translations/en.js'),
+            path.resolve(__dirname, 'translations/fr.js')
         ]
     }
 };
