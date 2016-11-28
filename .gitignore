@@ -6,3 +6,4 @@ config/environment.js
 /assets
 /fonts
 index.html
+npm-debug.log*
