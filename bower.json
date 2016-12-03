@@ -22,7 +22,7 @@
         "angular-schema-form": "~0.8.2",
         "angular-translate": "~2.10",
         "autobahn-old": "~0.8.2",
-        "bootstrap": "~3.3.5",
+        "bootswatch-dist": "lumen",
         "cryptojslib": "~3.1.2"
     }
 }

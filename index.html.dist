@@ -47,6 +47,8 @@
         <div ng-view>
         </div>
 
+        <footer></footer>
+
         <!-- inject:js -->
         <!-- endinject -->
     </body>

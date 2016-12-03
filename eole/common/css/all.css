@@ -5,3 +5,13 @@ body {
 .clickable {
     cursor: pointer;
 }
+.home-text {
+    max-width: 600px;
+}
+.home-text p {
+    font-size: 140%;
+    margin-bottom: 40px;
+}
+footer {
+    min-height: 256px;
+}

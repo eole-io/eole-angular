@@ -1,12 +1,12 @@
 var eole = {
     assets: {
         css: [
-            'bower_components/bootstrap/dist/css/bootstrap.css',
+            'bower_components/bootswatch-dist/css/bootstrap.css',
             'eole/chat/css/chat.css',
             'eole/common/css/all.css'
         ],
         fonts: [
-            'bower_components/bootstrap/dist/fonts/*.*'
+            'bower_components/bootswatch-dist/fonts/*.*'
         ],
         js: [
             'bower_components/cryptojslib/rollups/sha1.js',
