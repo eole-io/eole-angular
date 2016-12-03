@@ -54,8 +54,12 @@ gulp.task('inject-assets', function () {
 gulp.task('build-css', function () {
     return gulp
         .src(eoleAssets.css)
+        .pipe(cleanCSS({
+            relativeTo: '../..',
+            target: '.'
+        }))
+        // concat only after minification to rebase correctly url path
         .pipe(concat('eole.min.css'))
-        .pipe(cleanCSS())
         .pipe(gulp.dest('./assets/css/'))
     ;
 });
