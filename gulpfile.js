@@ -24,8 +24,7 @@ gulp.task('assets-prod', gulpsync.sync([
 
 gulp.task('build-assets', gulpsync.async([
     'build-css',
-    'build-js',
-    'build-fonts'
+    'build-js'
 ]));
 
 gulp.task('inject-assets-prod', function () {
@@ -71,13 +70,6 @@ gulp.task('build-js', function () {
         .pipe(concat('eole.min.js'))
         .pipe(uglify())
         .pipe(gulp.dest('./assets/js/'))
-    ;
-});
-
-gulp.task('build-fonts', function () {
-    return gulp
-        .src(eoleAssets.fonts)
-        .pipe(gulp.dest('./assets/fonts/'))
     ;
 });
 
