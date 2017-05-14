@@ -44,6 +44,7 @@
     },
     "ignores": [
       "config/environment.js",
+      "docker/**/*.js",
       "**/*-mock.js"
     ]
   },

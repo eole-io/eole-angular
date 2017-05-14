@@ -9,13 +9,32 @@ It uses [Eole API](https://github.com/eole-io/eole-api) as RestAPI.
 More information about Eole itself: [What is Eole ?](http://eole-io.github.io/eole-project/)
 
 
-## Requirements
-
- - [Node.js](https://nodejs.org/en/)
- - gulp-cli (install: `npm install --global gulp-cli`)
-
-
 ## Installation
+
+This project requires [Node.js](https://nodejs.org/en/) and gulp-cli (install: `npm install --global gulp-cli`),
+but it also provides a Docker environment.
+
+
+### Docker installation
+
+ - Clone project
+
+``` bash
+git clone git@github.com:eole-io/eole-angular.git --branch=dev
+cd eole-angular
+```
+
+ - Install Eole web application
+
+``` bash
+make
+```
+
+You should now access to the front application:
+[http://0.0.0.0:8580](http://0.0.0.0:8580).
+
+
+### Raw installation
 
  - Clone project
 

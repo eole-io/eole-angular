@@ -1,0 +1,19 @@
+version: '2'
+
+services:
+    eole-webserver:
+        container_name: eole-webserver
+        image: nginx:latest
+        ports:
+            - 8580:80
+        volumes:
+            - .:/var/www/html/
+            - ./docker/eole-webserver/nginx.conf:/etc/nginx/conf.d/default.conf
+
+    eole-node:
+        container_name: eole-node
+        image: node:7
+        command: sleep infinity
+        working_dir: /var/www/html/
+        volumes:
+            - .:/var/www/html/
