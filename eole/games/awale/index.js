@@ -14,6 +14,9 @@ module.exports = {
             path.resolve(__dirname, 'controllers/awale.js'),
             path.resolve(__dirname, 'translations/en.js'),
             path.resolve(__dirname, 'translations/fr.js')
+        ],
+        files: [
+            [path.resolve(__dirname, 'images/seeds.png'), 'images/']
         ]
     }
 };

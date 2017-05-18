@@ -17,9 +17,14 @@ gulp.task('assets', gulpsync.sync([
     'inject-assets'
 ]));
 
-gulp.task('assets-prod', gulpsync.sync([
-    ['build-assets', 'copy-index-html'],
-    'inject-assets-prod'
+gulp.task('assets-prod', gulpsync.async([
+    [
+        'copy-images-fonts-assets'
+    ],
+    [
+        ['build-assets', 'copy-index-html'],
+        'inject-assets-prod'
+    ]
 ]));
 
 gulp.task('build-assets', gulpsync.async([
@@ -38,6 +43,22 @@ gulp.task('inject-assets-prod', function () {
         .pipe(inject(distAssets, {relative: true, removeTags: true}))
         .pipe(gulp.dest('./'))
     ;
+});
+
+gulp.task('copy-images-fonts-assets', function () {
+    eoleAssets.files.forEach(function (value) {
+        if (typeof value === 'string' || value instanceof String) {
+            gulp
+                .src(value)
+                .pipe(gulp.dest('./assets/'))
+            ;
+        } else {
+            gulp
+                .src(value[0])
+                .pipe(gulp.dest('./assets/'+value[1]))
+            ;
+        }
+    });
 });
 
 gulp.task('inject-assets', function () {

@@ -5,8 +5,8 @@ var eole = {
             'eole/chat/css/chat.css',
             'eole/common/css/all.css'
         ],
-        fonts: [
-            'bower_components/bootswatch-dist/fonts/*.*'
+        files: [
+            ['bower_components/bootswatch-dist/fonts/*.*', 'fonts/']
         ],
         js: [
             'bower_components/cryptojslib/rollups/sha1.js',
@@ -88,8 +88,8 @@ eole.getAllAssets = function () {
                 assets.js = assets.js.concat(pluginAssets.js);
             }
 
-            if (pluginAssets.fonts) {
-                assets.fonts = assets.fonts.concat(pluginAssets.fonts);
+            if (pluginAssets.files) {
+                assets.files = assets.files.concat(pluginAssets.files);
             }
         }
     }
