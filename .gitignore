@@ -7,3 +7,4 @@ config/environment.js
 /fonts
 index.html
 npm-debug.log*
+docker-compose.override.yml

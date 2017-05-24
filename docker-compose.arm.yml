@@ -1,0 +1,8 @@
+version: '2'
+
+services:
+    eole-webserver:
+        image: lispmeister/rpi-nginx
+
+    eole-node:
+        image: hypriot/rpi-node:7
