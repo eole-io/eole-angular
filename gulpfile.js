@@ -10,8 +10,6 @@ var bower = require('gulp-bower');
 var inject = require('gulp-inject');
 var eole = require('.');
 
-var eoleAssets = eole.getAllAssets();
-
 gulp.task('assets', gulpsync.sync([
     'copy-index-html',
     'inject-assets'
@@ -46,6 +44,8 @@ gulp.task('inject-assets-prod', function () {
 });
 
 gulp.task('copy-images-fonts-assets', function () {
+    var eoleAssets = eole.getAllAssets();
+
     eoleAssets.files.forEach(function (value) {
         if (typeof value === 'string' || value instanceof String) {
             gulp
@@ -62,6 +62,7 @@ gulp.task('copy-images-fonts-assets', function () {
 });
 
 gulp.task('inject-assets', function () {
+    var eoleAssets = eole.getAllAssets();
     var devAssets = gulp.src([].concat(eoleAssets.css, eoleAssets.js));
 
     return gulp
@@ -72,6 +73,8 @@ gulp.task('inject-assets', function () {
 });
 
 gulp.task('build-css', function () {
+    var eoleAssets = eole.getAllAssets();
+
     return gulp
         .src(eoleAssets.css)
         .pipe(cleanCSS({
@@ -85,6 +88,8 @@ gulp.task('build-css', function () {
 });
 
 gulp.task('build-js', function () {
+    var eoleAssets = eole.getAllAssets();
+
     return gulp
         .src(eoleAssets.js)
         .pipe(ngAnnotate())
