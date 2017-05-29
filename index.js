@@ -8,6 +8,9 @@ var eole = {
         files: [
             ['bower_components/bootswatch-dist/fonts/*.*', 'fonts/']
         ],
+        templates: [
+            '**/views/*.html'
+        ],
         js: [
             'bower_components/cryptojslib/rollups/sha1.js',
             'bower_components/cryptojslib/rollups/sha512.js',
@@ -94,6 +97,10 @@ eole.getAllAssets = function () {
 
             if (pluginAssets.files) {
                 assets.files = assets.files.concat(pluginAssets.files);
+            }
+
+            if (pluginAssets.templates) {
+                assets.templates = assets.templates.concat(pluginAssets.templates);
             }
         }
     }

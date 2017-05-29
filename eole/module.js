@@ -3,6 +3,12 @@
 (function (angular) {
     'use strict';
 
+    try {
+        angular.module('eole.templates');
+    } catch (err) {
+        angular.module('eole.templates', []);
+    }
+
     angular.module('eole', [
         'ngRoute',
         'schemaForm',
@@ -11,6 +17,7 @@
         'angular-locker',
         'eoleApi',
         'eoleWebsocket',
+        'eole.templates',
         'eole.config',
         'eole.core.translations',
         'eole.core.home',

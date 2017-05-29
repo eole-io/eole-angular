@@ -3,6 +3,7 @@ var gulpsync = require('gulp-sync')(gulp);
 var concat = require('gulp-concat');
 var cleanCSS = require('gulp-clean-css');
 var ngAnnotate = require('gulp-ng-annotate');
+var templateCache = require('gulp-angular-templatecache');
 var uglify = require('gulp-uglify');
 var fileExists = require('file-exists');
 var rename = require('gulp-rename');
@@ -16,10 +17,9 @@ gulp.task('assets', gulpsync.sync([
 ]));
 
 gulp.task('assets-prod', gulpsync.async([
+    'copy-images-fonts-assets',
     [
-        'copy-images-fonts-assets'
-    ],
-    [
+        'templates-cache-in-assets',
         ['build-assets', 'copy-index-html'],
         'inject-assets-prod'
     ]
@@ -33,7 +33,8 @@ gulp.task('build-assets', gulpsync.async([
 gulp.task('inject-assets-prod', function () {
     var distAssets = gulp.src([
         './assets/css/*.css',
-        './assets/js/*.js'
+        './assets/js/*.js',
+        './assets/templates.js'
     ]);
 
     return gulp
@@ -59,6 +60,18 @@ gulp.task('copy-images-fonts-assets', function () {
             ;
         }
     });
+});
+
+gulp.task('templates-cache-in-assets', function () {
+    var eoleAssets = eole.getAllAssets();
+
+    return gulp.src(eoleAssets.templates)
+        .pipe(templateCache({
+            module: 'eole.templates',
+            standalone: true
+        }))
+        .pipe(gulp.dest('./assets/'))
+    ;
 });
 
 gulp.task('inject-assets', function () {
