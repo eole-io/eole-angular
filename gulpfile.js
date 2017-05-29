@@ -97,7 +97,9 @@ gulp.task('generate-games-paths', function (callback) {
     fileContent += '})(angular);';
     fileContent += "\n";
 
-    fs.writeFile('./assets/games-paths.js', fileContent, callback);
+    fs.mkdir('./assets', function () {
+        fs.writeFile('./assets/games-paths.js', fileContent, callback);
+    });
 });
 
 gulp.task('inject-assets', function () {
