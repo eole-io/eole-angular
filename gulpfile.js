@@ -6,6 +6,7 @@ var ngAnnotate = require('gulp-ng-annotate');
 var templateCache = require('gulp-angular-templatecache');
 var uglify = require('gulp-uglify');
 var fileExists = require('file-exists');
+var fs = require('fs');
 var rename = require('gulp-rename');
 var bower = require('gulp-bower');
 var inject = require('gulp-inject');
@@ -34,6 +35,7 @@ gulp.task('inject-assets-prod', function () {
     var distAssets = gulp.src([
         './assets/css/*.css',
         './assets/js/*.js',
+        './assets/games-paths.js',
         './assets/templates.js'
     ]);
 
@@ -74,9 +76,33 @@ gulp.task('templates-cache-in-assets', function () {
     ;
 });
 
+gulp.task('generate-games-paths', function (callback) {
+    var gamesPaths = eole.getGamesPaths();
+    var fileContent = '';
+
+    fileContent += [
+        '/* global angular */',
+        '',
+        '(function (angular) {',
+        '    \'use strict\';',
+        '',
+        ''
+    ].join("\n");
+
+    gamesPaths.forEach(function (game) {
+        fileContent += "    angular.module('"+game.module+"').constant('gamePath', '"+game.path+"');";
+        fileContent += "\n";
+    });
+
+    fileContent += '})(angular);';
+    fileContent += "\n";
+
+    fs.writeFile('./assets/games-paths.js', fileContent, callback);
+});
+
 gulp.task('inject-assets', function () {
     var eoleAssets = eole.getAllAssets();
-    var devAssets = gulp.src([].concat(eoleAssets.css, eoleAssets.js));
+    var devAssets = gulp.src([].concat(eoleAssets.css, eoleAssets.js, ['assets/games-paths.js']));
 
     return gulp
         .src('./index.html')
@@ -113,12 +139,12 @@ gulp.task('build-js', function () {
 });
 
 gulp.task('deploy', gulpsync.sync([
-    ['copy-environment-file', 'install-bower-dependencies'],
+    ['copy-environment-file', 'install-bower-dependencies', 'generate-games-paths'],
     'assets'
 ]));
 
 gulp.task('deploy-prod', gulpsync.sync([
-    ['copy-environment-file', 'install-bower-dependencies'],
+    ['copy-environment-file', 'install-bower-dependencies', 'generate-games-paths'],
     'assets-prod'
 ]));
 

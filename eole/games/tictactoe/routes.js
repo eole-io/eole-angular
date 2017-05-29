@@ -3,10 +3,10 @@
 (function (angular) {
     'use strict';
 
-    angular.module('eole.games.tictactoe').config(function ($routeProvider) {
+    angular.module('eole.games.tictactoe').config(function ($routeProvider, gamePath) {
         $routeProvider.when('/games/tictactoe/parties/:partyId', {
             controller: 'TicTacToeController',
-            templateUrl: 'eole/games/tictactoe/views/tictactoe.html'
+            templateUrl: gamePath+'/views/tictactoe.html'
         });
     });
 })(angular);
