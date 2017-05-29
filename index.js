@@ -78,6 +78,10 @@ eole.getAllAssets = function () {
 
     for (var pluginName in eole.plugins) {
         if (Object.hasOwnProperty.call(eole.plugins, pluginName)) {
+            if (!eole.plugins[pluginName]) {
+                throw new Error('Plugin "'+pluginName+'" is missing. Please add it to project dependencies.');
+            }
+
             var pluginAssets = eole.plugins[pluginName].assets;
 
             if (pluginAssets.css) {
