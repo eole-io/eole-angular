@@ -1,6 +1,4 @@
-var requireOptional = require('require-optional');
-
 module.exports = {
-    tictactoe: requireOptional('../eole/games/tictactoe'),
-    awale: requireOptional('../eole/games/awale')
+    tictactoe: 'eole/games/tictactoe',
+    awale: 'eole/games/awale',
 };

@@ -8,6 +8,9 @@ var eole = {
         files: [
             ['bower_components/bootswatch-dist/fonts/*.*', 'fonts/']
         ],
+        templates: [
+            '**/views/*.html'
+        ],
         js: [
             'bower_components/cryptojslib/rollups/sha1.js',
             'bower_components/cryptojslib/rollups/sha512.js',
@@ -26,7 +29,6 @@ var eole = {
             'bower_components/angular-schema-form/dist/schema-form.js',
             'bower_components/angular-schema-form/dist/bootstrap-decorator.js',
 
-            'eole_components/relative-path/relative-path.js',
             'eole_components/eole-api-client/eole-api-client.js',
             'eole_components/eole-api-client/eole-api-client-mock.js',
             'eole_components/eole-api-client/ng-module.js',
@@ -78,11 +80,13 @@ eole.getAllAssets = function () {
 
     for (var pluginName in eole.plugins) {
         if (Object.hasOwnProperty.call(eole.plugins, pluginName)) {
-            if (!eole.plugins[pluginName]) {
+            try {
+                var plugin = require('./'+eole.plugins[pluginName]);
+            } catch (err) {
                 throw new Error('Plugin "'+pluginName+'" is missing. Please add it to project dependencies.');
             }
 
-            var pluginAssets = eole.plugins[pluginName].assets;
+            var pluginAssets = plugin.assets;
 
             if (pluginAssets.css) {
                 assets.css = assets.css.concat(pluginAssets.css);
@@ -95,10 +99,27 @@ eole.getAllAssets = function () {
             if (pluginAssets.files) {
                 assets.files = assets.files.concat(pluginAssets.files);
             }
+
+            if (pluginAssets.templates) {
+                assets.templates = assets.templates.concat(pluginAssets.templates);
+            }
         }
     }
 
     return assets;
+};
+
+eole.getGamesPaths = function () {
+    var gamesPaths = [];
+
+    for (var pluginName in eole.plugins) {
+        gamesPaths.push({
+            module: 'eole.games.'+pluginName,
+            path: eole.plugins[pluginName]
+        });
+    }
+
+    return gamesPaths;
 };
 
 module.exports = eole;

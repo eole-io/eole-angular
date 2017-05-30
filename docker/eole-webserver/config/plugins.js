@@ -1,4 +1,4 @@
 module.exports = {
-    tictactoe: require('../eole/games/tictactoe'),
-    awale: require('../eole/games/awale')
+    tictactoe: 'eole/games/tictactoe',
+    awale: 'eole/games/awale'
 };

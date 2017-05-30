@@ -3,10 +3,10 @@
 (function (angular) {
     'use strict';
 
-    angular.module('eole.games.awale').config(function ($routeProvider) {
+    angular.module('eole.games.awale').config(function ($routeProvider, gamePath) {
         $routeProvider.when('/games/awale/parties/:partyId', {
             controller: 'AwaleController',
-            templateUrl: 'eole/games/awale/views/awale.html'
+            templateUrl: gamePath+'/views/awale.html'
         });
     });
 })(angular);

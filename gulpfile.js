@@ -3,8 +3,10 @@ var gulpsync = require('gulp-sync')(gulp);
 var concat = require('gulp-concat');
 var cleanCSS = require('gulp-clean-css');
 var ngAnnotate = require('gulp-ng-annotate');
+var templateCache = require('gulp-angular-templatecache');
 var uglify = require('gulp-uglify');
 var fileExists = require('file-exists');
+var fs = require('fs');
 var rename = require('gulp-rename');
 var bower = require('gulp-bower');
 var inject = require('gulp-inject');
@@ -16,10 +18,9 @@ gulp.task('assets', gulpsync.sync([
 ]));
 
 gulp.task('assets-prod', gulpsync.async([
+    'copy-images-fonts-assets',
     [
-        'copy-images-fonts-assets'
-    ],
-    [
+        'templates-cache-in-assets',
         ['build-assets', 'copy-index-html'],
         'inject-assets-prod'
     ]
@@ -33,7 +34,9 @@ gulp.task('build-assets', gulpsync.async([
 gulp.task('inject-assets-prod', function () {
     var distAssets = gulp.src([
         './assets/css/*.css',
-        './assets/js/*.js'
+        './assets/js/*.js',
+        './assets/games-paths.js',
+        './assets/templates.js'
     ]);
 
     return gulp
@@ -61,9 +64,47 @@ gulp.task('copy-images-fonts-assets', function () {
     });
 });
 
+gulp.task('templates-cache-in-assets', function () {
+    var eoleAssets = eole.getAllAssets();
+
+    return gulp.src(eoleAssets.templates)
+        .pipe(templateCache({
+            module: 'eole.templates',
+            standalone: true
+        }))
+        .pipe(gulp.dest('./assets/'))
+    ;
+});
+
+gulp.task('generate-games-paths', function (callback) {
+    var gamesPaths = eole.getGamesPaths();
+    var fileContent = '';
+
+    fileContent += [
+        '/* global angular */',
+        '',
+        '(function (angular) {',
+        '    \'use strict\';',
+        '',
+        ''
+    ].join("\n");
+
+    gamesPaths.forEach(function (game) {
+        fileContent += "    angular.module('"+game.module+"').constant('gamePath', '"+game.path+"');";
+        fileContent += "\n";
+    });
+
+    fileContent += '})(angular);';
+    fileContent += "\n";
+
+    fs.mkdir('./assets', function () {
+        fs.writeFile('./assets/games-paths.js', fileContent, callback);
+    });
+});
+
 gulp.task('inject-assets', function () {
     var eoleAssets = eole.getAllAssets();
-    var devAssets = gulp.src([].concat(eoleAssets.css, eoleAssets.js));
+    var devAssets = gulp.src([].concat(eoleAssets.css, eoleAssets.js, ['assets/games-paths.js']));
 
     return gulp
         .src('./index.html')
@@ -100,12 +141,12 @@ gulp.task('build-js', function () {
 });
 
 gulp.task('deploy', gulpsync.sync([
-    ['copy-environment-file', 'install-bower-dependencies'],
+    ['copy-environment-file', 'install-bower-dependencies', 'generate-games-paths'],
     'assets'
 ]));
 
 gulp.task('deploy-prod', gulpsync.sync([
-    ['copy-environment-file', 'install-bower-dependencies'],
+    ['copy-environment-file', 'install-bower-dependencies', 'generate-games-paths'],
     'assets-prod'
 ]));
 
