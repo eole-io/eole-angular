@@ -70,6 +70,11 @@
                         updateBoardVariables();
                         break;
 
+                    case 'party_start':
+                        $scope.party.state = 1;
+                        updateBoardVariables();
+                        break;
+
                     case 'played':
                         if (playerPosition !== event.move.player) {
                             initLastMove();
