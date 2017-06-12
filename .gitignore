@@ -1,10 +1,10 @@
 bower_components/
 node_modules/
 npm-debug.log
-config/plugins.js
-config/environment.js
+/config/plugins.js
+/config/environment.js
 /assets
 /fonts
-index.html
+/index.html
 npm-debug.log*
 docker-compose.override.yml
